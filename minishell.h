@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 13:25:01 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/09/16 14:57:05 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/09/19 15:52:01 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,36 @@
 /*
 Link list for environnement
 */
-typedef struct	s_env
+
+typedef struct	s_node_env
 {
-	char			*content;
-	struct s_env	*next;
-}	t_env;
+	char					*content;
+	struct s_node_env		*next;
+}	t_node_env;
+
+typedef struct	s_list_env
+{
+	t_node_env	*first_node;
+}	t_list_env;
 
 typedef struct	s_shell
 {
-	t_env	*env;
+	t_node_env	*node;
 }	t_shell;
 
-void	print_env(t_env *env);
-int		init_env(t_env **new_env, char **envp);
-t_env	*add_list(t_env *list, char *date);
-t_env	*create_cell(char *data);
-t_env	*empty_list(void);
-int		isempty(t_env *L);
-void	split_argument(int argc, char **argv);
+t_list_env	*create_env(char **envp);
+void		init_env(char **envp);
+void 		printf_env(t_list_env *list);
+void		add_envp_to_env(t_list_env *env, char **envp, int i);
+
+
+// void	print_env(t_content_env *env);
+// int		init_env(t_content_env **new_env, char **envp);
+// t_content_env	*add_list(t_content_env *list, char *date);
+// t_content_env	*create_cell(char *data);
+// t_content_env	*empty_list(void);
+// int		isempty(t_content_env *L);
+// void	parsing_line(char *lin, t_content_env *new_env);
 
 
 
