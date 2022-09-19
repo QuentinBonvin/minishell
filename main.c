@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 13:24:19 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/09/19 16:23:03 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/09/19 16:47:58 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	main(int argc, char **argv, char **envp)
 {
+	printf("test\n");
 	(void)argc;
 	(void)argv;
 	init_env(envp);
