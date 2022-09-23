@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nnemeth <nnemeth@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 13:25:01 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/09/23 11:25:09 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/09/23 13:57:50 by nnemeth          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct	s_node_cmd
 {
 	char					*content;
 	struct s_node_cmd		*next;
+	struct s_node_cmd		*back;
+	
 }	t_node_cmd;
 
 typedef struct	s_list_cmd
@@ -69,12 +71,13 @@ void		add_envp_to_env(t_list_env *env, char **envp, int i);
 
 /*************************************************
 Link list function for cmd
-*************************************************/
+*************************************************/	
 t_list_cmd	*create_cmd();
 void		add_cmd_to_list(t_list_cmd *cmd, char *line);
+void		printf_cmd(t_list_cmd *actuel);
 
 void		parsing_line(char *line);
-char		*split_with_pipe(char *line);
+void		split_with_pipe(char *line);
 
 
 // void	print_env(t_content_env *env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   link_list_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nnemeth <nnemeth@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 10:51:27 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/09/23 11:37:32 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/09/23 14:08:18 by nnemeth          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,22 @@ void	add_cmd_to_list(t_list_cmd *cmd, char *line)
 		exit (EXIT_FAILURE);
 	new_node->content = line;
 	new_node->next = cmd->first_node;
+	// (cmd->first_node)->back = new_node;
 	cmd->first_node = new_node;
+	// printf("new node 1 = %s\n", new_node->content);
+	// printf("new node 2 = %s\n", new_node->content);
 }
+
+// void printf_env(t_list_cmd *list)
+// {
+//     t_node_env *actuel;
+
+// 	actuel = list->first_node;
+//     if (list == NULL)
+//         exit(EXIT_FAILURE);
+//     while (actuel != NULL)
+//     {
+//         printf("%s\n", actuel->content);
+// 		actuel = actuel->next;
+//     }
+// }
