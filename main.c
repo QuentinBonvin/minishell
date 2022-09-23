@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 13:24:19 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/09/19 16:47:58 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/09/23 11:19:31 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	printf("test\n");
 	(void)argc;
 	(void)argv;
-	init_env(envp);
+	(void)envp;
+	//init_env(envp);
 	char	*line;
 	while (1)
 	{
 		line = readline("\033[0;35mqbonvin_minishell ▸ \033[0;37m");
-		//parsing_line(line, new_env);
+		parsing_line(line);
 		add_history(line);
 	}
 	return (EXIT_SUCCESS);
@@ -30,17 +30,15 @@ int	main(int argc, char **argv, char **envp)
 
 void printf_env(t_list_env *list)
 {
+    t_node_env *actuel;
+
+	actuel = list->first_node;
     if (list == NULL)
-    {
         exit(EXIT_FAILURE);
-    }
-
-    t_node_env *actuel = list->first_node;
-
     while (actuel != NULL)
     {
         printf("%s\n", actuel->content);
-       actuel = actuel->next;
+		actuel = actuel->next;
     }
 }
 
@@ -70,20 +68,6 @@ void		add_envp_to_env(t_list_env *env, char **envp, int i)
 	new_node->content = envp[i];
 	new_node->next = env->first_node;
 	env->first_node = new_node;
-	// t_node_env *new_node;
-	// t_node_env *temp;
-
-	// new_node = malloc(sizeof(t_node_env));
-	// temp = env;
-	// if (env == NULL || new_node == NULL)
-	// 	exit (EXIT_FAILURE);
-	// new_node->content = envp[i];
-	// new_node->next = NULL;
-	// while (temp->next != NULL)
-	// {
-	// 	temp = temp->next;
-	// }
-	// temp->next = new_node;
 }
 
 
