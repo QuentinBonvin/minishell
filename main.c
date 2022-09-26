@@ -1,21 +1,12 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/08 13:24:19 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/09/26 15:23:53 by qbonvin          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
+
+	(void)envp;
+
 	init_env(envp);
 	char	*line;
 	while (1)

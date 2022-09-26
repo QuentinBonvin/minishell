@@ -1,20 +1,10 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/04/04 15:05:41 by qbonvin           #+#    #+#              #
-#    Updated: 2022/09/23 10:54:58 by qbonvin          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+
 
 NAME = minishell
 CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 CC = gcc -g 
 OBJ = ${SRCS:.c=.o}
-SRCS = main.c parsing.c env.c link_list_cmd.c
+SRCS = main.c parsing.c env.c link_list_cmd.c test2.c
 LIBFT = ./libft 
 LIBFT_A = ./libft/libft.a
 
