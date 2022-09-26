@@ -6,28 +6,37 @@
 /*   By: nnemeth <nnemeth@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 12:03:37 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/09/23 14:47:54 by nnemeth          ###   ########.fr       */
+/*   Updated: 2022/09/26 15:27:05 by nnemeth          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#define TOKEN_DELIM "| '' "" "
 
 void	parsing_line(char *line)
 {
 	int		i;
+	char *token;
+	t_list_cmd	*list;
+	list = create_cmd();
 	// char	*test;
 
 	i = 0;
+	token = my_strtok(line, "|");
 	while (line[i])
 	{
-		if (ft_strchr(line, '|'))
-		{
-			split_with_pipe(line);
-			break ;
-		}
+		// printf("%s\n", token);
+		add_cmd_to_list(list, token);
+		token = my_strtok(NULL, "|");
+		printf_cmd(list);
+		// if (ft_strchr(line, '|'))
+		// {
+		// 	split_with_pipe(line);
+		// 	break ;
+		// }
 		i++;
 	}
-	// printf("%s\n", test);
+	// printf("%s\n", list->first_node->content);
 }
 
 void	split_with_pipe(char *line)

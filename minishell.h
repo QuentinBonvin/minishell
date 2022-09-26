@@ -6,7 +6,7 @@
 /*   By: nnemeth <nnemeth@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 13:25:01 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/09/23 13:57:50 by nnemeth          ###   ########.fr       */
+/*   Updated: 2022/09/26 14:29:38 by nnemeth          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void		printf_cmd(t_list_cmd *actuel);
 
 void		parsing_line(char *line);
 void		split_with_pipe(char *line);
-
-
+char		*my_strtok(char *str, char *delim);
+unsigned int	is_delim(char c, char *delim);
 // void	print_env(t_content_env *env);
 // int		init_env(t_content_env **new_env, char **envp);
 // t_content_env	*add_list(t_content_env *list, char *date);

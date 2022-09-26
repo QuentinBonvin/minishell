@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nnemeth <nnemeth@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 13:24:19 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/09/23 11:19:31 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/09/26 15:39:52 by nnemeth          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	//init_env(envp);
+	init_env(envp);
 	char	*line;
 	while (1)
 	{
