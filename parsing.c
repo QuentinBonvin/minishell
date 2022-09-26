@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nnemeth <nnemeth@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/16 12:03:37 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/09/26 15:27:05 by nnemeth          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 #define TOKEN_DELIM "| '' "" "
 
@@ -28,6 +16,7 @@ void	parsing_line(char *line)
 		// printf("%s\n", token);
 		add_cmd_to_list(list, token);
 		token = my_strtok(NULL, "|");
+		(hello test);
 		printf_cmd(list);
 		// if (ft_strchr(line, '|'))
 		// {
