@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 13:24:19 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/09/23 11:19:31 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/09/26 15:23:53 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	(void)envp;
-	//init_env(envp);
+	init_env(envp);
 	char	*line;
 	while (1)
 	{
@@ -28,61 +27,72 @@ int	main(int argc, char **argv, char **envp)
 	return (EXIT_SUCCESS);
 }
 
-void printf_env(t_list_env *list)
+void printf_env(t_env *list)
 {
-    t_node_env *actuel;
+	int	i;
 
-	actuel = list->first_node;
+	i = 0;
     if (list == NULL)
         exit(EXIT_FAILURE);
-    while (actuel != NULL)
+    while (list)
     {
-        printf("%s\n", actuel->content);
-		actuel = actuel->next;
+        printf("index = [%d]", i);
+        printf("%s\n", list->content);
+		list = list->next;
+		i++;
     }
 }
 
-t_list_env	*create_env(char **envp)
+t_env	*create_cell(char **envp)
 {
-	(void)envp;
-	t_list_env	*list;
-	t_node_env	*node;
+	t_env	*cell;
+	cell = malloc(sizeof(t_env));
+	if (!(cell))
+		return (NULL);
+	cell->content = *envp;
+	cell->next = NULL;
+	cell->prev = NULL;
+	return (cell);
+}
 
-	list = malloc(sizeof(t_list_env));
-	node = malloc(sizeof(t_node_env));
-	if (list == NULL || node == NULL)
-		exit (EXIT_FAILURE);
-	node->content = NULL;
-	node->next = NULL;
-	list->first_node = node;
+t_env	*add_envp_to_env(t_env *list, char **envp, int position)
+{
+	t_env *prec;
+	t_env *curr;
+	t_env *cell;
+	int		i;
+
+	curr = list;
+	i = 0;
+	cell = create_cell(envp);
+	if (list == NULL)
+		return (cell);
+	while (i < position)
+	{
+		i++;
+		prec = curr;
+		curr = curr->next;
+	}
+	printf("Test\n");
+	prec->next = cell;
+	cell->next = curr;
 	return (list);
 }
 
-void		add_envp_to_env(t_list_env *env, char **envp, int i)
+
+void	init_env(char **envp)
 {
-	t_node_env *new_node;
+	int		i;
+	t_env	*list;
 
-	new_node = malloc(sizeof(t_node_env));
-	if (env == NULL || new_node == NULL)
-		exit (EXIT_FAILURE);
-	new_node->content = envp[i];
-	new_node->next = env->first_node;
-	env->first_node = new_node;
+	list = malloc(sizeof(t_env));
+	i = 0;
+	while (envp[i])
+	{
+		list = add_envp_to_env(list, &envp[i], i);
+		i++;
+	}
 }
-
-
-// int	init_env(t_env **new_env, char **envp)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (envp[i])
-// 	{
-// 		*new_env = add_list(*new_env, envp[i]);
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 // t_env     *add_list(t_env *list, char *data)
 // {

@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 10:51:27 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/09/23 11:37:32 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/09/23 12:23:14 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,18 @@ void	add_cmd_to_list(t_list_cmd *cmd, char *line)
 	new_node->content = line;
 	new_node->next = cmd->first_node;
 	cmd->first_node = new_node;
+}
+
+void printf_cmd(t_list_cmd *list)
+{
+    t_node_cmd *actuel;
+
+	actuel = list->first_node;
+    if (list == NULL)
+        exit(EXIT_FAILURE);
+    while (actuel != NULL)
+    {
+        printf("%s\n", actuel->content);
+		actuel = actuel->next;
+    }
 }
