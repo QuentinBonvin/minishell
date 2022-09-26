@@ -22,6 +22,7 @@ void	parsing_line(char *line)
 		// printf("%s\n", token);
 		add_cmd_to_list(list, token);
 		token = my_strtok(NULL, "|");
+		(hello test);
 		printf_cmd(list);
 		// if (ft_strchr(line, '|'))
 		// {
