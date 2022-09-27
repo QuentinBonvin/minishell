@@ -1,5 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# define SIMPLE_QUOTE 39
+# define DOBBLE_QUOTE 34
 
 # include "./libft/libft.h"
 # include <stdlib.h>
@@ -61,11 +63,16 @@ void		add_cmd_to_list(t_list_cmd *cmd, char *line);
 void		printf_cmd(t_list_cmd *list);
 void		printf_cmd(t_list_cmd *actuel);
 
-
-void		parsing_line(char *line);
-void		split_with_pipe(char *line);
-char		*my_strtok(char *str, char *delim);
+/*************************************************
+function for parsing
+*************************************************/
+void			parsing_line(char *line);
+void			split_with_pipe(char *line);
+char			*my_strtok(char *str, char *delim);
 unsigned int	is_delim(char c, char *delim);
+int				dobble_quote(char *line);
+int				check_if_another_dobble_quote(char *line);
+int				check_quote(char *line);
 // void	print_env(t_content_env *env);
 // int		init_env(t_content_env **new_env, char **envp);
 // t_content_env	*add_list(t_content_env *list, char *date);
