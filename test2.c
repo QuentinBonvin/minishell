@@ -1,18 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   test2.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nnemeth <nnemeth@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 13:42:09 by nnemeth           #+#    #+#             */
-/*   Updated: 2022/09/26 14:29:29 by nnemeth          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
-
-#define TOKEN_DELIM "| '' "" "
 
 unsigned int	is_delim(char c, char *delim)
 {
@@ -61,15 +47,3 @@ char	*my_strtok(char *str, char *delim)
 		str++;
 	}
 }
-
-// int main()
-// {
-//     char srcString[] = "HI'AticleworldR|eader";
-//     char *token = my_strtok(srcString, TOKEN_DELIM);
-//     while(token)
-//     {
-//         printf("%s\n", token);
-//         token = my_strtok(NULL, TOKEN_DELIM);
-//     }
-//     return 0 ;
-// }

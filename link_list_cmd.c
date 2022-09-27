@@ -28,32 +28,4 @@ void	add_cmd_to_list(t_list_cmd *cmd, char *line)
 	cmd->first_node = new_node;
 }
 
-void printf_cmd(t_list_cmd *list)
-{
-    t_node_cmd *actuel;
 
-	actuel = list->first_node;
-    if (list == NULL)
-        exit(EXIT_FAILURE);
-    while (actuel != NULL)
-    {
-        printf("%s\n", actuel->content);
-		actuel = actuel->next;
-    }
-}
-	// printf("new node 1 = %s\n", new_node->content);
-	// printf("new node 2 = %s\n", new_node->next->content);
-}
-// void printf_env(t_list_cmd *list)
-// {
-//     t_node_env *actuel;
-
-// 	actuel = list->first_node;
-//     if (list == NULL)
-//         exit(EXIT_FAILURE);
-//     while (actuel != NULL)
-//     {
-//         printf("%s\n", actuel->content);
-// 		actuel = actuel->next;
-//     }
-// }6a5d02441fb22965abd677534272b0641254
