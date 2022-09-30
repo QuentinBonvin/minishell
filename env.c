@@ -10,8 +10,9 @@ void		init_env(char **envp)
     env = malloc(sizeof(t_env));
     while (envp[i])
 	{
-		add_envp_to_env(env, envp, i);
 		i++;
+		//printf("%s\n", envp[i]);
+		add_envp_to_env(env, envp, i);
 	}
     printf_env(env);
 }

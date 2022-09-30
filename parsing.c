@@ -4,20 +4,23 @@ void	parsing_line(char *line)
 {
 	int			i;
 	char		*token;
+	char		*test;
 	t_list_cmd	*list;
 
 	list = create_cmd();
 	i = 0;
+	token = my_strtok(line, "|");
 	while (line[i])
 	{
 		if (line[i] == SIMPLE_QUOTE || line[i] == DOBBLE_QUOTE)
-			if (check_quote(&line[i]))
-				break ;
+		{
+			test = check_quote(&line[i + 1]);
+
+			add_cmd_to_list(list, token);
+			token = my_strtok(NULL, "|");
+		}
 		i++;
 	}
-	token = my_strtok(line, "|");
-	add_cmd_to_list(list, token);
-	token = my_strtok(NULL, "|");
 }
 
 void	split_with_pipe(char *line)
