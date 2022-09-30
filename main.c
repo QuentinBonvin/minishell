@@ -9,7 +9,8 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		line = readline("\033[0;35mqbonvin_minishell ▸ \033[0;37m");
-		parsing_line(line);
+		if (parsing_line(line) == 0)
+			split_with_pipe(line);
 		add_history(line);
 	}
 	return (EXIT_SUCCESS);

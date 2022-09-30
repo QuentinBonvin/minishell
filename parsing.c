@@ -1,83 +1,62 @@
 #include "minishell.h"
 
-void	parsing_line(char *line)
+int	parsing_line(char *line)
 {
 	int			i;
 	int			ret;
-	// char		*token;
-	t_list_cmd	*list;
 
-	list = create_cmd();
 	i = 0;
-	// token = my_strtok(line, "|");
 	while (line[i])
 	{
-		//printf("line = %s\n", line);
 		if (line[i] == SIMPLE_QUOTE || line[i] == DOBBLE_QUOTE)
 		{
 			ret = check_quote(line, i, line[i]);
 			if (ret == -1)
 			{
 				printf("error\n");
-				break ;		
+				return (-1);		
 			}
-		i = ret;
+			i = ret;
 		}
 		i++;
-		// add_cmd_to_list(list, token);
-		// token = my_strtok(NULL, "|");
 	}
-	printf_cmd(list);
+	return (0);
 }
 
 void	split_with_pipe(char *line)
 {
-	t_list_cmd	*list;
-	int			i;
-	char		*tmp;
-	char		*pipe;
+	int	i;
+	char *token;
+	char *test;
+	t_cmd *list;
 
 	i = 0;
-
-	list = create_cmd();
-	tmp = malloc(sizeof(char) * ft_strlen(line));
-	while (line[i] || line[i] != '|')
+	list = malloc(sizeof(t_cmd));
+	if (list == NULL)
+		printf("error malloc\n");
+	token = my_strtok(line, "|");
+	// printf("token 1 = %s\n", token);
+	//add_cmd_to_list(list, token);
+	// printf("after add_cmd = %s\n", list->content);
+	test = ft_strrchr(line, ' ');
+	printf("test = %s\n", test);
+	while (line[i])
 	{
-		pipe = malloc(sizeof(char));
-		while (line[i] /*|| line[i] != '|'*/)
-		{
-			if (line[i] != '|')
-				tmp[i] = line[i];
-			// printf("%s\n", tmp);
-			if (line[i] == '|')
-				add_cmd_to_list(list, tmp);
-			{
-				add_cmd_to_list(list, tmp);
-				pipe[i] = line[i];
-				add_cmd_to_list(list, &pipe[i]);
-				tmp = ft_substr(line, ft_strlen(&line[i + 1]), ft_strlen(line));
-				// tmp[i] = line[i];
-				add_cmd_to_list(list, tmp);
-				break ;
-			}
-			i++;
-			printf_cmd(list);
-		}
-			// i = 0;
-			printf_cmd(list);
-			// return (tmp);
+		token = my_strtok(NULL, "|");
+		// printf("token 2 = %s\n", token);
+		// add_cmd_to_list(list, token);
+		// printf("after add_cmd 2 = %s\n", list->next->content);
+		i++;
+		printf_cmd(list);
 	}
-		// i = 0;
-		// printf_cmd(list);
-		// return (tmp);
 }
 
-void printf_cmd(t_list_cmd *list)
+void printf_cmd(t_cmd *list)
 {
     // t_node_cmd *actuel;
-	t_node_cmd *current;
+	t_cmd *current;
 
-	current = list->first_node;
+	current = list;
     if (list == NULL)
         exit(EXIT_FAILURE);
 	while(current != NULL)

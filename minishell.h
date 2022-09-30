@@ -29,22 +29,17 @@ typedef struct	s_env
 /*************************************************
 Link list for cmd
 *************************************************/
-typedef struct	s_node_cmd
+typedef struct	s_cmd
 {
-	char					*content;
-	struct s_node_cmd		*next;
-	struct s_node_cmd		*back;
-}	t_node_cmd;
-
-typedef struct	s_list_cmd
-{
-	t_node_cmd	*first_node;
-}	t_list_cmd;
+	char				*content;
+	struct s_cmd		*next;
+	struct s_cmd		*prev;
+}	t_cmd;
 
 typedef struct	s_shell
 {
 	t_env			*node;
-	t_node_cmd		*cmd;
+	t_cmd			*cmd;
 }	t_shell;
 
 /*************************************************
@@ -58,15 +53,14 @@ t_env		*add_envp_to_env(t_env *env, char **envp, int i);
 /*************************************************
 Link list function for cmd
 *************************************************/	
-t_list_cmd	*create_cmd();
-void		add_cmd_to_list(t_list_cmd *cmd, char *line);
-void		printf_cmd(t_list_cmd *list);
-void		printf_cmd(t_list_cmd *actuel);
+t_cmd		*create_cmd(char *token);
+t_cmd		*add_cmd_to_list(t_cmd *list, char *token);
+void 		printf_cmd(t_cmd *list);
 
 /*************************************************
 function for parsing
 *************************************************/
-void			parsing_line(char *line);
+int				parsing_line(char *line);
 void			split_with_pipe(char *line);
 char			*my_strtok(char *str, char *delim);
 unsigned int	is_delim(char c, char *delim);
@@ -85,7 +79,7 @@ int				nbr_quote(char *line);
 /*************************************************
 Link list function for builtins
 *************************************************/	
-int 	builtin(t_list_cmd *list);
+int 	builtin(t_cmd *list);
 int		ft_strcmp(char *s1, char *s2);
 void	tester(void);
 
