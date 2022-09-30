@@ -11,13 +11,11 @@ void	parsing_line(char *line)
 
 	i = 0;
 	token = my_strtok(line, "|");
+	add_cmd_to_list(list, token);
 	while (line[i])
 	{
-		// printf("%s\n", token);
 		add_cmd_to_list(list, token);
 		token = my_strtok(NULL, "|");
-		(hello test);
-		printf_cmd(list);
 		// if (ft_strchr(line, '|'))
 		// {
 		// 	split_with_pipe(line);
@@ -25,7 +23,10 @@ void	parsing_line(char *line)
 		// }
 		i++;
 	}
-	// printf("%s\n", list->first_node->content);
+	printf("%s\n", line);
+	printf_cmd(list);
+	// builtin(list);
+	// printf("%s\n", list->first_node->back);
 }
 
 void	split_with_pipe(char *line)
@@ -59,7 +60,7 @@ void	split_with_pipe(char *line)
 		i++;
 	}
 		// i = 0;
-		printf_cmd(list);
+		// printf_cmd(list);
 		// return (tmp);
 }
 
@@ -77,11 +78,4 @@ void printf_cmd(t_list_cmd *list)
 		printf("%s\n", current->content);
 		current = current->next;
 	}
-	// current->next = current;
-    // while (actuel->next != NULL)
-    // {
-    //     printf("%s\n", actuel->content);
-	// 	actuel = actuel->next;
-    // }
-	// actuel->next = current;
 }

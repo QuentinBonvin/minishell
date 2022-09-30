@@ -6,7 +6,7 @@
 #    By: nnemeth <nnemeth@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/04 15:05:41 by qbonvin           #+#    #+#              #
-#    Updated: 2022/09/26 14:30:14 by nnemeth          ###   ########.fr        #
+#    Updated: 2022/09/28 15:29:50 by nnemeth          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 CC = gcc -g 
 OBJ = ${SRCS:.c=.o}
-SRCS = main.c parsing.c env.c link_list_cmd.c test2.c
+SRCS = main.c parsing.c env.c link_list_cmd.c test2.c builtin.c
 LIBFT = ./libft 
 LIBFT_A = ./libft/libft.a
 

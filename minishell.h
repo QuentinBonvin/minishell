@@ -6,7 +6,7 @@
 /*   By: nnemeth <nnemeth@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 13:25:01 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/09/26 14:29:38 by nnemeth          ###   ########.fr       */
+/*   Updated: 2022/09/28 18:59:21 by nnemeth          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,11 @@ unsigned int	is_delim(char c, char *delim);
 // t_content_env	*empty_list(void);
 // int		isempty(t_content_env *L);
 
-
-
+/*************************************************
+Link list function for builtins
+*************************************************/	
+int 	builtin(t_list_cmd *list);
+int		ft_strcmp(char *s1, char *s2);
+void	tester(void);
 
 #endif
