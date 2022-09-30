@@ -34,7 +34,6 @@ typedef struct	s_node_cmd
 	char					*content;
 	struct s_node_cmd		*next;
 	struct s_node_cmd		*back;
-	
 }	t_node_cmd;
 
 typedef struct	s_list_cmd
@@ -73,7 +72,7 @@ char			*my_strtok(char *str, char *delim);
 unsigned int	is_delim(char c, char *delim);
 int				dobble_quote(char *line);
 int				check_if_another_dobble_quote(char *line);
-char			*check_quote(char *line);
+int				check_quote(char *line, int position, char c);
 int				nbr_quote(char *line);
 
 // void	print_env(t_content_env *env);

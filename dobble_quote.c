@@ -1,28 +1,23 @@
 
 #include "minishell.h"
 
-char	*check_quote(char *line)
+int check_quote(char *line, int position, char c)
 {
-	int		i;
-	char *tmp;
-	char *tmp2;
+	int	i;
+	int	j;
 
-
-	tmp = malloc(sizeof(char*) * ft_strlen(line));
-	tmp2 = malloc(sizeof(char*) * ft_strlen(line));
 	i = 0;
-	while (line[i])
+	j = position + 1;
+	// printf("line = %s\n", line);
+	while (line[j])
 	{
-		if (line[i] == DOBBLE_QUOTE)
-		{
-			tmp = (ft_substr(line, 0, (i)));
-			tmp2 = (ft_substr(line, (i + 1), (ft_strlen(line))));
-		}
-		i++;
+		if (line[j] == c)
+			return (j);
+		// if (line[j] == SIMPLE_QUOTE)
+		// 	return (j);
+		j++;
 	}
-	printf("%s\n", tmp);
-	printf("%s\n", tmp2);
-	return (0);
+	return (-1);
 }
 
 int	nbr_quote(char *line)

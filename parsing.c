@@ -3,28 +3,31 @@
 void	parsing_line(char *line)
 {
 	int			i;
-	char		*token;
-	char		*test;
+	int			ret;
+	// char		*token;
 	t_list_cmd	*list;
 
 	list = create_cmd();
 	i = 0;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	token = my_strtok(line, "|");
->>>>>>> 47e5b4720e78431a8f0e744048bddcd76402a55d
+	// token = my_strtok(line, "|");
 	while (line[i])
 	{
+		//printf("line = %s\n", line);
 		if (line[i] == SIMPLE_QUOTE || line[i] == DOBBLE_QUOTE)
 		{
-			test = check_quote(&line[i + 1]);
-
-			add_cmd_to_list(list, token);
-			token = my_strtok(NULL, "|");
+			ret = check_quote(line, i, line[i]);
+			if (ret == -1)
+			{
+				printf("error\n");
+				break ;		
+			}
+		i = ret;
 		}
 		i++;
+		// add_cmd_to_list(list, token);
+		// token = my_strtok(NULL, "|");
 	}
+	printf_cmd(list);
 }
 
 void	split_with_pipe(char *line)
@@ -64,12 +67,9 @@ void	split_with_pipe(char *line)
 			printf_cmd(list);
 			// return (tmp);
 	}
-<<<<<<< HEAD
-=======
 		// i = 0;
 		// printf_cmd(list);
 		// return (tmp);
->>>>>>> Nik
 }
 
 void printf_cmd(t_list_cmd *list)
