@@ -2,6 +2,7 @@
 # define MINISHELL_H
 # define SIMPLE_QUOTE 39
 # define DOBBLE_QUOTE 34
+# define PIPE 124
 
 # include "./libft/libft.h"
 # include <stdlib.h>
@@ -72,7 +73,9 @@ char			*my_strtok(char *str, char *delim);
 unsigned int	is_delim(char c, char *delim);
 int				dobble_quote(char *line);
 int				check_if_another_dobble_quote(char *line);
-int				check_quote(char *line);
+char			*check_quote(char *line);
+int				nbr_quote(char *line);
+
 // void	print_env(t_content_env *env);
 // int		init_env(t_content_env **new_env, char **envp);
 // t_content_env	*add_list(t_content_env *list, char *date);
