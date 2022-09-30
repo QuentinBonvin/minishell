@@ -8,6 +8,7 @@ void	parsing_line(char *line)
 
 	list = create_cmd();
 	i = 0;
+<<<<<<< HEAD
 	while (line[i])
 	{
 		if (line[i] == SIMPLE_QUOTE || line[i] == DOBBLE_QUOTE)
@@ -57,6 +58,12 @@ void	split_with_pipe(char *line)
 			printf_cmd(list);
 			// return (tmp);
 	}
+<<<<<<< HEAD
+=======
+		// i = 0;
+		// printf_cmd(list);
+		// return (tmp);
+>>>>>>> Nik
 }
 
 void printf_cmd(t_list_cmd *list)

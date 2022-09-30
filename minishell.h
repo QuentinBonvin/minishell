@@ -80,7 +80,11 @@ int				check_quote(char *line);
 // t_content_env	*empty_list(void);
 // int		isempty(t_content_env *L);
 
-
-
+/*************************************************
+Link list function for builtins
+*************************************************/	
+int 	builtin(t_list_cmd *list);
+int		ft_strcmp(char *s1, char *s2);
+void	tester(void);
 
 #endif

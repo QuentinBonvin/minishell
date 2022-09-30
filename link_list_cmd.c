@@ -23,7 +23,7 @@ void	add_cmd_to_list(t_list_cmd *cmd, char *line)
 	if (line == NULL || new_node == NULL)
 		exit (EXIT_FAILURE);
 	new_node->content = line;
-	new_node->next = NULL; /*cmd->first_node*/;
+	new_node->next = cmd->first_node;
 	// (cmd->first_node)->back = new_node;
 	cmd->first_node = new_node;
 }
