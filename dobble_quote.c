@@ -1,7 +1,6 @@
-
 #include "minishell.h"
 
-int check_quote(char *line, int position, char c)
+int	check_quote(char *line, int position, char c)
 {
 	int	i;
 	int	j;

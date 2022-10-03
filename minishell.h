@@ -19,7 +19,7 @@
 /*************************************************
 Link list for environnement
 *************************************************/
-typedef struct	s_env
+typedef struct s_env
 {
 	char				*content;
 	struct s_env		*next;
@@ -29,14 +29,14 @@ typedef struct	s_env
 /*************************************************
 Link list for cmd
 *************************************************/
-typedef struct	s_cmd
+typedef struct s_cmd
 {
 	char				*content;
 	struct s_cmd		*next;
 	struct s_cmd		*prev;
 }	t_cmd;
 
-typedef struct	s_shell
+typedef struct s_shell
 {
 	t_env			*node;
 	char			*token;
@@ -48,17 +48,17 @@ typedef struct	s_shell
 /*************************************************
 Link list function for environnement
 *************************************************/
-t_env		*create_cell(char **envp);
-void		init_env(char **envp);
-void 		printf_env(t_env *list);
-t_env		*add_envp_to_env(t_env *env, char **envp, int i);
+t_env			*create_cell(char **envp);
+void			init_env(char **envp);
+void			printf_env(t_env *list);
+t_env			*add_envp_to_env(t_env *env, char **envp, int i);
 
 /*************************************************
 Link list function for cmd
 *************************************************/	
-t_cmd		*create_cmd(char *token);
-t_cmd		*add_cmd_to_list(t_cmd *list, char *token);
-void 		printf_cmd(t_shell *list);
+t_cmd			*create_cmd(char *token);
+t_cmd			*add_cmd_to_list(t_cmd *list, char *token);
+void			printf_cmd(t_shell *list);
 
 /*************************************************
 function for parsing
@@ -74,6 +74,7 @@ int				check_quote(char *line, int position, char c);
 int				nbr_quote(char *line);
 int				pipe_in_quote(char *line);
 int				string_search(char *line, char c);
+int				check_error(char *line);
 
 // void	print_env(t_content_env *env);
 // int		init_env(t_content_env **new_env, char **envp);
@@ -85,11 +86,10 @@ int				string_search(char *line, char c);
 /*************************************************
 Link list function for builtins
 *************************************************/	
-int 	builtin(t_cmd *list);
-int		ft_strcmp(char *s1, char *s2);
-void	tester(void);
-
-void	start_stack(t_cmd **head, t_cmd **tail, char *token);
-void	insert_beginning(t_cmd **tail, char *token);
+int				builtin(t_cmd *list);
+int				ft_strcmp(char *s1, char *s2);
+void			tester(void);
+void			start_stack(t_cmd **head, t_cmd **tail, char *token);
+void			insert_beginning(t_cmd **tail, char *token);
 
 #endif
