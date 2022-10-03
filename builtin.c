@@ -1,15 +1,15 @@
 #include "minishell.h"
 
-int builtin(t_list_cmd *list)
+int builtin(t_cmd *list)
 {
 
 	if (list == NULL)
 		return (1);
-	if(ft_strcmp(list->first_node->content, "pwd"))
+	if(ft_strcmp(list->content, "pwd"))
 		printf("pwd works\n");;
-	if(ft_strcmp(list->first_node->content, "cd"))
+	if(ft_strcmp(list->content, "cd"))
 		printf("cd works\n");
-	if(ft_strcmp(list->first_node->content, "echo"))
+	if(ft_strcmp(list->content, "echo"))
 		tester();
 
 	// }

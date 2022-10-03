@@ -39,7 +39,10 @@ typedef struct	s_cmd
 typedef struct	s_shell
 {
 	t_env			*node;
+	char			*token;
 	t_cmd			*cmd;
+	t_cmd			*head;
+	t_cmd			*tail;
 }	t_shell;
 
 /*************************************************
@@ -55,7 +58,7 @@ Link list function for cmd
 *************************************************/	
 t_cmd		*create_cmd(char *token);
 t_cmd		*add_cmd_to_list(t_cmd *list, char *token);
-void 		printf_cmd(t_cmd *list);
+void 		printf_cmd(t_shell *list);
 
 /*************************************************
 function for parsing
@@ -82,5 +85,8 @@ Link list function for builtins
 int 	builtin(t_cmd *list);
 int		ft_strcmp(char *s1, char *s2);
 void	tester(void);
+
+void	start_stack(t_cmd **head, t_cmd **tail, char *token);
+void	insert_beginning(t_cmd **tail, char *token);
 
 #endif

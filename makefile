@@ -2,7 +2,7 @@ NAME = minishell
 CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 CC = gcc -g 
 OBJ = ${SRCS:.c=.o}
-SRCS = main.c parsing.c env.c link_list_cmd.c test2.c builtin.c dobble_quote.c
+SRCS = main.c parsing.c env.c link_list_cmd.c test2.c builtin.c dobble_quote.c test_list.c
 LIBFT = ./libft 
 LIBFT_A = ./libft/libft.a
 
