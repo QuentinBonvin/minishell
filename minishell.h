@@ -65,12 +65,15 @@ function for parsing
 *************************************************/
 int				parsing_line(char *line);
 void			split_with_pipe(char *line);
+void			split_with_quote(char *line);
 char			*my_strtok(char *str, char *delim);
 unsigned int	is_delim(char c, char *delim);
 int				dobble_quote(char *line);
 int				check_if_another_dobble_quote(char *line);
 int				check_quote(char *line, int position, char c);
 int				nbr_quote(char *line);
+int				pipe_in_quote(char *line);
+int				string_search(char *line, char c);
 
 // void	print_env(t_content_env *env);
 // int		init_env(t_content_env **new_env, char **envp);

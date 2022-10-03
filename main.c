@@ -10,7 +10,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		line = readline("\033[0;35mqbonvin_minishell ▸ \033[0;37m");
 		if (parsing_line(line) == 0)
-			split_with_pipe(line);
+			split_with_quote(line);
 		add_history(line);
 	}
 	return (EXIT_SUCCESS);
