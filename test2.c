@@ -14,6 +14,7 @@ unsigned int	is_delim(char c, char *delim)
 char	*my_strtok(char *str, char *delim)
 {
 	static char	*tmp;
+	char		*ret;
 
 	if (!str)
 		str = tmp;
@@ -30,15 +31,15 @@ char	*my_strtok(char *str, char *delim)
 			return (NULL);
 		break ;
 	}
-	char	*ret = str;
-    while (1)
+	ret = str;
+	while (1)
 	{
 		if (*str == '\0')
 		{
-            tmp = str;
-            return (ret);
+			tmp = str;
+			return (ret);
 		}
-        if (is_delim(*str, delim))
+		if (is_delim(*str, delim))
 		{
 			*str = '\0';
 			tmp = str + 1;

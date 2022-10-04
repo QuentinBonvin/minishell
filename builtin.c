@@ -1,18 +1,15 @@
 #include "minishell.h"
 
-int builtin(t_cmd *list)
+int	builtin(t_cmd *list)
 {
-
 	if (list == NULL)
 		return (1);
-	if(ft_strcmp(list->content, "pwd"))
-		printf("pwd works\n");;
-	if(ft_strcmp(list->content, "cd"))
+	if (ft_strcmp(list->content, "pwd"))
+		printf("pwd works\n");
+	if (ft_strcmp(list->content, "cd"))
 		printf("cd works\n");
-	if(ft_strcmp(list->content, "echo"))
+	if (ft_strcmp(list->content, "echo"))
 		tester();
-
-	// }
 	return (0);
 }
 
@@ -27,6 +24,6 @@ int	ft_strcmp(char *s1, char *s2)
 
 	i = 0;
 	while ((s1[i] != '\0' && s2[i] != '\0') && s1[i] == s2[i])
-		 i++;
+		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

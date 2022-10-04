@@ -1,18 +1,16 @@
 #include "minishell.h"
 
-void		init_env(char **envp)
+void	init_env(char **envp)
 {
-    int	i;
-
-	i = 0;
+	int		i;
 	t_env	*env;
 
-    env = malloc(sizeof(t_env));
-    while (envp[i])
+	i = 0;
+	env = malloc(sizeof(t_env));
+	while (envp[i])
 	{
 		i++;
-		//printf("%s\n", envp[i]);
 		add_envp_to_env(env, envp, i);
 	}
-    printf_env(env);
+	printf_env(env);
 }
