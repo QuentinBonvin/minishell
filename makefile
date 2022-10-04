@@ -6,11 +6,14 @@ SRCS = main.c parsing.c env.c link_list_cmd.c test2.c builtin.c dobble_quote.c t
 LIBFT = ./libft 
 LIBFT_A = ./libft/libft.a
 
+RDLINC    =    -I/Users/nnemeth/.brew/opt/readline/include
+LIBRDL =    -L/Users/nnemeth/.brew/opt/readline/lib -lreadline
+
 all : ${NAME}
 
 ${NAME} : ${OBJ}
 	@make -C ${LIBFT}
-	${CC} ${CFLAGS} -lreadline -o ${NAME} ${OBJ} ${LIBFT_A}
+	${CC} ${CFLAGS} ${LIBRDL} -lreadline -o  ${NAME} ${OBJ} ${RDLINC} ${LIBFT_A}
 
 clean :
 	rm -rf ${OBJ}

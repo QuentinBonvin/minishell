@@ -9,11 +9,23 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		line = readline("\033[0;35mqbonvin_minishell ▸ \033[0;37m");
+		signal(SIGINT, sig_handler);
+		// signal(SIGQUIT, SIG_IGN);
 		if (parsing_line(line) == 0)
 			split_with_pipe(line);
 		add_history(line);
 	}
 	return (EXIT_SUCCESS);
+}
+
+void	sig_handler(int signum)
+{
+	if (signum == SIGINT)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 1);
+		// rl_redisplay();
+	}
 }
 
 void printf_env(t_env *list)

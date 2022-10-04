@@ -13,6 +13,7 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <stdbool.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -88,5 +89,7 @@ void	tester(void);
 
 void	start_stack(t_cmd **head, t_cmd **tail, char *token);
 void	insert_beginning(t_cmd **tail, char *token);
+void	sig_handler(int signum);
+void	rl_replace_line(char *text, int clear_undo);
 
 #endif
