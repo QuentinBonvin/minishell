@@ -15,9 +15,9 @@ int	main(int argc, char **argv, char **envp)
 		if (check_error(line))
 		{
 			printf("error after check error\n");
-			return (0);
+			//return (0);
 		}
-		printf("%s\n", line);
+		//printf("%s\n", line);
 		check_line(line, list);
 		//builtin(line, list);
 		add_history(line);

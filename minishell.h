@@ -87,6 +87,9 @@ int				check_error(char *line);
 int				pipe_at_start_or_end(char *line);
 int				only_one_simple_or_dobble_quote(char *line);
 int				is_dobble_pipe(char *line);
+int				space_after_pipe(char *line);
+int				nbr_pipe_in_string(char *line);
+
 
 
 // void	print_env(t_content_env *env);
