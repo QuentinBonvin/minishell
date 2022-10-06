@@ -7,7 +7,7 @@ int	builtin(char *line, t_shell *list)
 	int	i;
 
 	(void)line;
-	current = list->tail;
+	current = list->head;
 	i = 0;
 	if (list == NULL)
 		return (1);
