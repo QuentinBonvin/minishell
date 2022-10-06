@@ -16,9 +16,10 @@ int	main(int argc, char **argv, char **envp)
 		{
 			printf("error after check error\n");
 			return (0);
-		}	
+		}
+		printf("%s\n", line);
 		check_line(line, list);
-		builtin(line, list);
+		//builtin(line, list);
 		add_history(line);
 		signal(SIGINT, sig_handler);
 		// signal(SIGQUIT, SIG_IGN);
@@ -45,7 +46,7 @@ void	*create_cell(t_env **env_head, t_env **env_tail, char **envp)
 	return (0);
 }
 
-void	*add_envp_to_env(t_env **env_head, char **envp)
+void	*add_envp_to_env(t_env **env_tail, char **envp)
 {
 	t_env	*new_node;
 
@@ -53,9 +54,9 @@ void	*add_envp_to_env(t_env **env_head, char **envp)
 	if (new_node == NULL)
 		return 0;
 	new_node->content = *envp;
-	new_node->next = *env_head;
+	new_node->next = *env_tail;
 	new_node->prev = NULL;
-	(*env_head)->prev = new_node;
-	*env_head = new_node;
+	(*env_tail)->prev = new_node;
+	*env_tail = new_node;
 	return (0);
 }

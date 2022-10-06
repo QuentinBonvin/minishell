@@ -54,6 +54,7 @@ void	check_line(char *line, t_shell *list)
 		printf("error\n");
 		//return (0);
 	}
+	printf("%s\n", line);
 	if (parsing_line(line, list) == 0 && list->double_quote == 1)
 		split_with_double_quote(line, list);
 	if (parsing_line(line, list) == 0 && list->single_quote == 1)
@@ -128,5 +129,4 @@ int	is_dobble_pipe(char *line)
 		i++;
 	}
 	return (0);
-	
 }

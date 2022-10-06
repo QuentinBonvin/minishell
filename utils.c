@@ -32,7 +32,7 @@ void	split_with_pipe(char *line, t_shell *list)
 	{
 		list->token = my_strtok(NULL, TOK_DELIM);
 		// printf("token 2 = %s\n", token);
-		insert_beginning(&list->head, list->token);
+		insert_beginning(&list->tail, list->token);
 		// add_cmd_to_list(list, list->cmd->tokenn);
 		// printf("after add_cmd 2 = %s\n", list->next->content);
 		// printf("token = %s\n", list->token);
@@ -59,7 +59,7 @@ void	split_with_double_quote(char *line, t_shell *list)
 	{
 		list->token = my_strtok(NULL, "\"");
 		// printf("token 2 = %s\n", token);
-		insert_beginning(&list->head, list->token);
+		insert_beginning(&list->tail, list->token);
 		// add_cmd_to_list(list, list->cmd->tokenn);
 		// printf("after add_cmd 2 = %s\n", list->next->content);
 		// printf("token = %s\n", list->token);
@@ -86,13 +86,13 @@ void	split_with_single_quote(char *line, t_shell *list)
 	{
 		list->token = my_strtok(NULL, "\'");
 		// printf("token 2 = %s\n", token);
-		insert_beginning(&list->head, list->token);
+		insert_beginning(&list->tail, list->token);
 		// add_cmd_to_list(list, list->cmd->tokenn);
 		// printf("after add_cmd 2 = %s\n", list->next->content);
 		// printf("token = %s\n", list->token);
 		i++;
 	}
-	// printf_cmd(list);
+	printf_cmd(list);
 }
 
 void	printf_cmd(t_shell *list)
@@ -105,6 +105,6 @@ void	printf_cmd(t_shell *list)
 	while (current != NULL)
 	{
 		printf("%s\n", current->content);
-		current = current->next;
+		current = current->prev;
 	}
 }
