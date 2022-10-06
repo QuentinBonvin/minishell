@@ -1,3 +1,4 @@
+
 #include "minishell.h"
 
 int	parsing_line(char *line, t_shell *list)
@@ -6,9 +7,10 @@ int	parsing_line(char *line, t_shell *list)
 	int			ret;
 
 	i = 0;
-	if (!(string_search(line, '\'') || string_search(line, '\"')))
+	if (string_search(line, '\'') == -1 || string_search(line, '\"') == -1)
 	{
-		// if (
+		if (is_dobble_pipe(line) == -1)
+			return (-1);
 		split_with_pipe(line, list);
 		return (-1);
 	}
@@ -112,4 +114,19 @@ int	only_one_simple_or_dobble_quote(char *line)
 		return (-1);
 	}
 	return (0);
+}
+
+int	is_dobble_pipe(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i + 1] == PIPE)
+			return (-1);
+		i++;
+	}
+	return (0);
+	
 }
