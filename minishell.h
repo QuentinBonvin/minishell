@@ -3,6 +3,7 @@
 # define SIMPLE_QUOTE 39
 # define DOBBLE_QUOTE 34
 # define PIPE 124
+# define TOK_DELIM "|"
 
 # include "./libft/libft.h"
 # include <stdlib.h>
@@ -41,18 +42,24 @@ typedef struct s_shell
 {
 	t_env			*node;
 	char			*token;
+	int				single_quote;
+	int				double_quote;
 	t_cmd			*cmd;
 	t_cmd			*head;
 	t_cmd			*tail;
+	t_env			*env_head;
+	t_env			*env_tail;
 }	t_shell;
 
 /*************************************************
 Link list function for environnement
 *************************************************/
-t_env			*create_cell(char **envp);
-void			init_env(char **envp);
-void			printf_env(t_env *list);
-t_env			*add_envp_to_env(t_env *env, char **envp, int i);
+// t_env			*create_cell(char **envp);
+void			*create_cell(t_env **env_head, t_env **env_tail, char **envp);
+void			init_env(char **envp, t_shell *list);
+void			printf_env(t_shell *list);
+// t_env			*add_envp_to_env(t_env *env, char **envp/*, int i*/);
+void			*add_envp_to_env(t_env **head, char **envp);
 
 /*************************************************
 Link list function for cmd
@@ -64,9 +71,10 @@ void			printf_cmd(t_shell *list);
 /*************************************************
 function for parsing
 *************************************************/
-int				parsing_line(char *line);
-void			split_with_pipe(char *line);
-void			split_with_quote(char *line);
+int				parsing_line(char *line, t_shell *list);
+void			split_with_pipe(char *line, t_shell *list);
+void			split_with_double_quote(char *line, t_shell *list);
+void			split_with_single_quote(char *line, t_shell *list);
 char			*my_strtok(char *str, char *delim);
 unsigned int	is_delim(char c, char *delim);
 int				dobble_quote(char *line);
@@ -87,13 +95,14 @@ int				check_error(char *line);
 /*************************************************
 Link list function for builtins
 *************************************************/	
-int 	builtin(t_cmd *list);
-int		ft_strcmp(char *s1, char *s2);
-void	tester(void);
+int				builtin(char *line, t_shell *list);
+int				ft_strcmp(char *s1, char *s2);
 
-void	start_stack(t_cmd **head, t_cmd **tail, char *token);
-void	insert_beginning(t_cmd **tail, char *token);
-void	sig_handler(int signum);
-void	rl_replace_line(char *text, int clear_undo);
+void			start_stack(t_cmd **head, t_cmd **tail, char *token);
+void			insert_beginning(t_cmd **tail, char *token);
+void			sig_handler(int signum);
+void			sig_quit(int signum);
+void			rl_replace_line(char *text, int clear_undo);
+void			check_line(char *line, t_shell *list);
 
 #endif
