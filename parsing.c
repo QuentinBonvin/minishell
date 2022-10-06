@@ -8,6 +8,7 @@ int	parsing_line(char *line)
 	i = 0;
 	if (!(string_search(line, '\'') || string_search(line, '\"')))
 	{
+		// if (
 		split_with_pipe(line);
 		return (-1);
 	}
@@ -32,15 +33,56 @@ int	parsing_line(char *line)
 
 int	check_error(char *line)
 {
+
+	if (pipe_at_start_or_end(line) == -1)
+		return (-1);
+	if (only_one_simple_or_dobble_quote(line) == -1)
+		return (-1);
+	return (0);
+}
+
+int	pipe_at_start_or_end(char *line)
+{
+
 	int	len;
 	int	i;
 
 	i = 0;
 	len = ft_strlen(line);
-	//printf("%d\n", len);
 	if (line[0] == '|')
+	{
+		printf("syntax error near unexpected token `|'\n");
 		return (-1);
+	}
 	if (line[len - 1] == '|')
+	{
+		printf("error\n");
 		return (-1);
+	}
+	return (0);
+}
+
+int	only_one_simple_or_dobble_quote(char *line)
+{
+	int	i;
+	int	nbr_simple_quote;
+	int	nbr_dobble_quote;
+	
+	i = 0;
+	nbr_simple_quote = 0;
+	nbr_dobble_quote = 0;
+	while (line[i])
+	{
+		if (line[i] == DOBBLE_QUOTE)
+			nbr_dobble_quote++;
+		if (line[i] == SIMPLE_QUOTE)
+			nbr_simple_quote++;
+		i++;
+	}
+	if (nbr_dobble_quote == 1 || nbr_simple_quote == 1)
+	{
+		printf("error, only 1 simple or 1 dobble quote\n");
+		return (-1);
+	}
 	return (0);
 }

@@ -6,17 +6,18 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	init_env(envp);
+	(void)envp;
+	//init_env(envp);
 	while (1)
 	{
 		line = readline("\033[0;35mqbonvin_minishell ▸ \033[0;37m");
+		if (!check_error(line))
+		{
+			printf("error after check error\n");
+			return (0);
+		}	
 		signal(SIGINT, sig_handler);
 		// signal(SIGQUIT, SIG_IGN);
-		if (check_error(line))
-		{
-			printf("error\n");
-			//return (0);
-		}
 		if (parsing_line(line) == 0)
 			split_with_quote(line);
 		add_history(line);

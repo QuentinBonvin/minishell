@@ -7,8 +7,8 @@ utils.c
 LIBFT = ./libft 
 LIBFT_A = ./libft/libft.a
 
-RDLINC    =    -I/Users/nnemeth/.brew/opt/readline/include
-LIBRDL =    -L/Users/nnemeth/.brew/opt/readline/lib -lreadline
+RDLINC    =    -I/Users/qbonvin/.brew/opt/readline/include
+LIBRDL =    -L/Users/qbonvin/.brew/opt/readline/lib -lreadline
 
 all : ${NAME}
 
