@@ -12,14 +12,17 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		line = readline("\033[0;35mqbonvin_minishell ▸ \033[0;37m");
-		if ((check_error(line)))
+		if (check_error(line))
 		{
 			printf("error after check error\n");
-			return (0);
+			//return (0);
 		}
 		list = check_line(line, list);
 		// printf_cmd(list);
 		builtin(line, list);
+		//printf("%s\n", line);
+		// check_line(line, list);
+		//builtin(line, list);
 		add_history(line);
 		signal(SIGINT, sig_handler);
 		// signal(SIGQUIT, SIG_IGN);
