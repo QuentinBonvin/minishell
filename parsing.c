@@ -68,8 +68,8 @@ int	check_error(char *line)
 {
 	if (pipe_at_start_or_end(line) == -1)
 		return (-1);
-	// if (only_one_simple_or_dobble_quote(line) == -1)
-	// 	return (-1);
+	if (only_one_simple_or_dobble_quote(line) == -1)
+		return (-1);
 	if (is_dobble_pipe(line) == -1)
 		return (-1);
 	if (space_after_pipe(line) == -1)
@@ -118,10 +118,16 @@ int	only_one_simple_or_dobble_quote(char *line)
 	nbr_dobble_quote = 0;
 	while (line[i])
 	{
-		if (line[i] == DOBBLE_QUOTE && quote_inside_dobble_quote(&line[i + 1]) == -1)
-			nbr_dobble_quote++;
-		if (line[i] == SIMPLE_QUOTE && quote_inside_simple_quote(&line[i + 1]) == -1)
-			nbr_simple_quote++;
+		if (line[i] == DOBBLE_QUOTE)
+		{
+			if (quote_inside_dobble_quote(line) == -1)
+				nbr_dobble_quote++;
+		}
+		if (line[i] == SIMPLE_QUOTE)
+		{
+			if (quote_inside_simple_quote(line) == -1)
+				nbr_simple_quote++;
+		}
 		i++;
 	}
 	if (nbr_dobble_quote == 1 || nbr_simple_quote == 1)
