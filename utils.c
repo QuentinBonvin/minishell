@@ -41,7 +41,7 @@ void	split_with_pipe(char *line, t_shell *list)
 	// printf_cmd(list);
 }
 
-void	split_with_double_quote(char *line, t_shell *list)
+t_shell	*split_with_double_quote(char *line, t_shell *list)
 {
 	int		i;
 	// t_shell	*list;
@@ -60,12 +60,14 @@ void	split_with_double_quote(char *line, t_shell *list)
 		list->token = my_strtok(NULL, "\"");
 		// printf("token 2 = %s\n", token);
 		insert_beginning(&list->tail, list->token);
+		// printf("token: %s\n", list->token);
 		// add_cmd_to_list(list, list->cmd->tokenn);
 		// printf("after add_cmd 2 = %s\n", list->next->content);
 		// printf("token = %s\n", list->token);
 		i++;
 	}
 	// printf_cmd(list);
+	return (list);
 }
 
 void	split_with_single_quote(char *line, t_shell *list)
@@ -94,6 +96,33 @@ void	split_with_single_quote(char *line, t_shell *list)
 	}
 	printf_cmd(list);
 }
+
+// void	split_path(char *line, t_shell *list)
+// {
+// 	int		i;
+// 	// t_shell	*list;
+// 	// char *token;
+// 	// char *test;
+// 	i = 0;
+// 	// list = malloc(sizeof(t_shell));
+// 	if (list == NULL)
+// 		printf("error malloc\n");
+// 	list->token = my_strtok(line, "\'");
+// 	start_stack(&list->head, &list->tail, list->token);
+// 	// add_cmd_to_list(list, list->token);
+// 	// test = ft_strrchr(line, ' ');
+// 	while (list->token != NULL)
+// 	{
+// 		list->token = my_strtok(NULL, "\'");
+// 		// printf("token 2 = %s\n", token);
+// 		insert_beginning(&list->tail, list->token);
+// 		// add_cmd_to_list(list, list->cmd->tokenn);
+// 		// printf("after add_cmd 2 = %s\n", list->next->content);
+// 		// printf("token = %s\n", list->token);
+// 		i++;
+// 	}
+// 	printf_cmd(list);
+// }
 
 void	printf_cmd(t_shell *list)
 {

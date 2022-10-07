@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nnemeth <nnemeth@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 17:00:33 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/04/27 10:30:37 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/10/07 11:25:40 by nnemeth          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
+{	
 	size_t	i;
 
 	i = 0;

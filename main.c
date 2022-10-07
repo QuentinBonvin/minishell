@@ -17,8 +17,8 @@ int	main(int argc, char **argv, char **envp)
 			printf("error after check error\n");
 			return (0);
 		}
-		printf("%s\n", line);
-		check_line(line, list);
+		list = check_line(line, list);
+		// printf_cmd(list);
 		builtin(line, list);
 		add_history(line);
 		signal(SIGINT, sig_handler);
@@ -42,7 +42,6 @@ void	*create_cell(t_env **env_head, t_env **env_tail, char **envp)
 	cell->prev = NULL;
 	*env_head = cell;
 	*env_tail = cell;
-	// printf("%s\n", cell->content);
 	return (0);
 }
 

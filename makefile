@@ -3,12 +3,12 @@ CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 CC = gcc -g 
 OBJ = ${SRCS:.c=.o}
 SRCS = main.c parsing.c env.c link_list_cmd.c str_tok.c builtin.c dobble_quote.c nodes.c \
-utils.c signals.c
+utils.c signals.c exec.c exit.c unset.c
 LIBFT = ./libft 
 LIBFT_A = ./libft/libft.a
 
-RDLINC    =    -I/Users/qbonvin/.brew/opt/readline/include
-LIBRDL =    -L/Users/qbonvin/.brew/opt/readline/lib -lreadline
+RDLINC    =    -I/Users/nnemeth/.brew/opt/readline/include
+LIBRDL =    -L/Users/nnemeth/.brew/opt/readline/lib -lreadline
 
 all : ${NAME}
 

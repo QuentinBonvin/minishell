@@ -73,7 +73,7 @@ function for parsing
 *************************************************/
 int				parsing_line(char *line, t_shell *list);
 void			split_with_pipe(char *line, t_shell *list);
-void			split_with_double_quote(char *line, t_shell *list);
+t_shell			*split_with_double_quote(char *line, t_shell *list);
 void			split_with_single_quote(char *line, t_shell *list);
 char			*my_strtok(char *str, char *delim);
 unsigned int	is_delim(char c, char *delim);
@@ -98,14 +98,24 @@ int				only_one_simple_or_dobble_quote(char *line);
 /*************************************************
 Link list function for builtins
 *************************************************/	
-int				builtin(char *line, t_shell *list);
+void			builtin(char *line, t_shell *list);
 int				ft_strcmp(char *s1, char *s2);
+char			*search_env(t_shell *list);
+int				call_cd(char *aux, char *path);
+void			call_pwd(char *aux);
+int				call_unset(t_shell *list, char *var);
+int				ft_strncmp2(char *s1, char *s2, int n);
+void			ft_remove_from_list(t_shell *list, char *var);
 
-void			start_stack(t_cmd **head, t_cmd **tail, char *token);
-void			insert_beginning(t_cmd **tail, char *token);
+/*************************************************
+Link list function for linked list
+*************************************************/	
+
+void			*start_stack(t_cmd **head, t_cmd **tail, char *token);
+void			*insert_beginning(t_cmd **tail, char *token);
 void			sig_handler(int signum);
 void			sig_quit(int signum);
 void			rl_replace_line(char *text, int clear_undo);
-void			check_line(char *line, t_shell *list);
+t_shell			*check_line(char *line, t_shell *list);
 
 #endif

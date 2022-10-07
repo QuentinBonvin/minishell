@@ -45,18 +45,25 @@ int	parsing_line(char *line, t_shell *list)
 	return (0);
 }
 
-void	check_line(char *line, t_shell *list)
+t_shell	*check_line(char *line, t_shell *list)
 {
+	int res;
+
 	if (check_error(line))
 	{
 		printf("error\n");
 		//return (0);
 	}
-	printf("%s\n", line);
-	if (parsing_line(line, list) == 0 && list->double_quote == 1)
-		split_with_double_quote(line, list);
-	if (parsing_line(line, list) == 0 && list->single_quote == 1)
+	res = parsing_line(line, list);
+	if (res == 0 && list->double_quote == 1)
+	{
+		list = split_with_double_quote(line, list);
+	}
+	if (res == 0 && list->single_quote == 1)
 		split_with_single_quote(line, list);
+	// printf("list manual: %s\n", list->head->prev->content);
+	// printf_cmd(list);
+	return (list);
 }
 
 int	check_error(char *line)
