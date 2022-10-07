@@ -52,11 +52,13 @@ int	check_error(char *line)
 {
 	if (pipe_at_start_or_end(line) == -1)
 		return (-1);
-	if (only_one_simple_or_dobble_quote(line) == -1)
-		return (-1);
+	// if (only_one_simple_or_dobble_quote(line) == -1)
+	// 	return (-1);
 	if (is_dobble_pipe(line) == -1)
 		return (-1);
 	if (space_after_pipe(line) == -1)
+		return (-1);
+	if (quote_have_no_pair(line) == -1)
 		return (-1);
 	return (0);
 }
@@ -73,7 +75,7 @@ int	pipe_at_start_or_end(char *line)
 	}
 	while(j > 0)
 	{
-		if (ft_isalpha(j) == -1 || ft_isdigit(j) == -1)
+		if (ft_isalpha(line[j]) == 1 || ft_isdigit(line[j]) == 1)
 			return (0);
 		if (line[j] == ' ')
 		{
@@ -100,15 +102,14 @@ int	only_one_simple_or_dobble_quote(char *line)
 	nbr_dobble_quote = 0;
 	while (line[i])
 	{
-		if (line[i] == DOBBLE_QUOTE)
+		if (line[i] == DOBBLE_QUOTE && quote_inside_dobble_quote(&line[i + 1]) == -1)
 			nbr_dobble_quote++;
-		if (line[i] == SIMPLE_QUOTE)
+		if (line[i] == SIMPLE_QUOTE && quote_inside_simple_quote(&line[i + 1]) == -1)
 			nbr_simple_quote++;
 		i++;
 	}
 	if (nbr_dobble_quote == 1 || nbr_simple_quote == 1)
 	{
-		printf("error, only 1 simple or 1 dobble quote\n");
 		return (-1);
 	}
 	return (0);
@@ -119,15 +120,18 @@ int	is_dobble_pipe(char *line)
 	int	i;
 	int	nbr_quote;
 
-	i = -1;
+	i = 0;
 	nbr_quote = 0;
-	while (line[++i])
+	while (line[i])
+	{
 		if (((line[i] == SIMPLE_QUOTE || line[i] == DOBBLE_QUOTE)) && (pipe_in_quote(&line[i + 1]) == 0))
-			nbr_quote++;
-	i = -1;
+			nbr_quote++; 
+		i++;
+	}
+	i = 0;
 	if (nbr_quote == 0)
 	{
-		while (line[++i])
+		while (line[i])
 		{
 			if (line[i] == PIPE)
 			{
@@ -137,6 +141,7 @@ int	is_dobble_pipe(char *line)
 					return (-1);
 				}
 			}
+			i++;
 		}
 	}
 	return (0);
@@ -159,6 +164,8 @@ int	space_after_pipe(char *line)
 				j = i + 1;
 				while (line[j] != PIPE)
 				{
+					if (check_if_letter_beetween_pipe(&line[j]) == 0)
+						return (0);
 					if (line[j] == ' ')
 					{
 						printf("space beetween pipe\n");
@@ -196,4 +203,106 @@ int	nbr_pipe_in_string(char *line)
 		i++;
 	}
 	return (nbr_pipe);
+}
+
+int	quote_have_no_pair(char *line)
+{
+	int	i;
+
+	i = 0;
+	if (check_if_dobble_quote_is_pair(line) == -1 && check_if_single_quote_is_pair(line) == -1)
+		return (-1);
+	// if (check_if_single_quote_is_pair(line) == -1)
+	// 	return (-1);
+	return (0);
+}
+
+int	check_if_dobble_quote_is_pair(char *line)
+{
+	int	i;
+	int	dobble_quote;
+	int	simple_quote;
+
+	dobble_quote = 0;
+	simple_quote = 0;
+	i = 0;
+	while (line[i])
+	{
+		if ((line[i] == DOBBLE_QUOTE || line[i] == SIMPLE_QUOTE) && quote_inside_dobble_quote(&line[i + 1]) == -1)
+		{
+			dobble_quote++;
+		}
+		// if ((line[i] == DOBBLE_QUOTE || line[i] == SIMPLE_QUOTE) && quote_inside_simple_quote(&line[i + 1]) == -1)
+		// {
+		// 	simple_quote++;
+		// }
+		// if (line[i] == SIMPLE_QUOTE && quote_inside_simple_quote(&line[i + 1]) == -1)
+		// 	simple_quote++;
+		i++;
+	}
+	if (dobble_quote == 0 || dobble_quote % 2 == 0) //&& (simple_quote == 0 || simple_quote % 2 == 0))*
+	{
+		return (0);
+	}
+	return (-1);
+}
+
+int	check_if_single_quote_is_pair(char *line)
+{
+	int	i;
+	int	dobble_quote;
+	int	simple_quote;
+
+	dobble_quote = 0;
+	simple_quote = 0;
+	i = 0;
+	while (line[i])
+	{
+		if ((line[i] == DOBBLE_QUOTE || line[i] == SIMPLE_QUOTE) && quote_inside_simple_quote(&line[i + 1]) == -1)
+		{
+			simple_quote++;
+		}
+		// if (line[i] == SIMPLE_QUOTE && quote_inside_simple_quote(&line[i + 1]) == -1)
+		// 	simple_quote++;
+		i++;
+	}
+	if (simple_quote == 0 || simple_quote % 2 == 0)
+	{
+		return (0);
+	}
+	return (-1);
+}
+
+// int	check_if_single_quote_is_pair(char *line)
+// {
+// 	int	i;
+// 	int	dobble_quote;
+
+// 	dobble_quote = 0;
+// 	i = 0;
+// 	while (line[i])
+// 	{
+// 		if (line[i] == SIMPLE_QUOTE)
+// 			dobble_quote++;
+// 		i++;
+// 	}
+// 	if (dobble_quote != 0 && dobble_quote % 2 == 0)
+// 	{
+// 		return (0);
+// 	}
+// 	return (-1);
+// }
+
+int	check_if_letter_beetween_pipe(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] != '|')
+	{
+		if (ft_isalpha(line[i]) == 1 || ft_isdigit(line[i]) == 1)
+			return (0);
+		i++;
+	}
+	return (-1);
 }
