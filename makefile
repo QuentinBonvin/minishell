@@ -3,7 +3,8 @@ CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 CC = gcc -g 
 OBJ = ${SRCS:.c=.o}
 SRCS = main.c parsing.c env.c link_list_cmd.c str_tok.c builtin.c dobble_quote.c nodes.c \
-utils.c signals.c
+utils.c signals.c parsing_dobble_pipe.c parsing_pipe_in_quote.c parsing_quote.c \
+parsing_space_beetween_pipe.c parsing_quote_no_pair.c
 LIBFT = ./libft 
 LIBFT_A = ./libft/libft.a
 
