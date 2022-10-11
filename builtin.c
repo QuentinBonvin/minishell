@@ -1,20 +1,15 @@
 #include "minishell.h"
 
-void	builtin(char *line, t_shell *list)
+void	builtin(t_shell *list)
 {
 	t_cmd	*current;
 	char	*aux;
 	int		i;
-	int 	l;
+	int		l;
 
-	(void)line;
-	// printf("current: %s\n", list->head->prev->content);
 	current = list->head;
 	i = 0;
 	l = ft_strlen((current->content) - 1);
-	// printf_cmd(list);
-	// printf_env(list);
-	// printf("length: %d\n", l);
 	if (ft_strcmp(&current->content[i], "pwd") == 0)
 	{
 		aux = getcwd(NULL, 0);
@@ -23,15 +18,11 @@ void	builtin(char *line, t_shell *list)
 	if ((ft_strncmp2(&current->content[0], "cd", l) == 0))
 		call_cd(aux, &list->head->content[1]);
 	else if ((ft_strncmp2(&current->content[0], "echo", l) == 0))
-	{
-		printf("echo works\n");
 		mini_echo(list, list->head->content);
-	}
 	else if ((ft_strncmp2(&current->content[0], "export", l) == 0))
 		printf("export works\n");
 	else if (ft_strcmp(&current->content[0], "unset") == 0)
 		call_unset(list, list->head->prev->content);
-		// printf("%s\n", list->head->prev->content);
 	else if (ft_strncmp2(&current->content[0], "env", l) == 0)
 		printf_env(list);
 	else if (ft_strncmp2(&current->content[0], "exit", l) == 0)

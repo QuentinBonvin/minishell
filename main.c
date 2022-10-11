@@ -18,11 +18,10 @@ int	main(int argc, char **argv, char **envp)
 			//return (0);
 		}
 		list = check_line(line, list);
-		// printf_cmd(list);
-		builtin(line, list);
-		//printf("%s\n", line);
+		// builtin(line, list);
 		// check_line(line, list);
-		//builtin(line, list);
+		// check_line(line, list);
+		builtin(list);
 		add_history(line);
 		signal(SIGINT, sig_handler);
 		// signal(SIGQUIT, SIG_IGN);

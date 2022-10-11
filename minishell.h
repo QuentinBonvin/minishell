@@ -110,7 +110,7 @@ int				last_check_dobble_pipe(char *line);
 /*************************************************
 Link list function for builtins
 *************************************************/	
-void			builtin(char *line, t_shell *list);
+void			builtin(t_shell *list);
 int				ft_strcmp(char *s1, char *s2);
 char			*search_env(t_shell *list);
 int				call_cd(char *aux, char *path);

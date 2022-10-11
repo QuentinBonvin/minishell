@@ -1,44 +1,44 @@
 #include "minishell.h"
 
-int	parsing_line(char *line, t_shell *list)
-{
-	int			i;
-	int			ret;
+// int	parsing_line(char *line, t_shell *list)
+// {
+// 	int			i;
+// 	int			ret;
 
-	i = 0;
-	if (!string_search(line, '\'') || string_search(line, '\"'))
-	{
-		split_with_pipe(line, list);
-		return (-1);
-	}
-	while (line[i])
-	{
-		if (line[i] == SIMPLE_QUOTE)
-		{
-			ret = check_quote(line, i, line[i]);
-			if (ret == -1)
-			{
-				printf("error\n");
-				return (-1);
-			}
-			i = ret;
-		list->single_quote = 1;
-		}
-		if (line[i] == DOBBLE_QUOTE)
-		{
-			ret = check_quote(line, i, line[i]);
-			if (ret == -1)
-			{
-				printf("error\n");
-				return (-1);
-			}
-			i = ret;
-			list->double_quote = 1;
-		}
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	if (!string_search(line, '\'') || string_search(line, '\"'))
+// 	{
+// 		split_with_pipe(line, list);
+// 		return (-1);
+// 	}
+// 	while (line[i])
+// 	{
+// 		if (line[i] == SIMPLE_QUOTE)
+// 		{
+// 			ret = check_quote(line, i, line[i]);
+// 			if (ret == -1)
+// 			{
+// 				printf("error\n");
+// 				return (-1);
+// 			}
+// 			i = ret;
+// 		list->single_quote = 1;
+// 		}
+// 		if (line[i] == DOBBLE_QUOTE)
+// 		{
+// 			ret = check_quote(line, i, line[i]);
+// 			if (ret == -1)
+// 			{
+// 				printf("error\n");
+// 				return (-1);
+// 			}
+// 			i = ret;
+// 			list->double_quote = 1;
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 t_shell	*check_line(char *line, t_shell *list)
 {
@@ -183,13 +183,13 @@ int	parsing_line(char *line, t_shell *list)
 	return (0);
 }
 
-void	check_line(char *line, t_shell *list)
-{
-	if (parsing_line(line, list) == 0 && list->double_quote == 1)
-		split_with_double_quote(line, list);
-	if (parsing_line(line, list) == 0 && list->single_quote == 1)
-		split_with_single_quote(line, list);
-}
+// void	check_line(char *line, t_shell *list)
+// {
+// 	if (parsing_line(line, list) == 0 && list->double_quote == 1)
+// 		split_with_double_quote(line, list);
+// 	if (parsing_line(line, list) == 0 && list->single_quote == 1)
+// 		split_with_single_quote(line, list);
+// }
 
 int	nbr_pipe_in_string(char *line)
 {
