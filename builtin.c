@@ -23,11 +23,15 @@ void	builtin(char *line, t_shell *list)
 	if ((ft_strncmp2(&current->content[0], "cd", l) == 0))
 		call_cd(aux, &list->head->content[1]);
 	else if ((ft_strncmp2(&current->content[0], "echo", l) == 0))
+	{
 		printf("echo works\n");
+		mini_echo(list, list->head->content);
+	}
 	else if ((ft_strncmp2(&current->content[0], "export", l) == 0))
 		printf("export works\n");
 	else if (ft_strcmp(&current->content[0], "unset") == 0)
 		call_unset(list, list->head->prev->content);
+		// printf("%s\n", list->head->prev->content);
 	else if (ft_strncmp2(&current->content[0], "env", l) == 0)
 		printf_env(list);
 	else if (ft_strncmp2(&current->content[0], "exit", l) == 0)
@@ -100,3 +104,19 @@ int	ft_strncmp2(char *s1, char *s2, int n)
 	}
 	return (-1);
 }
+
+// int	ft_strcmp3(char *s1, char *s2, int i)
+// {
+// 	while ((s1[i] != '\0' && s2[i] != '\0') && s1[i] == s2[i])
+// 	{
+// 		i++;
+// 		printf("s1: %s\n", s1);
+// 		printf("s2: %s\n", s2);
+// 	}
+// 	if (*s1 == *s2)
+// 	{
+// 		return (0);
+// 	}
+// 	else
+// 		return (-1);
+// }

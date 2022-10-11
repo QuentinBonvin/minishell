@@ -66,7 +66,7 @@ t_shell	*split_with_double_quote(char *line, t_shell *list)
 		// printf("token = %s\n", list->token);
 		i++;
 	}
-	// printf_cmd(list);
+	printf_cmd(list);
 	return (list);
 }
 

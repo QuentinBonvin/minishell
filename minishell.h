@@ -115,6 +115,9 @@ void			call_pwd(char *aux);
 int				call_unset(t_shell *list, char *var);
 int				ft_strncmp2(char *s1, char *s2, int n);
 void			ft_remove_from_list(t_shell *list, char *var);
+int				ft_delete_first_node(t_env **env_head, t_env *curr, char *var);
+void			mini_echo(t_shell *list, char *command);
+int				ft_find_sign(char *command);
 
 /*************************************************
 Link list function for linked list
@@ -126,5 +129,6 @@ void			sig_handler(int signum);
 void			sig_quit(int signum);
 void			rl_replace_line(char *text, int clear_undo);
 t_shell			*check_line(char *line, t_shell *list);
+// void			remove_node(t_node *node);
 
 #endif

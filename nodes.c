@@ -30,3 +30,16 @@ void	*insert_beginning(t_cmd **tail, char *token)
 	return (0);
 }
 
+// void	remove_node(t_node *node)
+// {
+// 	if (node->back != NULL)
+// 	{
+// 		node->back->next = node->next;
+// 	}
+// 	if (node->next != NULL)
+// 	{
+// 		node->next->back = node->back;
+// 	}
+// 	free(node);
+// 	node = NULL;
+// }
