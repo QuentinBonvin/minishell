@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		//printf("%s\n", line);
 		check_line(line, list);
-		//builtin(line, list);
+		builtin(line, list);
 		add_history(line);
 		signal(SIGINT, sig_handler);
 		// signal(SIGQUIT, SIG_IGN);
