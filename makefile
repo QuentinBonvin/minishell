@@ -1,4 +1,5 @@
 NAME = minishell
+USERNAME = ${USER}
 CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 CC = gcc -g 
 OBJ = ${SRCS:.c=.o}
@@ -8,8 +9,8 @@ parsing_space_beetween_pipe.c parsing_quote_no_pair.c
 LIBFT = ./libft 
 LIBFT_A = ./libft/libft.a
 
-RDLINC    =    -I/Users/nnemeth/.brew/opt/readline/include
-LIBRDL =    -L/Users/nnemeth/.brew/opt/readline/lib -lreadline
+RDLINC    =    -I/Users/${USERNAME}/.brew/opt/readline/include
+LIBRDL =    -L/Users/${USERNAME}/.brew/opt/readline/lib -lreadline
 
 all : ${NAME}
 
