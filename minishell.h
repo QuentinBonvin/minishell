@@ -104,6 +104,7 @@ int				check_dobble_pipe_before_quote(char *line);
 int				check_only_dobble_pipe(char *line);
 int				last_check_dobble_pipe(char *line);
 void			ctrl_c_signal(int signum);
+void			ctrl_d_signal(int signum);
 void			handle_signal(struct termios *saved);
 void 			hide_keystrokes(struct termios *attr);
 
