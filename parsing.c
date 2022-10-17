@@ -44,11 +44,6 @@ t_shell	*check_line(char *line, t_shell *list)
 {
 	int res;
 
-	if (check_error(line))
-	{
-		printf("error\n");
-		//return (0);
-	}
 	res = parsing_line(line, list);
 	if (res == 0 && list->double_quote == 1)
 	{

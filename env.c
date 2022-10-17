@@ -23,7 +23,7 @@ void	init_env(char **envp, t_shell *list)
 
 void	printf_env(t_shell *list)
 {
-	t_env *curr;
+	t_env	*curr;
 
 	curr = list->env_head;
 	while (curr)

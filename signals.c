@@ -1,20 +1,35 @@
 #include "minishell.h"
 
-void	sig_handler(int signum)
+void	handle_signal(struct termios *saved)
+{
+	hide_keystrokes(saved);
+	signal(SIGINT, ctrl_c_signal);
+	signal(SIGQUIT, ctrl_c_signal);
+}
+
+
+void	ctrl_c_signal(int signum)
 {
 	if (signum == SIGINT)
 	{
-		printf("\n");
+		rl_replace_line("", 0);
 		rl_on_new_line();
-		rl_replace_line("", 1);
+		write(1, "\n", 1);
+		rl_redisplay();
+	}
+	else if (signum == SIGQUIT)
+	{
+		rl_on_new_line();
 		rl_redisplay();
 	}
 }
 
-void	sig_quit(int signum)
+void hide_keystrokes(struct termios *saved) 
 {
-	if (signum == SIGINT)
-	{
-		rl_redisplay();
-	}
+	struct termios	attr;
+
+    tcgetattr(STDIN_FILENO, saved);
+    tcgetattr(STDIN_FILENO, &attr);
+    attr.c_lflag &= ~ECHOCTL;
+    tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
 }

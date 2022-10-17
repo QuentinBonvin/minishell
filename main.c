@@ -1,32 +1,42 @@
 #include "minishell.h"
 
+
 int	main(int argc, char **argv, char **envp)
 {
+	struct termios	saved;
+	
 	char		*line;
 	t_shell		*list;
-
 	(void)argc;
 	(void)argv;
+
 	list = malloc(sizeof(t_shell));
 	init_env(envp,list);
 	while (1)
 	{
+		handle_signal(&saved);
 		line = readline("\033[0;35mqbonvin_minishell ▸ \033[0;37m");
-		if (check_error(line))
+		if (!line)
+			break ;
+		if (line[0] != '\0')
 		{
-			printf("error after check error\n");
-			//return (0);
+			if (check_error(line))
+			{
+				printf("error after check error\n");
+				// free(line);
+				// free(list);
+				return (0);
+			}
+			list = check_line(line, list);
+			// builtin(line, list);
+			// check_line(line, list);
+			// check_line(line, list);
+			builtin(list);
+			add_history(line);
+			tcsetattr(STDIN_FILENO, TCSANOW, &saved);
+			// free(line);
+			// free(list);
 		}
-		list = check_line(line, list);
-		// builtin(line, list);
-		// check_line(line, list);
-		// check_line(line, list);
-		builtin(list);
-		add_history(line);
-		signal(SIGINT, sig_handler);
-		// signal(SIGQUIT, SIG_IGN);
-		// signal(SIGINT, sig_handler);
-		// signal(SIGQUIT, sig_quit);
 	}
 	return (EXIT_SUCCESS);
 }

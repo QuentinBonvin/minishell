@@ -17,6 +17,10 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <termios.h>
+
+// struct termios saved;
+// struct termios attributes;
 
 /*************************************************
 Link list for environnement
@@ -99,6 +103,12 @@ int				pipe_in_single_quote(char *line);
 int				check_dobble_pipe_before_quote(char *line);
 int				check_only_dobble_pipe(char *line);
 int				last_check_dobble_pipe(char *line);
+void			ctrl_c_signal(int signum);
+void			ctrl_d_signal(int signum);
+void			handle_signal(struct termios *saved);
+void 			hide_keystrokes(struct termios *attr);
+
+
 
 // void	print_env(t_content_env *env);
 // int		init_env(t_content_env **new_env, char **envp);
@@ -136,8 +146,6 @@ Link list function for linked list
 
 void			*start_stack(t_cmd **head, t_cmd **tail, char *token);
 void			*insert_beginning(t_cmd **tail, char *token);
-void			sig_handler(int signum);
-void			sig_quit(int signum);
 void			rl_replace_line(char *text, int clear_undo);
 t_shell			*check_line(char *line, t_shell *list);
 // void			remove_node(t_node *node);

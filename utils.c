@@ -133,7 +133,7 @@ void	printf_cmd(t_shell *list)
 		exit(EXIT_FAILURE);
 	while (current != NULL)
 	{
-		printf("%s\n", current->content);
+		printf("commande = %s\n", current->content);
 		current = current->prev;
 	}
 }

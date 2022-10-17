@@ -8,11 +8,10 @@ int call_unset(t_shell *list, char *var)
 	return (0);
 }
 
-
 void	ft_remove_from_list(t_shell *list, char *var)
 {
-	t_env *curr;
-	t_env *tmp;
+	t_env 	*curr;
+	t_env 	*tmp;
 	int		l;
 
 	curr = list->env_head;
