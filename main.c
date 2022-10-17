@@ -23,51 +23,18 @@ int	main(int argc, char **argv, char **envp)
 			if (check_error(line))
 			{
 				printf("error after check error\n");
-				// free(line);
-				// free(list);
+				free(line);
 				return (0);
 			}
 			list = check_line(line, list);
-			// builtin(line, list);
-			// check_line(line, list);
-			// check_line(line, list);
 			builtin(list);
 			add_history(line);
 			tcsetattr(STDIN_FILENO, TCSANOW, &saved);
-			// free(line);
-			// free(list);
 		}
+		free_cmd(list);
+		free(line);
 	}
+	free_env(list);
+	free(list);
 	return (EXIT_SUCCESS);
-}
-
-void	*create_cell(t_env **env_head, t_env **env_tail, char **envp)
-{
-	t_env	*cell;
-
-	(void)envp;
-	cell = malloc(sizeof(t_env));
-	if (!(cell))
-		return (NULL);
-	cell->content = *envp;
-	cell->next = NULL;
-	cell->prev = NULL;
-	*env_head = cell;
-	*env_tail = cell;
-	return (0);
-}
-
-void	*add_envp_to_env(t_env **env_tail, char **envp)
-{
-	t_env	*new_node;
-
-	new_node = malloc(sizeof(t_env));
-	if (new_node == NULL)
-		return 0;
-	new_node->content = *envp;
-	new_node->next = *env_tail;
-	new_node->prev = NULL;
-	(*env_tail)->prev = new_node;
-	*env_tail = new_node;
-	return (0);
 }

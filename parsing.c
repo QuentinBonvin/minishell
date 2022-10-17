@@ -1,64 +1,5 @@
 #include "minishell.h"
 
-// int	parsing_line(char *line, t_shell *list)
-// {
-// 	int			i;
-// 	int			ret;
-
-// 	i = 0;
-// 	if (!string_search(line, '\'') || string_search(line, '\"'))
-// 	{
-// 		split_with_pipe(line, list);
-// 		return (-1);
-// 	}
-// 	while (line[i])
-// 	{
-// 		if (line[i] == SIMPLE_QUOTE)
-// 		{
-// 			ret = check_quote(line, i, line[i]);
-// 			if (ret == -1)
-// 			{
-// 				printf("error\n");
-// 				return (-1);
-// 			}
-// 			i = ret;
-// 		list->single_quote = 1;
-// 		}
-// 		if (line[i] == DOBBLE_QUOTE)
-// 		{
-// 			ret = check_quote(line, i, line[i]);
-// 			if (ret == -1)
-// 			{
-// 				printf("error\n");
-// 				return (-1);
-// 			}
-// 			i = ret;
-// 			list->double_quote = 1;
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-t_shell	*check_line(char *line, t_shell *list)
-{
-	int res;
-
-	res = parsing_line(line, list);
-	if (res == 0 && list->double_quote == 1)
-	{
-		list = split_with_double_quote(line, list);
-	}
-	if (res == 0 && list->single_quote == 1)
-	// if (parsing_line(line, list) == 0 && list->double_quote == 1)
-	// 	split_with_double_quote(line, list);
-	// if (parsing_line(line, list) == 0 && list->single_quote == 1)
-		split_with_single_quote(line, list);
-	// printf("list manual: %s\n", list->head->prev->content);
-	// printf_cmd(list);
-	return (list);
-}
-
 int	check_error(char *line)
 {
 	if (pipe_at_start_or_end(line) == -1)
@@ -75,6 +16,50 @@ int	check_error(char *line)
 		return (-1);
 	if (last_check_dobble_pipe(line) == -1)
 		return (-1);
+	return (0);
+}
+
+t_shell	*check_line(char *line, t_shell *list)
+{
+	int res;
+
+	res = parsing_line(line, list);
+	if (res == 0 && list->double_quote == 1)
+	{
+		list = split_with_double_quote(line, list);
+	}
+	if (res == 0 && list->single_quote == 1)
+		list = split_with_single_quote(line, list);
+	return (list);
+}
+
+int	parsing_line(char *line, t_shell *list)
+{
+	int			i;
+	int			ret;
+
+	i = 0;
+	if (string_search(line, '\'') == 0  && string_search(line, '\"') == 0)
+	{
+		split_with_pipe(line, list);
+		return (-1);
+	}
+	while (line[i])
+	{
+		if (line[i] == SIMPLE_QUOTE)
+		{
+			ret = check_quote(line, i, line[i]);
+			i = ret;
+		list->single_quote = 1;
+		}
+		if (line[i] == DOBBLE_QUOTE)
+		{
+			ret = check_quote(line, i, line[i]);
+			i = ret;
+			list->double_quote = 1;
+		}
+		i++;
+	}
 	return (0);
 }
 
@@ -136,55 +121,6 @@ int last_check_dobble_pipe(char *line)
 	}
 	return (0);
 }
-
-
-int	parsing_line(char *line, t_shell *list)
-{
-	int			i;
-	int			ret;
-
-	i = 0;
-	if (!(string_search(line, '\'') || (string_search(line, '\"'))))
-	{
-		split_with_pipe(line, list);
-		return (-1);
-	}
-	while (line[i])
-	{
-		if (line[i] == SIMPLE_QUOTE)
-		{
-			ret = check_quote(line, i, line[i]);
-			if (ret == -1)
-			{
-				printf("error\n");
-				return (-1);
-			}
-			i = ret;
-		list->single_quote = 1;
-		}
-		if (line[i] == DOBBLE_QUOTE)
-		{
-			ret = check_quote(line, i, line[i]);
-			if (ret == -1)
-			{
-				printf("error\n");
-				return (-1);
-			}
-			i = ret;
-			list->double_quote = 1;
-		}
-		i++;
-	}
-	return (0);
-}
-
-// void	check_line(char *line, t_shell *list)
-// {
-// 	if (parsing_line(line, list) == 0 && list->double_quote == 1)
-// 		split_with_double_quote(line, list);
-// 	if (parsing_line(line, list) == 0 && list->single_quote == 1)
-// 		split_with_single_quote(line, list);
-// }
 
 int	nbr_pipe_in_string(char *line)
 {

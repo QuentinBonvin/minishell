@@ -78,7 +78,7 @@ function for parsing
 int				parsing_line(char *line, t_shell *list);
 void			split_with_pipe(char *line, t_shell *list);
 t_shell			*split_with_double_quote(char *line, t_shell *list);
-void			split_with_single_quote(char *line, t_shell *list);
+t_shell			*split_with_single_quote(char *line, t_shell *list);
 char			*my_strtok(char *str, char *delim);
 unsigned int	is_delim(char c, char *delim);
 int				dobble_quote(char *line);
@@ -149,5 +149,9 @@ void			*insert_beginning(t_cmd **tail, char *token);
 void			rl_replace_line(char *text, int clear_undo);
 t_shell			*check_line(char *line, t_shell *list);
 // void			remove_node(t_node *node);
+void			free_cmd(t_shell *list);
+void			free_env(t_shell *list);
+void			remove_node(t_cmd *node);
+void			free_tab(char **env);
 
 #endif

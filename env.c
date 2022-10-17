@@ -14,11 +14,41 @@ void	init_env(char **envp, t_shell *list)
 		else
 		{
 			add_envp_to_env(&list->env_tail, &envp[i]);
-			// printf("%s\n", list->env_head->content);
 		}
 		i++;
 	}
-	// printf_env(list);
+	free(env);
+}
+
+void	*create_cell(t_env **env_head, t_env **env_tail, char **envp)
+{
+	t_env	*cell;
+
+	(void)envp;
+	cell = malloc(sizeof(t_env));
+	if (!(cell))
+		return (NULL);
+	cell->content = *envp;
+	cell->next = NULL;
+	cell->prev = NULL;
+	*env_head = cell;
+	*env_tail = cell;
+	return (0);
+}
+
+void	*add_envp_to_env(t_env **env_tail, char **envp)
+{
+	t_env	*new_node;
+
+	new_node = malloc(sizeof(t_env));
+	if (new_node == NULL)
+		return 0;
+	new_node->content = *envp;
+	new_node->next = *env_tail;
+	new_node->prev = NULL;
+	(*env_tail)->prev = new_node;
+	*env_tail = new_node;
+	return (0);
 }
 
 void	printf_env(t_shell *list)
@@ -33,15 +63,19 @@ void	printf_env(t_shell *list)
 	}
 }
 
-t_env	*create_node(char *node)
+void	free_env(t_shell *list)
 {
-	t_env *new;
+	t_env	*current;
 
-	new = malloc(sizeof(t_env));
-	if (new)
+	current = list->env_head;
+	if (list == NULL)
+		exit(EXIT_FAILURE);
+	while (current->prev != NULL)
 	{
-		new->content = ft_strdup(node);
-		new->prev = NULL;
+		current = current->prev;
+		free(current->next);
 	}
-	return (new);
+	list->env_head = NULL;
+	list->env_tail = NULL;
+	free(current);
 }
