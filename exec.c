@@ -38,9 +38,8 @@ char	*get_env(char *name, t_shell *list)
 		}
 		curr = curr->prev;
 	}
-	aux = getcwd(NULL, 0);
-	chdir(path);
-	printf("change dir: %s\n", aux);
+	// aux = getcwd(NULL, 0);
+	// chdir(path);
 	return (0);
 }
 
