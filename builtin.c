@@ -4,23 +4,24 @@ void	builtin(t_shell *list)
 {
 	t_cmd	*current;
 	char	*aux;
-	int		i;
 	int		l;
 
 	current = list->head;
-	i = 0;
 	l = ft_strlen((current->content) - 1);
-	if (ft_strcmp(&current->content[i], "pwd") == 0)
+	if (ft_strcmp(&current->content[0], "pwd") == 0)
 	{
 		aux = getcwd(NULL, 0);
 		call_pwd(aux);
 	}
 	if ((ft_strncmp2(&current->content[0], "cd", l) == 0))
-		call_cd(aux, &list->head->content[1]);
+		call_cd(aux, list);
 	else if ((ft_strncmp2(&current->content[0], "echo", l) == 0))
 		mini_echo(list, list->head->content);
 	else if ((ft_strncmp2(&current->content[0], "export", l) == 0))
+	{
+		// sort_list(list);
 		printf("export works\n");
+	}
 	else if (ft_strcmp(&current->content[0], "unset") == 0)
 		call_unset(list, list->head->prev->content);
 	else if (ft_strncmp2(&current->content[0], "env", l) == 0)

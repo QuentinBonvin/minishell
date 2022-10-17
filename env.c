@@ -32,3 +32,16 @@ void	printf_env(t_shell *list)
 		curr = curr->prev;
 	}
 }
+
+t_env	*create_node(char *node)
+{
+	t_env *new;
+
+	new = malloc(sizeof(t_env));
+	if (new)
+	{
+		new->content = ft_strdup(node);
+		new->prev = NULL;
+	}
+	return (new);
+}

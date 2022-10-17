@@ -149,7 +149,7 @@ int	parsing_line(char *line, t_shell *list)
 	int			ret;
 
 	i = 0;
-	if (!string_search(line, '\'') || string_search(line, '\"'))
+	if (!(string_search(line, '\'') || (string_search(line, '\"'))))
 	{
 		split_with_pipe(line, list);
 		return (-1);

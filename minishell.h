@@ -113,7 +113,7 @@ Link list function for builtins
 void			builtin(t_shell *list);
 int				ft_strcmp(char *s1, char *s2);
 char			*search_env(t_shell *list);
-int				call_cd(char *aux, char *path);
+int				call_cd(char *aux, t_shell *list);
 void			call_pwd(char *aux);
 int				call_unset(t_shell *list, char *var);
 int				ft_strncmp2(char *s1, char *s2, int n);
@@ -121,6 +121,14 @@ void			ft_remove_from_list(t_shell *list, char *var);
 int				ft_delete_first_node(t_env **env_head, t_env *curr, char *var);
 void			mini_echo(t_shell *list, char *command);
 int				ft_find_sign(char *command);
+t_env			*sort_list(t_shell *list);
+t_env			*ft_swap(t_env *p1, t_env *p2);
+t_env			*ft_copy(t_env *curr, t_shell *list);
+int				ft_count_env(t_shell *list);
+t_env			*create_node(char *node);
+void			print_list(t_env *copy);
+char			*get_env(char *name, t_shell *list);
+char			*join_home(char *curr, int length);
 
 /*************************************************
 Link list function for linked list
