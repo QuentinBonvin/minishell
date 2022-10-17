@@ -19,8 +19,8 @@
 # include <readline/history.h>
 # include <termios.h>
 
-struct termios saved;
-struct termios attributes;
+// struct termios saved;
+// struct termios attributes;
 
 /*************************************************
 Link list for environnement

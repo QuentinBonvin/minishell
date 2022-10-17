@@ -12,9 +12,9 @@ int	main(int argc, char **argv, char **envp)
 
 	list = malloc(sizeof(t_shell));
 	init_env(envp,list);
-	handle_signal(&saved);
 	while (1)
 	{
+		handle_signal(&saved);
 		line = readline("\033[0;35mqbonvin_minishell ▸ \033[0;37m");
 		if (!line)
 			break ;

@@ -12,7 +12,7 @@ void	ctrl_c_signal(int signum)
 {
 	if (signum == SIGINT)
 	{
-		rl_replace_line("", 60);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		write(1, "\n", 1);
 		rl_redisplay();
