@@ -32,13 +32,13 @@ void	*insert_beginning(t_cmd **tail, char *token)
 
 void	remove_node(t_cmd *node)
 {
-	if (node->next != NULL)
-	{
-		node->next->prev = node->prev;
-	}
 	if (node->prev != NULL)
 	{
 		node->prev->next = node->next;
+	}
+	if (node->next != NULL)
+	{
+		node->next->prev = node->prev;
 	}
 	free(node);
 	node = NULL;

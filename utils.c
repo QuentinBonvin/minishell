@@ -41,7 +41,7 @@ t_shell	*split_with_double_quote(char *line, t_shell *list)
 	list->token = my_strtok(line, "\"");
 	if (list->head != NULL)
 	{
-		free_cmd(list);
+		// free_cmd(list);
 		// remove_node(list->head);
 		// remove_node(list->tail);
 	}
@@ -67,7 +67,7 @@ t_shell	*split_with_single_quote(char *line, t_shell *list)
 	list->token = my_strtok(line, "\'");
 	if (list->head != NULL)
 	{
-		free_cmd(list);
+		// free_cmd(list);
 		// remove_node(list->head);
 		// remove_node(list->tail);
 	}
@@ -104,13 +104,13 @@ void	free_cmd(t_shell *list)
 	current = list->head;
 	if (list == NULL)
 		exit(EXIT_FAILURE);
-	while (current->prev != NULL)
+	while (current->next != NULL)
 	{
 		current = current->prev;
-		free(current->next);
+		free(current->prev->content);
 	}
 	list->head = NULL;
 	list->tail = NULL;
-	free(list->cmd);
 	free(current);
+	// free(list->cmd);
 }

@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 			if (check_error(line))
 			{
 				printf("error after check error\n");
-				free(line);
+				// free(line);
 				return (0);
 			}
 			list = check_line(line, list);

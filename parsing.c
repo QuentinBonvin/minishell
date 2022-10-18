@@ -23,6 +23,9 @@ t_shell	*check_line(char *line, t_shell *list)
 {
 	int res;
 
+
+	list->double_quote = 0;
+	list->single_quote = 0;
 	res = parsing_line(line, list);
 	if (res == 0 && list->double_quote == 1)
 	{
