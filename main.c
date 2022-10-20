@@ -1,6 +1,5 @@
 #include "minishell.h"
 
-
 int	main(int argc, char **argv, char **envp)
 {
 	struct termios	saved;
@@ -10,7 +9,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
+	add_history("export");
 	list = malloc(sizeof(t_shell));
+	init_list(list);
 	init_env(envp,list);
 	while (1)
 	{

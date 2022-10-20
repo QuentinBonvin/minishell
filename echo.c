@@ -15,9 +15,17 @@ void	mini_echo(t_shell *list, char *command)
 		option = 1;
 		i++;
 	}
-	while (curr->prev->content != NULL)
+	while (curr->prev)
 	{
-		ft_putstr(curr->prev->content);
+		if (option == 1)
+			i = 2;
+		else 
+			i = 1;
+		while (curr->tab[i])
+		{
+			ft_putstr(curr->tab[i]);
+			i++;
+		}
 		curr = curr->prev;
 	}
 	if (option == 1)
@@ -31,10 +39,11 @@ int	ft_find_sign(char *command)
 	int	i;
 
 	i = 0;
-	while (command[++i])
+	while (command[i])
 	{
 		if (command[i] == '-')
 			break ;
+		i++;
 	}
 	return (i);
 }

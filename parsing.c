@@ -1,24 +1,5 @@
 #include "minishell.h"
 
-int	check_error(char *line)
-{
-	if (pipe_at_start_or_end(line) == -1)
-		return (-1);
-	if (only_one_simple_or_dobble_quote(line) == -1)
-		return (-1);
-	if (is_dobble_pipe(line) == -1)
-		return (-1);
-	if (space_after_pipe(line) == -1)
-		return (-1);
-	if (quote_have_no_pair(line) == -1)
-		return (-1);
-	if (check_dobble_pipe_before_quote(line) == -1)
-		return (-1);
-	if (last_check_dobble_pipe(line) == -1)
-		return (-1);
-	return (0);
-}
-
 t_shell	*check_line(char *line, t_shell *list)
 {
 	int res;
@@ -27,12 +8,10 @@ t_shell	*check_line(char *line, t_shell *list)
 	list->double_quote = 0;
 	list->single_quote = 0;
 	res = parsing_line(line, list);
-	if (res == 0 && list->double_quote == 1)
-	{
-		list = split_with_double_quote(line, list);
-	}
-	if (res == 0 && list->single_quote == 1)
-		list = split_with_single_quote(line, list);
+	// if (res == 0 && list->double_quote == 1)
+	// 	list = split_with_double_quote(line, list);
+	// if (res == 0 && list->single_quote == 1)
+	// 	list = split_with_single_quote(line, list);
 	return (list);
 }
 
@@ -42,27 +21,55 @@ int	parsing_line(char *line, t_shell *list)
 	int			ret;
 
 	i = 0;
-	if (string_search(line, '\'') == 0  && string_search(line, '\"') == 0)
+	ret = 0;
+	if ((string_search(line, '\'') == -1))
+	{
+		list->start = string_start(line, '\'' );
+		list->end = check_quote(line, list->start, line[list->start]);
+		// ret = pipe_in_quote(line);
+		// printf("%d\n", ret);
+		// if (pipe_in_quote(line) != -1)
+		// {
+		// 	printf("test\n");
+			split_with_pipe1(line, list);
+		// 
+		// return (-1);
+	}
+	else if (((string_search(line, '\"') == -1)))
+	{
+		list->start = string_start(line, '\"' );
+		list->end = check_quote(line, list->start, line[list->start]);
+		// ret = pipe_in_quote(line);
+		// printf("%d\n", ret);
+		// if (pipe_in_quote(line) != -1)
+		// {
+		// 	printf("test\n");
+			split_with_pipe1(line, list);
+		// 
+		// return (-1);
+	}
+	else if (string_search(line, '\'') == 0  && string_search(line, '\"') == 0 )/*&& string_search(line, '|') != 0)*/
 	{
 		split_with_pipe(line, list);
-		return (-1);
+		// return (-1);
 	}
-	while (line[i])
-	{
-		if (line[i] == SIMPLE_QUOTE)
-		{
-			ret = check_quote(line, i, line[i]);
-			i = ret;
-		list->single_quote = 1;
-		}
-		if (line[i] == DOBBLE_QUOTE)
-		{
-			ret = check_quote(line, i, line[i]);
-			i = ret;
-			list->double_quote = 1;
-		}
-		i++;
-	}
+	list_to_array(list);
+	// while (line[i])
+	// {
+	// 	if (line[i] == SIMPLE_QUOTE)
+	// 	{
+	// 		ret = check_quote(line, i, line[i]);
+	// 		i = ret;
+	// 	list->single_quote = 1;
+	// 	}
+	// 	if (line[i] == DOBBLE_QUOTE)
+	// 	{
+	// 		ret = check_quote(line, i, line[i]);
+	// 		i = ret;
+	// 		list->double_quote = 1;
+	// 	}
+	// 	i++;
+	// }
 	return (0);
 }
 

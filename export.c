@@ -1,83 +1,107 @@
 #include "minishell.h"
 
-t_env	*sort_list(t_shell *list)
+void	sort_list(t_shell *list)
 {
-	t_env *p1;
-	t_env *p2;
-	t_env *copy;
+	char **env_array;
 	int		i;
-	int		j;
+	int		l;
 	int		swapped;
+	char	*tmp;
 
-
-	copy = ft_copy(list->env_head, list);
-	i = (ft_count_env(list) + 1);
-	j = 0;
-	// curr = copy;
-	while (j <= i)
+	swapped = 0 ;
+	env_array = convert_list(list);
+	l = (ft_count_env(list) + 1);
+	// i = 0;
+	// while (i < l)
+	// {
+	// 	// while (j < (l - i -1))
+	// 	// {
+	// 		while (env_array[i] > env_array[i + 1])
+	// 		{
+	// 			printf("env %s\n",env_array[i]);
+	// 			printf("env + 1 %s\n", env_array[i + 1]);
+	// 			ft_swap(env_array[i], (env_array[i + 1]));
+	// 			// printf("%c\n", env_array[i][j]);
+	// 			// swapped = 1;
+	// 			i++;
+	// 		}
+	// 	// 	j++;
+	// 	// }
+	// 	// if (swapped == 0)
+	// 	// 	break ;
+	// 	i++;
+	// }
+	while (env_array && swapped == 0)
 	{
-		copy = list->env_head;
-		swapped = 0;
-		while (0 < (i - j -1) || copy->content != NULL)
+		swapped = 1;
+		i = 0;
+		printf("%d\n", l);
+		while (i < (l))
 		{
-			p1 = copy;
-			p2 = p1->prev;
-			// curr = copy;
-			// while (copy != NULL)
-			// {	
-			if (p1->content[0] > p2->content[0])
+			if (printf("i: %c\n", env_array[i][0] ) > printf("i + 1: %c\n", env_array[i + 1][0]))
 			{
-				copy = ft_swap(p1, p1->prev);
-				swapped = 1;
+				tmp = env_array[i];
+				env_array[i] = env_array[i + 1];
+				env_array[i + 1] = tmp;
+				swapped = 0;
+				printf("env: %s\n", env_array[i + 1]);
 			}
-			p1 = p1->prev;
-			p2 = p2->prev;
-			copy = copy->prev;
-			// }
-			j++;
+			i++;
 		}
-		if (swapped == 0)
-			break ;
+		l--;
+	}
+	print_array(env_array, l);
+}
+
+char **convert_list(t_shell *list)
+{
+	char	**env_array;
+	int		length;
+	t_env	*curr;
+	int		i;
+
+	i = 0;
+	length = ft_count_env(list);
+	curr = list->env_head;
+	env_array = (char **)malloc(sizeof(char **) * (length));
+	while (curr)
+	{
+		env_array[i] = curr->content;
+		curr = curr->prev;
 		i++;
 	}
-	// print_list(copy);
-	return (copy);
+	return (env_array);
 }
 
-
-void	print_list(t_env *copy)
+void	print_array(char **env_array, int len)
 {
-	t_env *tmp;
+	int i;
 
-	tmp = copy;
-	while (tmp != NULL)
+	i = 0;
+	while (i < len)
 	{
-		tmp = tmp->prev;
+		printf("%s\n", env_array[i]);
+		i++;
 	}
 }
-t_env	*ft_swap(t_env *p1, t_env *p2)
-{
-	char *tmp;
 
-	tmp = NULL;
-	// printf("p1: %s\n", p1->content);
-	// printf("p1 next: %s\n", p2->content);
-	// j = malloc(sizeof(char *) + 1);
-	// if (p2->prev->content == NULL || p1->content == NULL) 
-	// 	return (0);
-	if (p1->prev == NULL)
-		{
-			tmp = p2->next->content;
-			p2->next->content = p1->content;
-			p1->content = tmp;
-		}
-	tmp = p2->content;
-	p2->content = p1->content;
-	p1->content = tmp;
-	// printf("tmp after swap: %s\n", tmp);
-	// printf("p1 after swap: %s\n", p1->content);
-	// printf("p2 after swap: %s\n", p2->content);
-	return (p2);
+void	ft_swap(char *s1, char *s2)
+{
+	char tmp;
+	int i;
+
+
+	// tmp = NULL;
+	i = 0;
+	// printf("s1: %s\n", s1);
+	// printf("s2: %s\n", s2);
+	while (i < (int)ft_strlen(s2))
+	{
+		tmp = s1[i];
+		s1[i] = s2[i];
+		s2[i] = tmp;
+		i++;
+	}
 }
 
 

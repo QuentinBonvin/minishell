@@ -38,6 +38,7 @@ Link list for cmd
 typedef struct s_cmd
 {
 	char				*content;
+	char				**tab;
 	struct s_cmd		*next;
 	struct s_cmd		*prev;
 }	t_cmd;
@@ -47,6 +48,8 @@ typedef struct s_shell
 	t_env			*node;
 	char			*token;
 	int				single_quote;
+	int				end;
+	int				start;
 	int				double_quote;
 	t_cmd			*cmd;
 	t_cmd			*head;
@@ -77,6 +80,7 @@ function for parsing
 *************************************************/
 int				parsing_line(char *line, t_shell *list);
 void			split_with_pipe(char *line, t_shell *list);
+void			split_with_pipe1(char *line, t_shell *list);
 t_shell			*split_with_double_quote(char *line, t_shell *list);
 t_shell			*split_with_single_quote(char *line, t_shell *list);
 char			*my_strtok(char *str, char *delim);
@@ -107,6 +111,8 @@ void			ctrl_c_signal(int signum);
 void			ctrl_d_signal(int signum);
 void			handle_signal(struct termios *saved);
 void 			hide_keystrokes(struct termios *attr);
+void    		splitting_with_space(char *line, t_shell *list);
+int    			no_quote_or_no_pipe(char *line);
 
 
 
@@ -123,22 +129,24 @@ Link list function for builtins
 void			builtin(t_shell *list);
 int				ft_strcmp(char *s1, char *s2);
 char			*search_env(t_shell *list);
-int				call_cd(char *aux, t_shell *list);
-void			call_pwd(char *aux);
+int				call_cd(t_shell *list);
+void			call_pwd(void);
 int				call_unset(t_shell *list, char *var);
 int				ft_strncmp2(char *s1, char *s2, int n);
 void			ft_remove_from_list(t_shell *list, char *var);
 int				ft_delete_first_node(t_env **env_head, t_env *curr, char *var);
 void			mini_echo(t_shell *list, char *command);
 int				ft_find_sign(char *command);
-t_env			*sort_list(t_shell *list);
-t_env			*ft_swap(t_env *p1, t_env *p2);
+void			sort_list(t_shell *list);
+void			ft_swap(char *s1, char *s2);
 t_env			*ft_copy(t_env *curr, t_shell *list);
 int				ft_count_env(t_shell *list);
 t_env			*create_node(char *node);
 void			print_list(t_env *copy);
 char			*get_env(char *name, t_shell *list);
 char			*join_home(char *curr, int length);
+char			*env_ok(char *name, t_shell *list);
+int				set_env(char *name, char *pwd, t_shell *list);
 
 /*************************************************
 Link list function for linked list
@@ -153,5 +161,10 @@ void			free_cmd(t_shell *list);
 void			free_env(t_shell *list);
 void			remove_node(t_cmd *node);
 void			free_tab(char **env);
+char 			**convert_list(t_shell *list);
+void			print_array(char **env_array, int len);
+void		    init_list(t_shell *list);
+int				string_start(char *line, char c);
+void			list_to_array(t_shell *list);
 
 #endif
