@@ -42,7 +42,7 @@ void	*add_envp_to_env(t_env **env_tail, char **envp)
 
 	new_node = malloc(sizeof(t_env));
 	if (new_node == NULL)
-		return 0;
+		return (0);
 	new_node->content = *envp;
 	new_node->next = *env_tail;
 	new_node->prev = NULL;

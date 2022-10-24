@@ -50,6 +50,7 @@ typedef struct s_shell
 	int				single_quote;
 	int				end;
 	int				start;
+	int				index;
 	int				double_quote;
 	t_cmd			*cmd;
 	t_cmd			*head;
@@ -166,5 +167,7 @@ void			print_array(char **env_array, int len);
 void		    init_list(t_shell *list);
 int				string_start(char *line, char c);
 void			list_to_array(t_shell *list);
+void			ft_split2(char const *line, char c, t_shell *list);
+void			ft_split2_to_long(const char *line, size_t i);
 
 #endif

@@ -22,6 +22,7 @@ void	list_to_array(t_shell *list)
 		tmp = tmp->prev;
 	}
 	tmp = curr;
+	// printf_cmd(list);
 	while (tmp->prev)
 	{
 		i = 0;
@@ -32,6 +33,5 @@ void	list_to_array(t_shell *list)
 		}
 		tmp = tmp->prev;
 	}
-	printf_cmd(list);
 }
 

@@ -24,6 +24,7 @@ void	mini_echo(t_shell *list, char *command)
 		while (curr->tab[i])
 		{
 			ft_putstr(curr->tab[i]);
+			ft_putstr(" ");
 			i++;
 		}
 		curr = curr->prev;

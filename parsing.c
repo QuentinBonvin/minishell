@@ -2,58 +2,51 @@
 
 t_shell	*check_line(char *line, t_shell *list)
 {
-	int res;
-
-
 	list->double_quote = 0;
 	list->single_quote = 0;
-	res = parsing_line(line, list);
-	// if (res == 0 && list->double_quote == 1)
-	// 	list = split_with_double_quote(line, list);
-	// if (res == 0 && list->single_quote == 1)
-	// 	list = split_with_single_quote(line, list);
+	ft_split2(line, '|', list);
+	// list_to_array(list);
+	printf_cmd(list);
 	return (list);
 }
 
-int	parsing_line(char *line, t_shell *list)
-{
-	int			i;
-	int			ret;
+// int	parsing_line(char *line, t_shell *list)
+// {
+// 	int			i;
+// 	int			ret;
 
-	i = 0;
-	ret = 0;
-	if ((string_search(line, '\'') == -1))
-	{
-		list->start = string_start(line, '\'' );
-		list->end = check_quote(line, list->start, line[list->start]);
-		// ret = pipe_in_quote(line);
-		// printf("%d\n", ret);
-		// if (pipe_in_quote(line) != -1)
-		// {
-		// 	printf("test\n");
-			split_with_pipe1(line, list);
-		// 
-		// return (-1);
-	}
-	else if (((string_search(line, '\"') == -1)))
-	{
-		list->start = string_start(line, '\"' );
-		list->end = check_quote(line, list->start, line[list->start]);
-		// ret = pipe_in_quote(line);
-		// printf("%d\n", ret);
-		// if (pipe_in_quote(line) != -1)
-		// {
-		// 	printf("test\n");
-			split_with_pipe1(line, list);
-		// 
-		// return (-1);
-	}
-	else if (string_search(line, '\'') == 0  && string_search(line, '\"') == 0 )/*&& string_search(line, '|') != 0)*/
-	{
-		split_with_pipe(line, list);
-		// return (-1);
-	}
-	list_to_array(list);
+// 	i = 0;
+// 	ret = 0;
+// 	if ((string_search(line, '\'') == -1))
+// 	{
+// 		list->start = string_start(line, '\'' );
+// 		list->end = check_quote(line, list->start, line[list->start]);
+// 			list->end += 1;
+// 		while (line[list->end])
+// 		{
+// 			if (line[list->end] == '|')
+// 				split_with_pipe1(line, list);
+// 			list->end++;
+// 		}
+// 	}
+// 	else if (((string_search(line, '\"') == -1)))
+// 	{
+// 		list->start = string_start(line, '\"' );
+// 		list->end = check_quote(line, list->start, line[list->start]);
+// 		list->end += 1;
+// 		while (line[list->end])
+// 		{
+// 			if (line[list->end] == '|')
+// 				split_with_pipe1(line, list);
+// 			list->end++;
+// 		}
+// 	}
+// 	else if (string_search(line, '\'') == 0  && string_search(line, '\"') == 0 )/*&& string_search(line, '|') != 0)*/
+// 	{
+// 		split_with_pipe(line, list);
+// 		// return (-1);
+// 	}
+	// list_to_array(list);
 	// while (line[i])
 	// {
 	// 	if (line[i] == SIMPLE_QUOTE)
@@ -70,8 +63,9 @@ int	parsing_line(char *line, t_shell *list)
 	// 	}
 	// 	i++;
 	// }
-	return (0);
-}
+// 	printf_cmd(list);
+// 	return (0);
+// }
 
 int	check_dobble_pipe_before_quote(char *line)
 {

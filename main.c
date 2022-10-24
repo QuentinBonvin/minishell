@@ -9,7 +9,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	add_history("export");
 	list = malloc(sizeof(t_shell));
 	init_list(list);
 	init_env(envp,list);
@@ -28,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 				return (0);
 			}
 			list = check_line(line, list);
-			builtin(list);
+			// builtin(list);
 			add_history(line);
 			tcsetattr(STDIN_FILENO, TCSANOW, &saved);
 		}

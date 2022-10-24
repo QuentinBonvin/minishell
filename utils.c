@@ -28,79 +28,36 @@ int	string_start(char *line, char c)
 	return (0);
 }
 
-void	split_with_pipe(char *line, t_shell *list)
-{
-	if (list == NULL)
-		printf("error malloc\n");
-	list->token = my_strtok(line, TOK_DELIM);
-	if (list->tail == NULL)
-		start_stack(&list->head, &list->tail, list->token);
-	else 
-		insert_beginning(&list->tail, list->token);
-	while (list->token != NULL)
-	{
-		list->token = my_strtok(NULL, TOK_DELIM);
-		insert_beginning(&list->tail, list->token);
-	}
-	// printf_cmd(list);
-}
-
-void	split_with_pipe1(char *line, t_shell *list)
-{
-	if (list == NULL)
-		printf("error malloc\n");
-	list->token = ft_substr(line, 0, (list->end + 1));
-	if (list->tail == NULL)
-		start_stack(&list->head, &list->tail, list->token);
-	else
-		insert_beginning(&list->tail, list->token);
-	if (line[list->end + 1] != '|')
-		list->end += 1;
-	split_with_pipe(&line[list->end], list);
-}
-
-// t_shell	*split_with_double_quote(char *line, t_shell *list)
+// void	split_with_pipe(char *line, t_shell *list)
 // {
 // 	if (list == NULL)
 // 		printf("error malloc\n");
-// 	list->token = my_strtok(line, "\"");
-// 	if (list->head != NULL)
-// 	{
-// 		// free_cmd(list);
-// 		// remove_node(list->head);
-// 		// remove_node(list->tail);
-// 	}
-// 	start_stack(&list->head, &list->tail, list->token);
+// 	list->token = my_strtok(line, TOK_DELIM);
+// 	if (list->tail == NULL)
+// 		start_stack(&list->head, &list->tail, list->token);
+// 	else 
+// 		insert_beginning(&list->tail, list->token);
 // 	while (list->token != NULL)
 // 	{
-// 		list->token = my_strtok(NULL, "\"");
+// 		list->token = my_strtok(NULL, TOK_DELIM);
 // 		insert_beginning(&list->tail, list->token);
 // 	}
-// 	printf_cmd(list);
-// 	list->token = NULL;
-// 	return (list);
+// 	// printf_cmd(list);
 // }
 
-// t_shell	*split_with_single_quote(char *line, t_shell *list)
+// void	split_with_pipe1(char *line, t_shell *list)
 // {
 // 	if (list == NULL)
 // 		printf("error malloc\n");
-// 	list->token = my_strtok(line, "\'");
-// 	if (list->head != NULL)
-// 	{
-// 		// free_cmd(list);
-// 		// remove_node(list->head);
-// 		// remove_node(list->tail);
-// 	}
-// 	start_stack(&list->head, &list->tail, list->token);
-// 	while (list->token != NULL)
-// 	{
-// 		list->token = my_strtok(NULL, "\'");
+
+// 	list->token = ft_substr(line, 0, (list->end));
+// 	if (list->tail == NULL)
+// 		start_stack(&list->head, &list->tail, list->token);
+// 	else
 // 		insert_beginning(&list->tail, list->token);
-// 	}
-// 	printf_cmd(list);
-// 	list->token = NULL;
-// 	return (list);
+// 	if (line[list->end + 1] != '|')
+// 		list->end += 1;
+// 	split_with_pipe(&line[list->end], list);
 // }
 
 void	printf_cmd(t_shell *list)

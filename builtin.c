@@ -3,7 +3,6 @@
 void	builtin(t_shell *list)
 {
 	t_cmd	*current;
-	// char	*aux;
 	int		l;
 
 	current = list->head;
