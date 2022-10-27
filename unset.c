@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int call_unset(t_shell *list, char *var)
+int	call_unset(t_shell *list, char *var)
 {
 	if (var == NULL)
 		return (0);
@@ -10,8 +10,8 @@ int call_unset(t_shell *list, char *var)
 
 void	ft_remove_from_list(t_shell *list, char *var)
 {
-	t_env 	*curr;
-	t_env 	*tmp;
+	t_env	*curr;
+	t_env	*tmp;
 	int		l;
 
 	curr = list->env_head;

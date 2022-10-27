@@ -7,7 +7,7 @@ int	pipe_at_start_or_end(char *line)
 
 	i = 0;
 	nbr_space = 0;
-	if (/*first_char_is_pipe(line) == -1 || */last_char_is_pipe(line) == -1)
+	if (first_char_is_pipe(line) == -1 || last_char_is_pipe(line) == -1)
 		return (-1);
 	while (line[i] != PIPE)
 	{
@@ -27,9 +27,9 @@ int	pipe_at_start_or_end(char *line)
 	return (0);
 }
 
-int last_char_is_pipe(char *line)
+int	last_char_is_pipe(char *line)
 {
-	int i;
+	int	i;
 	int	j;
 	int	nbr_space;
 
@@ -56,7 +56,7 @@ int last_char_is_pipe(char *line)
 	return (0);
 }
 
-int first_char_is_pipe(char *line)
+int	first_char_is_pipe(char *line)
 {
 	if (line[0] == PIPE)
 	{
@@ -66,33 +66,31 @@ int first_char_is_pipe(char *line)
 	return (0);
 }
 
-int	is_dobble_pipe(char *line)
+int	is_double_pipe(char *data, int i)
 {
-	int	i;
-	int	nbr_quote;
-
-	i = -1;
-	nbr_quote = 0;
-
-	while (line[++i])
-		if ((line[i] == SIMPLE_QUOTE || line[i] == DOBBLE_QUOTE) && (pipe_in_quote(&line[i + 1]) == 0))
-			nbr_quote++;
-	i = -1;
-	if (nbr_quote == 0)
+	if (data[i + 1] == PIPE)
 	{
-		while (line[++i])
-		{
-			if (line[i] == PIPE)
-			{
-				if (line[i + 1] == PIPE)
-				{
-					printf("there is dobble pipe\n");
-					return (-1);
-				}
-			}
-		}
+		printf("il y a double_pipe\n");
+		return (-1);
 	}
 	return (0);
 }
 
+int	check_space_beetween_pipe(char *data, int i)
+{
+	int	find_char;
 
+	find_char = 0;
+	i++;
+	while (data[i] != PIPE)
+	{
+		if (data[i] == '\0')
+			break ;
+		if (ft_isalpha(data[i]) == 1 || ft_isdigit(data[i]) == 1)
+			find_char++;
+		i++;
+	}
+	if (find_char == 0)
+		return (-1);
+	return (0);
+}

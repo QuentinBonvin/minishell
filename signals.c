@@ -7,7 +7,6 @@ void	handle_signal(struct termios *saved)
 	signal(SIGQUIT, ctrl_c_signal);
 }
 
-
 void	ctrl_c_signal(int signum)
 {
 	if (signum == SIGINT)
@@ -24,12 +23,12 @@ void	ctrl_c_signal(int signum)
 	}
 }
 
-void hide_keystrokes(struct termios *saved) 
+void	hide_keystrokes(struct termios *saved) 
 {
 	struct termios	attr;
 
-    tcgetattr(STDIN_FILENO, saved);
-    tcgetattr(STDIN_FILENO, &attr);
-    attr.c_lflag &= ~ECHOCTL;
-    tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
+	tcgetattr(STDIN_FILENO, saved);
+	tcgetattr(STDIN_FILENO, &attr);
+	attr.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
 }

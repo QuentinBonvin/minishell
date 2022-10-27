@@ -1,80 +1,80 @@
 #include "minishell.h"
 
-int	only_one_simple_or_dobble_quote(char *line)
+int	is_quote(char *data, int i)
 {
-	int	i;
-	int	nbr_simple_quote;
-	int	nbr_dobble_quote;
+	int	j;
 
-	i = -1;
-	nbr_simple_quote = 0;
-	nbr_dobble_quote = 0;
-	while (line[++i])
+	j = 0;
+	if (data[i] == '\'')
 	{
-		if (line[i] == DOBBLE_QUOTE)
-		{
-			if (quote_inside_dobble_quote(line) == -1)
-				nbr_dobble_quote++;
-		}
-		if (line[i] == SIMPLE_QUOTE)
-		{
-			if (quote_inside_simple_quote(line) == -1)
-				nbr_simple_quote++;
-		}
+		j = i;
+		i++;
+		i = is_s_quote(data, i);
+		if (i == -1)
+			return (j);
 	}
-	if (nbr_dobble_quote == 1 || nbr_simple_quote == 1)
-		return (-1);
-	return (0);
+	if (data[i] == '\"')
+	{
+		j = i;
+		i++;
+		i = is_d_quote(data, i);
+		if (i == -1)
+			return (j);
+	}
+	return (i);
 }
 
-int	quote_inside_dobble_quote(char *line)
+int	is_s_quote(char *data, int i)
 {
-	int	i;
-
-	i = 0;
-	while (line[i] != '\0')
+	while (data[i] != '\'')
 	{
-		if (line[i] == DOBBLE_QUOTE)
+		if (data[i] == '\0')
 		{
-			i = 0;
-			while (/*line[i] != DOBBLE_QUOTE && */line[i] != '\0')
-			{
-				if (line[i] == DOBBLE_QUOTE || line[i] == SIMPLE_QUOTE)
-				{
-					return (0);
-				}
-				i++;
-			}
-			// if (line[i] == DOBBLE_QUOTE)
-			// 	return (-1);
+			return (-1);
 		}
 		i++;
 	}
-	return (-1);
+	return (i);
 }
 
-int	quote_inside_simple_quote(char *line)
+int	is_d_quote(char *data, int i)
 {
-	int	i;
-
-	i = 0;
-	while (line[i] != '\0')
+	while (data[i] != '\"')
 	{
-		if (line[i] == SIMPLE_QUOTE)
+		if (data[i] == '\0')
 		{
-			i = 0;
-			while (line[i] != SIMPLE_QUOTE)
-			{
-				if (line[i] == DOBBLE_QUOTE || line[i] == SIMPLE_QUOTE)
-				{
-					return (0);
-				}
-				i++;
-			}
-			if (line[i] == SIMPLE_QUOTE)
+			return (-1);
+		}
+		i++;
+	}
+	return (i);
+}
+
+int	after_is_quote(char *data, int i)
+{
+	if (data[i] == '\'')
+	{
+		i++;
+		while (data[i] != '\'')
+		{
+			if (data[i] == '\0')
 				return (-1);
+			i++;
 		}
-		i++;
+		if (data[i] == '|')
+			return (-1);
 	}
-	return (-1);
+	if (data[i] == '\"')
+	{
+		i++;
+		while (data[i] != '\"')
+		{
+			if (data[i] == '\0')
+				return (-1);
+			i++;
+		}
+		if (data[i] == '|')
+			return (-1);
+	}
+	return (0);
 }

@@ -75,46 +75,12 @@ Link list function for cmd
 t_cmd			*create_cmd(char *token);
 t_cmd			*add_cmd_to_list(t_cmd *list, char *token);
 void			printf_cmd(t_shell *list);
+int				string_search(char *line, char c);
+int				check_error(char *line);
 
 /*************************************************
 function for parsing
 *************************************************/
-int				parsing_line(char *line, t_shell *list);
-void			split_with_pipe(char *line, t_shell *list);
-void			split_with_pipe1(char *line, t_shell *list);
-t_shell			*split_with_double_quote(char *line, t_shell *list);
-t_shell			*split_with_single_quote(char *line, t_shell *list);
-char			*my_strtok(char *str, char *delim);
-unsigned int	is_delim(char c, char *delim);
-int				dobble_quote(char *line);
-int				check_if_another_dobble_quote(char *line);
-int				check_quote(char *line, int position, char c);
-int				nbr_quote(char *line);
-int				pipe_in_quote(char *line);
-int				string_search(char *line, char c);
-int				check_error(char *line);
-int				pipe_at_start_or_end(char *line);
-int				only_one_simple_or_dobble_quote(char *line);
-int				is_dobble_pipe(char *line);
-int				space_after_pipe(char *line);
-int				nbr_pipe_in_string(char *line);
-int				quote_have_no_pair(char *line);
-int				check_if_dobble_quote_is_pair(char *line);
-int				check_if_single_quote_is_pair(char *line);
-int				quote_inside_dobble_quote(char *line);
-int				quote_inside_simple_quote(char *line);
-int				check_if_letter_beetween_pipe(char *line);
-int				pipe_in_single_quote(char *line);
-int				check_dobble_pipe_before_quote(char *line);
-int				check_only_dobble_pipe(char *line);
-int				last_check_dobble_pipe(char *line);
-void			ctrl_c_signal(int signum);
-void			ctrl_d_signal(int signum);
-void			handle_signal(struct termios *saved);
-void 			hide_keystrokes(struct termios *attr);
-void    		splitting_with_space(char *line, t_shell *list);
-int    			no_quote_or_no_pipe(char *line);
-
 int		check_data_to_lst(char *data);
 int		is_double_pipe(char *data, int i);
 int		after_is_quote(char *data, int i);
@@ -124,8 +90,19 @@ int		is_d_quote(char *data, int i);
 int		check_space_beetween_pipe(char *data, int i);
 int		first_char_is_pipe(char *line);
 int 	last_char_is_pipe(char *line);
+int		pipe_at_start_or_end(char *line);
 
-
+/*************************************************
+Signal
+*************************************************/	
+void			ctrl_c_signal(int signum);
+void			ctrl_d_signal(int signum);
+void			handle_signal(struct termios *saved);
+void 			hide_keystrokes(struct termios *attr);
+/*************************************************
+Exec bins
+*************************************************/	
+void	bins(t_shell *list);
 
 // void	print_env(t_content_env *env);
 // int		init_env(t_content_env **new_env, char **envp);
