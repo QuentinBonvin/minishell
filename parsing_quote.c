@@ -37,7 +37,7 @@ int	quote_inside_dobble_quote(char *line)
 		if (line[i] == DOBBLE_QUOTE)
 		{
 			i = 0;
-			while (line[i] != DOBBLE_QUOTE)
+			while (/*line[i] != DOBBLE_QUOTE && */line[i] != '\0')
 			{
 				if (line[i] == DOBBLE_QUOTE || line[i] == SIMPLE_QUOTE)
 				{
@@ -45,8 +45,8 @@ int	quote_inside_dobble_quote(char *line)
 				}
 				i++;
 			}
-			if (line[i] == DOBBLE_QUOTE)
-				return (-1);
+			// if (line[i] == DOBBLE_QUOTE)
+			// 	return (-1);
 		}
 		i++;
 	}

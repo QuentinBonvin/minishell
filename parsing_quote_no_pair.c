@@ -7,6 +7,10 @@ int	quote_have_no_pair(char *line)
 	i = 0;
 	if (check_if_dobble_quote_is_pair(line) == -1 && check_if_single_quote_is_pair(line) == -1)
 		return (-1);
+	else if (check_if_dobble_quote_is_pair(line) == 0 && check_if_single_quote_is_pair(line) == -1)
+		return (0);
+	else if (check_if_dobble_quote_is_pair(line) == -1 && check_if_single_quote_is_pair(line) == 0)
+		return (0);
 	return (0);
 }
 
@@ -21,6 +25,8 @@ int	check_if_dobble_quote_is_pair(char *line)
 	i = 0;
 	while (line[i])
 	{
+		if (line[i] == DOBBLE_QUOTE)
+			dobble_quote++;
 		if ((line[i] == DOBBLE_QUOTE) && quote_inside_dobble_quote(&line[i + 1]) == -1)
 		{
 			dobble_quote++;
@@ -45,7 +51,7 @@ int	check_if_single_quote_is_pair(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if ((line[i] == DOBBLE_QUOTE) && quote_inside_simple_quote(&line[i + 1]) == -1)
+		if ((line[i] == SIMPLE_QUOTE) && quote_inside_simple_quote(&line[i + 1]) == -1)
 		{
 			simple_quote++;
 		}
