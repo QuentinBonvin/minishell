@@ -51,10 +51,7 @@ void	replace_in_env(t_shell *list, char *env, char *arg)
 	while (curr)
 	{
 		if (curr->content == env)
-		{
 			curr->content = arg;
-			printf("arg: %s\n", arg);
-		}
 		curr = curr->prev;
 	}
 }

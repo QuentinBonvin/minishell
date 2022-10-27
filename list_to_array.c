@@ -14,7 +14,10 @@ void	list_to_array(t_shell *list)
 	while (tmp != NULL)
 	{
 		if (string_search(tmp->content, '\'') == -1)
+		{
+			list->single_quote = 1;
 			tmp->tab = ft_split(tmp->content, '\'');
+		}
 		else if (string_search(tmp->content, '\"') == -1)
 			tmp->tab = ft_split(tmp->content, '\"');
 		else
