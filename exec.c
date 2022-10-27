@@ -13,8 +13,15 @@ int	call_cd(t_shell *list, char *arg)
 	home = get_env("HOME", list);
 	if (arg)
 	{
+		// if (arg[i] == '~')
 		res = chdir(arg);
+		{
+			if (res != 0)
+				ft_error_cd(arg);
+		}
+		home = getcwd(NULL, 0);
 		set_env("OLDPWD", pwd, list);
+		set_env("PWD", home, list);
 	}
 	else if (!arg)
 	{
@@ -22,7 +29,6 @@ int	call_cd(t_shell *list, char *arg)
 		set_env("PWD", home, list);
 		set_env("OLDPWD", pwd, list);
 	}
-	pwd = getcwd(NULL, 0);
 	return (res);
 }
 
@@ -60,35 +66,20 @@ int	set_env(char *name, char *pwd, t_shell *list)
 {
 	char	*var_ok;
 	char	*tmp;
+	char	*new;
 
 	tmp = ft_strjoin(name, "=");
-	var_ok = env_ok(tmp, list);
-	if (var_ok == NULL)
-	{	
-		printf("add to env");
-	}
-	else
+	var_ok = check_if_in_env(list, tmp);
+	if (var_ok != NULL)
 	{
-		var_ok = ft_strjoin(tmp, pwd);
-		// printf("var_ok after join: %s\n", var_ok);
+		new = ft_strjoin(tmp, pwd);
+		replace_in_env(list, var_ok, new);
 	}
 	return (0);
 }
 
-char	*env_ok(char *name, t_shell *list)
+void	ft_error_cd(char *arg)
 {
-	t_env	*curr;
-	int		l;
-
-	curr = list->env_head;
-	l = ft_strlen(name) + 1;
-	while (curr != NULL)
-	{
-		if ((ft_strncmp2(curr->content, name, l)) == 0)
-		{
-			return (curr->content);
-		}
-		curr = curr->prev;
-	}
-	return (NULL);
+	printf("bash: cd: %s", arg);
+	printf(" : No such file or directory\n");
 }

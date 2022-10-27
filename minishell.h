@@ -116,33 +116,36 @@ void	bins_execute(char **split_path, t_shell *list);
 Link list function for builtins
 *************************************************/	
 void			builtin(t_shell *list);
-int				ft_strcmp(char *s1, char *s2);
-char			*search_env(t_shell *list);
-int				call_cd(t_shell *list, char *arg);
 void			call_pwd(void);
-int				call_unset(t_shell *list, char *var);
+int				ft_strcmp(char *s1, char *s2);
 int				ft_strncmp2(char *s1, char *s2, int n);
-void			ft_remove_from_list(t_shell *list, char *var);
-int				ft_delete_first_node(t_env **env_head, t_env *curr, char *var);
-void			mini_echo(t_shell *list, char *command);
-int				ft_find_sign(char *command);
-void			sort_list(t_shell *list, char *arg);
-void			ft_swap(char *s1, char *s2);
-t_env			*ft_copy(t_env *curr, t_shell *list);
-int				ft_count_env(t_shell *list);
-int				ft_count_copy(char **env_array);
-t_env			*create_node(char *node);
-void			print_list(t_env *copy);
+int				call_cd(t_shell *list, char *arg);
+void			ft_error_cd(char *arg);
+int				set_env(char *name, char *pwd, t_shell *list);
 char			*get_env(char *name, t_shell *list);
 char			*join_home(char *curr, int length);
-char			*env_ok(char *name, t_shell *list);
-int				set_env(char *name, char *pwd, t_shell *list);
-int				check_arg(char *arg);
-void			add_to_env_copy(t_shell *list, char **env_array, char *arg, int l);
-void			print_new_env(char **env_array, int len);
-void			*add_export_to_env(t_env **env_tail, char *arg);
+void			mini_echo(t_shell *list, char *command);
+int				print_echo(t_shell *list, int i, int option);
+void			execute_dollar(t_shell *list, int i, int option, char *command);
+int				ft_find_sign(char *command);
+void			dollar_var(t_shell *list, char *var);
+void			sort_list(t_shell *list, char *arg);
+char 			**convert_list(t_shell *list);
+int				ft_count_env(t_shell *list);
+void			sort_and_swap(char **env_array, int l);
+void			print_array(char **env_array, int len);
 char			*check_if_in_env(t_shell *list, char *arg);
 void			replace_in_env(t_shell *list, char *env, char *arg);
+void			*add_export_to_env(t_env **env_tail, char *arg);
+int				check_arg(char *arg);
+int				ft_compare(const char *s1, const char *s2);
+t_env			*ft_copy(t_env *curr, t_shell *list);
+t_env			*create_node(char *node);
+char			*search_env(t_shell *list);
+int				call_unset(t_shell *list, char *var);
+void			ft_remove_from_list(t_shell *list, char *var);
+int				ft_delete_first_node(t_env **env_head, t_env *curr, char *var);
+void			print_list(t_env *copy);
 void			mini_exit(t_shell *list, char *arg);
 
 /*************************************************
@@ -153,19 +156,22 @@ void			*start_stack(t_cmd **head, t_cmd **tail, char *token);
 void			*insert_beginning(t_cmd **tail, char *token);
 void			rl_replace_line(char *text, int clear_undo);
 t_shell			*check_line(char *line, t_shell *list);
-// void			remove_node(t_node *node);
 void			free_cmd(t_shell *list);
 void			free_env(t_shell *list);
 void			remove_node(t_cmd *node);
 void			free_tab(char **env);
-char 			**convert_list(t_shell *list);
-void			print_array(char **env_array, int len);
 void		    init_list(t_shell *list);
 int				string_start(char *line, char c);
 void			list_to_array(t_shell *list);
 void			ft_split2(char const *line, char c, t_shell *list);
 void			ft_split2_to_long(const char *line, size_t i);
-int				ft_compare(const char *s1, const char *s2);
-void			sort_and_swap(char **env_array, int l);
+
+/*normally can delete*/
+// void			remove_node(t_node *node);
+// void			print_new_env(char **env_array, int len);
+// char			*env_ok(char *name, t_shell *list);
+// void			add_to_env_copy(t_shell *list, char **env_array, char *arg, int l);
+// void			ft_swap(char *s1, char *s2);
+// int				ft_count_copy(char **env_array);
 
 #endif

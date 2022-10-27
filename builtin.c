@@ -7,7 +7,10 @@ void	builtin(t_shell *list)
 	int		i;
 
 	i = 0;
+	l = 0;
 	current = list->head;
+	if (current->tab[0] == NULL)
+		return ;
 	l = ft_strlen((current->tab[0]));
 	if (ft_strcmp(current->tab[0], "pwd") == 0)
 		call_pwd();
