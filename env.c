@@ -54,12 +54,23 @@ void	*add_envp_to_env(t_env **env_tail, char **envp)
 void	printf_env(t_shell *list)
 {
 	t_env	*curr;
+	int		i;
 
+	i = 0;
 	curr = list->env_head;
 	while (curr)
 	{
-		printf("%s\n", curr->content);
-		curr = curr->prev;
+		i = 0;
+		while (curr->content[i] != '\0')
+		{
+			if (curr->content[i] == '=')
+			{
+				printf("%s\n", curr->content);
+				break ;
+			}
+			i++;
+		}
+	curr = curr->prev;
 	}
 }
 

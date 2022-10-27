@@ -26,7 +26,7 @@ void	ft_remove_from_list(t_shell *list, char *var)
 	if (ft_strncmp2(curr->content, var, l) == 0)
 	{
 		tmp->prev = curr->prev;
-		// free(curr->content);
+		// free(curr->prev);
 		free(curr);
 	}
 	else

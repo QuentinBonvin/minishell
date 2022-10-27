@@ -4,36 +4,35 @@ void	builtin(t_shell *list)
 {
 	t_cmd	*current;
 	int		l;
+	int		i;
 
+	i = 0;
 	current = list->head;
 	l = ft_strlen((current->tab[0]));
 	if (ft_strcmp(current->tab[0], "pwd") == 0)
-	{
-		// printf("%s\n", getcwd(NULL, 0));
 		call_pwd();
-	}
 	if ((ft_strncmp2(current->tab[0], "cd", l) == 0))
-		call_cd(list);
+		call_cd(list, current->tab[1]);
 	else if ((ft_strncmp2(current->tab[0], "echo", l) == 0))
 		mini_echo(list, current->tab[1]);
 	else if ((ft_strncmp2(current->tab[0], "export", l) == 0))
-	{
-		// sort_list(list);
-		printf("export works\n");
-	}
+		sort_list(list, current->tab[1]);
 	else if (ft_strcmp(current->tab[0], "unset") == 0)
-		call_unset(list, list->head->prev->content);
+		call_unset(list, current->tab[1]);
 	else if (ft_strncmp2(current->tab[0], "env", l) == 0)
 		printf_env(list);
 	else if (ft_strncmp2(current->tab[0], "exit", l) == 0)
+	{
+		mini_exit(list, current->tab[1]);
 		printf("exit works\n");
+	}
 	else
 		search_env(list);
 }
 
 void	call_pwd(void)
 {
-	char *aux;
+	char	*aux;
 
 	aux = getcwd(NULL, 0);
 	printf("%s\n", aux);

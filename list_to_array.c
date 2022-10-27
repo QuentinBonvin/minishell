@@ -4,14 +4,14 @@
 
 void	list_to_array(t_shell *list)
 {
-	t_cmd *curr;
-	t_cmd *tmp;
+	t_cmd	*curr;
+	t_cmd	*tmp;
 	int		i;
 
 	i = 0;
 	curr = list->head;
 	tmp = curr;
-	while (tmp->prev != NULL)
+	while (tmp != NULL)
 	{
 		if (string_search(tmp->content, '\'') == -1)
 			tmp->tab = ft_split(tmp->content, '\'');
@@ -22,16 +22,11 @@ void	list_to_array(t_shell *list)
 		tmp = tmp->prev;
 	}
 	tmp = curr;
-	// printf_cmd(list);
-	while (tmp->prev)
+	while (tmp)
 	{
-		i = 0;
-		while (tmp->tab[i])
-		{
+		i = -1;
+		while (tmp->tab[++i])
 			printf("tab: %s\n", tmp->tab[i]);
-			i++;
-		}
 		tmp = tmp->prev;
 	}
 }
-

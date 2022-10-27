@@ -1,40 +1,36 @@
 #include "minishell.h"
 
-int	call_cd(t_shell *list)
+int	call_cd(t_shell *list, char *arg)
 {
-	char *home;
-	int res;
-	char *pwd;
-	// char *test;
+	char	*home;
+	int		res;
+	char	*pwd;
+	int		i;
 
-	home = get_env("HOME", list);
+	i = 0;
+	res = 0;
 	pwd = get_env("PWD", list);
-	res = chdir(home);
-	// printf("home: %s\n", home);
-	// test = getcwd(NULL, 0);
-	if (res == -1)
+	home = get_env("HOME", list);
+	if (arg)
 	{
-		ft_putstr("cd: ");
-		ft_putstr(list->head->prev->content);
-		ft_putstr(": No such file or directory\n");
-	}
-	else /*(res == 0)*/
-	{
-		printf("oldpwd: %s\n", pwd);
-		printf("pwd: %s\n", home);
+		res = chdir(arg);
 		set_env("OLDPWD", pwd, list);
-		set_env("PWD", home, list);
 	}
-	pwd = getcwd(NULL,0);
-	// printf("pwd: %s\n", pwd);
+	else if (!arg)
+	{
+		res = chdir(home);
+		set_env("PWD", home, list);
+		set_env("OLDPWD", pwd, list);
+	}
+	pwd = getcwd(NULL, 0);
 	return (res);
 }
 
 char	*get_env(char *name, t_shell *list)
 {
-	t_env *curr;
-	char *home;
-	int	l;
+	t_env	*curr;
+	char	*home;
+	int		l;
 
 	curr = list->env_head;
 	l = ft_strlen(name) + 1;
@@ -52,7 +48,7 @@ char	*get_env(char *name, t_shell *list)
 
 char	*join_home(char *curr, int length)
 {
-	char 	*home;
+	char	*home;
 	size_t	end;
 
 	end = ft_strlen(curr);
@@ -63,7 +59,7 @@ char	*join_home(char *curr, int length)
 int	set_env(char *name, char *pwd, t_shell *list)
 {
 	char	*var_ok;
-	char *tmp;
+	char	*tmp;
 
 	tmp = ft_strjoin(name, "=");
 	var_ok = env_ok(tmp, list);
@@ -81,8 +77,8 @@ int	set_env(char *name, char *pwd, t_shell *list)
 
 char	*env_ok(char *name, t_shell *list)
 {
-	t_env *curr;
-	int	l;
+	t_env	*curr;
+	int		l;
 
 	curr = list->env_head;
 	l = ft_strlen(name) + 1;
@@ -90,7 +86,6 @@ char	*env_ok(char *name, t_shell *list)
 	{
 		if ((ft_strncmp2(curr->content, name, l)) == 0)
 		{
-
 			return (curr->content);
 		}
 		curr = curr->prev;

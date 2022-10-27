@@ -15,11 +15,11 @@ void	mini_echo(t_shell *list, char *command)
 		option = 1;
 		i++;
 	}
-	while (curr->prev)
+	while (curr)
 	{
 		if (option == 1)
 			i = 2;
-		else 
+		else
 			i = 1;
 		while (curr->tab[i])
 		{

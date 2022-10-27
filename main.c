@@ -3,15 +3,14 @@
 int	main(int argc, char **argv, char **envp)
 {
 	struct termios	saved;
-	
-	char		*line;
-	t_shell		*list;
+	char			*line;
+	t_shell			*list;
+
 	(void)argc;
 	(void)argv;
-
 	list = malloc(sizeof(t_shell));
 	init_list(list);
-	init_env(envp,list);
+	init_env(envp, list);
 	while (1)
 	{
 		handle_signal(&saved);
@@ -27,12 +26,12 @@ int	main(int argc, char **argv, char **envp)
 				return (0);
 			}
 			list = check_line(line, list);
-			// builtin(list);
+			builtin(list);
 			add_history(line);
 			tcsetattr(STDIN_FILENO, TCSANOW, &saved);
+			free_cmd(list);
+			free(line);
 		}
-		free_cmd(list);
-		free(line);
 	}
 	free_env(list);
 	free(list);
