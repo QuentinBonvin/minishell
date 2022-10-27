@@ -5,10 +5,10 @@ int	pipe_in_quote(char *line)
 	int	i;
 
 	i = 0;
-	// if (pipe_in_single_quote(line) == 0)
-	// {
-	// 	return (0);
-	// }
+	if (pipe_in_single_quote(line) == 0)
+	{
+		return (0);
+	}
 	while (line[i] != '\0')
 	{
 		if (line[i] == DOBBLE_QUOTE)
@@ -19,7 +19,7 @@ int	pipe_in_quote(char *line)
 				if (line[i] == '|')
 				{
 					//printf("pipe inside quote\n");
-					return (i);
+					return (0);
 				}
 				i++;
 			}

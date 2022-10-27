@@ -115,6 +115,16 @@ void 			hide_keystrokes(struct termios *attr);
 void    		splitting_with_space(char *line, t_shell *list);
 int    			no_quote_or_no_pipe(char *line);
 
+int		check_data_to_lst(char *data);
+int		is_double_pipe(char *data, int i);
+int		after_is_quote(char *data, int i);
+int		is_quote(char *data, int i);
+int		is_s_quote(char *data, int i);
+int		is_d_quote(char *data, int i);
+int		check_space_beetween_pipe(char *data, int i);
+int		first_char_is_pipe(char *line);
+int 	last_char_is_pipe(char *line);
+
 
 
 // void	print_env(t_content_env *env);
