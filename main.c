@@ -21,19 +21,23 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (check_error(line))
 			{
-				printf("error after check error\n");
-				// free(line);
-				return (0);
+				//printf("error after check error\n");
+				free(line);
+				//return (0);
 			}
-			list = check_line(line, list);
-			builtin(list);
-			bins(list);
-			add_history(line);
-			tcsetattr(STDIN_FILENO, TCSANOW, &saved);
-			free_cmd(list);
-			free(line);
+			else
+			{
+				list = check_line(line, list);
+				//builtin(list);
+				bins(list, envp);
+				add_history(line);
+				tcsetattr(STDIN_FILENO, TCSANOW, &saved);
+				free_cmd(list);
+				free(line);
+			}
 		}
 	}
+	free(line);
 	free_env(list);
 	free(list);
 	return (EXIT_SUCCESS);
