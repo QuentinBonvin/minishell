@@ -99,6 +99,8 @@ void	sort_and_swap(char **env_array, int l)
 	int		i;
 
 	swapped = 0;
+	printf("%d\n", l);
+	// l = (ft_count_env(list));
 	while (env_array && swapped == 0)
 	{
 		swapped = 1;

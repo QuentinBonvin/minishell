@@ -118,11 +118,11 @@ void	free_tab_cmd(t_shell *list);
 /*************************************************
 Link list function for builtins
 *************************************************/	
-void			builtin(t_shell *list);
+void			builtin(t_shell *list, char **envp);
 void			call_pwd(void);
 int				ft_strcmp(char *s1, char *s2);
 int				ft_strncmp2(char *s1, char *s2, int n);
-int				call_cd(t_shell *list, char *arg);
+int				call_cd(t_shell *list);
 void			ft_error_cd(char *arg);
 int				set_env(char *name, char *pwd, t_shell *list);
 char			*get_env(char *name, t_shell *list);

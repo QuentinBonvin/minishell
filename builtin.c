@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	builtin(t_shell *list)
+void	builtin(t_shell *list, char **envp)
 {
 	t_cmd	*current;
 	int		l;
@@ -8,29 +8,31 @@ void	builtin(t_shell *list)
 
 	i = 0;
 	l = 0;
+	(void)envp;
 	current = list->head;
 	if (current->tab[0] == NULL)
 		return ;
 	l = ft_strlen((current->tab[0]));
-	if (ft_strcmp(current->tab[0], "pwd") == 0)
+	if (ft_strncmp2(current->tab[0], "pwd", 4) == 0)
 		call_pwd();
-	if ((ft_strncmp2(current->tab[0], "cd", l) == 0))
-		call_cd(list, current->tab[1]);
-	else if ((ft_strncmp2(current->tab[0], "echo", l) == 0))
+	else if ((ft_strncmp2(current->tab[0], "cd", 3) == 0))
+		call_cd(list);
+	else if ((ft_strncmp2(current->tab[0], "echo", 4) == 0))
 		mini_echo(list, current->tab[1]);
-	else if ((ft_strncmp2(current->tab[0], "export", l) == 0))
+	else if ((ft_strncmp2(current->tab[0], "export", 6) == 0))
 		sort_list(list, current->tab[1]);
 	else if (ft_strcmp(current->tab[0], "unset") == 0)
 		call_unset(list, current->tab[1]);
-	else if (ft_strncmp2(current->tab[0], "env", l) == 0)
+	else if (ft_strncmp2(current->tab[0], "env", 4) == 0)
 		printf_env(list);
-	else if (ft_strncmp2(current->tab[0], "exit", l) == 0)
+	else if (ft_strncmp2(current->tab[0], "exit", 4) == 0)
 	{
 		mini_exit(list, current->tab[1]);
 		printf("exit works\n");
 	}
 	else
-		search_env(list);
+		bins(list, envp);
+		// search_env(list);
 }
 
 void	call_pwd(void)
@@ -78,10 +80,10 @@ int	ft_strncmp2(char *s1, char *s2, int n)
 	int	i;
 
 	i = 0;
-	while (i <= n)
+	while (i < n)
 	{
 		if (s1[i] == '\0' || s2[i] == '\0')
-			return (0);
+			return (((unsigned char)s1[i] - (unsigned char)s2[i]));
 		if (s1[i] != s2[i])
 			return (((unsigned char)s1[i] - (unsigned char)s2[i]));
 		i++;
