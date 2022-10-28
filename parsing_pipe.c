@@ -49,10 +49,7 @@ int	last_char_is_pipe(char *line)
 			return (0);
 	}
 	if (j == nbr_space)
-	{
-		printf("only space after last pipe\n");
 		return (-1);
-	}
 	return (0);
 }
 
@@ -69,10 +66,7 @@ int	first_char_is_pipe(char *line)
 int	is_double_pipe(char *data, int i)
 {
 	if (data[i + 1] == PIPE)
-	{
-		printf("il y a double_pipe\n");
 		return (-1);
-	}
 	return (0);
 }
 
