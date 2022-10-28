@@ -25,11 +25,11 @@ void	list_to_array(t_shell *list)
 		tmp = tmp->prev;
 	}
 	tmp = curr;
-	while (tmp)
-	{
-		i = -1;
-		while (tmp->tab[++i])
-			printf("tab: %s\n", tmp->tab[i]);
-		tmp = tmp->prev;
-	}
+// 	while (tmp)
+// 	{
+// 		i = -1;
+// 		while (tmp->tab[++i])
+// 			printf("tab: %s\n", tmp->tab[i]);
+// 		tmp = tmp->prev;
+// 	}
 }

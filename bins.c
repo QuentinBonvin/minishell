@@ -12,8 +12,6 @@ void	bins(t_shell *list)
 	path = search_env(list);
 	split_path = ft_split(path, ':');
 	split_path[0] = ft_substr(split_path[0], 5, ft_strlen(split_path[0]));
-	printf("split_path before = %s\n", split_path[0]);
-	printf("commande = %s\n", list->tail->tab[0]);
 	while (split_path[++i])
 		split_path[i] = ft_strjoin(split_path[i], "/");
 	i = -1;
@@ -37,9 +35,9 @@ void	bins_execute(char **split_path, t_shell *list)
 			if (execve(split_path[i], &list->tail->tab[0], NULL) == -1)
 				i++;
 		}
-		if (i == 9)
-			ft_printf(list->tail->tab[0], "%s");
-			ft_printf(": command not found\n");
+		// if (i == 9)
+		// 	ft_printf(list->tail->tab[0], "%s");
+		// 	ft_printf(": command not found\n");
 	}
 	else
 	{
