@@ -182,5 +182,6 @@ void			ft_split2_to_long(const char *line, size_t i);
 
 void			exec_with_pipe(t_shell *list, char **envp, char *line);
 void			exec(t_shell *list, char **envp, char *line);
+void			redir(t_shell *list);
 
 #endif

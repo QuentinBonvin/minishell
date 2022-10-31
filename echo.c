@@ -10,6 +10,12 @@ void	mini_echo(t_shell *list, char *command)
 	if (command == NULL)
 		return ;
 	i = ft_find_sign(command);
+	if (list->head->tab[1][0] == '>')
+	{
+		printf("hello");
+		redir(list);
+		return ;
+	}
 	while (command[i] && (command[i + 1] == 'n'))
 	{
 		option = 1;
