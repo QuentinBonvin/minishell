@@ -28,8 +28,7 @@ int	main(int argc, char **argv, char **envp)
 			else
 			{
 				list = check_line(line, list);
-				builtin(list, envp);
-				// bins(list, envp);
+				exec(list,envp,line);
 				add_history(line);
 				tcsetattr(STDIN_FILENO, TCSANOW, &saved);
 				free_cmd(list);

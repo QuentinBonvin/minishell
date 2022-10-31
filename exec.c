@@ -13,7 +13,6 @@ int	call_cd(t_shell *list)
 	arg = list->head->tab[1];
 	pwd = get_env("PWD", list);
 	home = get_env("HOME", list);
-	// printf("pwd: %s\n", pwd);
 	if (arg)
 	{
 		if (arg[i] == '~')
@@ -21,7 +20,7 @@ int	call_cd(t_shell *list)
 				res = chdir(home);
 				return (res);
 			}
-		res = chdir(home);
+		res = chdir(arg);
 		{
 			if (res != 0)
 				ft_error_cd(arg);
@@ -29,17 +28,14 @@ int	call_cd(t_shell *list)
 		home = getcwd(NULL, 0);
 		set_env("OLDPWD", pwd, list);
 		set_env("PWD", home, list);
-		printf("home; %s\n", home);
-		printf("pwd; %s\n", pwd);
 	}
 	else if (!arg)
 	{
 		res = chdir(home);
-		printf("home; %s\n", home);
-		printf("pwd; %s\n", pwd);
 		set_env("PWD", home, list);
 		set_env("OLDPWD", pwd, list);
 	}
+	pwd = getcwd(NULL, 0);
 	return (res);
 }
 
@@ -53,6 +49,7 @@ char	*get_env(char *name, t_shell *list)
 	i = 0;
 	curr = list->env_head;
 	l = ft_strlen(name) + 1;
+	home = NULL;
 	while (curr != NULL)
 	{
 		if ((name[i] == '=' || name[i] == '\0') && (curr->content[i] == '='))
@@ -68,7 +65,6 @@ char	*get_env(char *name, t_shell *list)
 		}
 	}
 	home = join_home(curr->content, l);
-	// printf("home: %s\n", home);
 	return (home);
 }
 

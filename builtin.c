@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	builtin(t_shell *list, char **envp)
+void	builtin(t_shell *list, char **envp, char *line)
 {
 	t_cmd	*current;
 	int		l;
@@ -13,11 +13,12 @@ void	builtin(t_shell *list, char **envp)
 	if (current->tab[0] == NULL)
 		return ;
 	l = ft_strlen((current->tab[0]));
+
 	if (ft_strncmp2(current->tab[0], "pwd", 4) == 0)
 		call_pwd();
 	else if ((ft_strncmp2(current->tab[0], "cd", 3) == 0))
 		call_cd(list);
-	else if ((ft_strncmp2(current->tab[0], "echo", 4) == 0))
+	else if ((ft_strncmp2(current->tab[0], "echo", l) == 0))
 		mini_echo(list, current->tab[1]);
 	else if ((ft_strncmp2(current->tab[0], "export", 6) == 0))
 		sort_list(list, current->tab[1]);
@@ -27,7 +28,7 @@ void	builtin(t_shell *list, char **envp)
 		printf_env(list);
 	else if (ft_strncmp2(current->tab[0], "exit", 4) == 0)
 	{
-		mini_exit(list, current->tab[1]);
+		mini_exit(list, current->tab[1], line);
 		printf("exit works\n");
 	}
 	else
@@ -80,10 +81,10 @@ int	ft_strncmp2(char *s1, char *s2, int n)
 	int	i;
 
 	i = 0;
-	while (i < n)
+	while (i <= n)
 	{
 		if (s1[i] == '\0' || s2[i] == '\0')
-			return (((unsigned char)s1[i] - (unsigned char)s2[i]));
+			return ((0));
 		if (s1[i] != s2[i])
 			return (((unsigned char)s1[i] - (unsigned char)s2[i]));
 		i++;

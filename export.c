@@ -9,6 +9,7 @@ void	sort_list(t_shell *list, char *arg)
 	char	*env;
 
 	i = 0;
+	l = 0;
 	env = NULL;
 	env_array = convert_list(list);
 	l = (ft_count_env(list));
@@ -24,7 +25,6 @@ void	sort_list(t_shell *list, char *arg)
 			if (arg[i] == '=')
 			{
 				tmp = ft_substr(arg, 0, i);
-				// printf("tmp: %s\n", tmp);
 				env = check_if_in_env(list, tmp);
 				break ;
 			}
@@ -32,15 +32,15 @@ void	sort_list(t_shell *list, char *arg)
 				env = NULL;
 			i++;
 		}
+		if (env != NULL)
+		{
+			// printf("arg: %s\n", arg);
+			replace_in_env(list, env, arg);
+		}
+		else
+			add_export_to_env(&list->env_tail, arg);
 	}
-	if (env != NULL)
-	{
-		printf("env:%s\n", env);
-		// printf("arg: %s\n", arg);
-		replace_in_env(list, env, arg);
-	}
-	else
-		add_export_to_env(&list->env_tail, arg);
+	env_array = NULL;
 }
 
 void	replace_in_env(t_shell *list, char *env, char *arg)
@@ -99,8 +99,6 @@ void	sort_and_swap(char **env_array, int l)
 	int		i;
 
 	swapped = 0;
-	printf("%d\n", l);
-	// l = (ft_count_env(list));
 	while (env_array && swapped == 0)
 	{
 		swapped = 1;

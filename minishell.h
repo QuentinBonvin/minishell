@@ -25,6 +25,8 @@
 /*************************************************
 Link list for environnement
 *************************************************/
+int	g_exit_status;
+
 typedef struct s_env
 {
 	char				*content;
@@ -118,7 +120,7 @@ void	free_tab_cmd(t_shell *list);
 /*************************************************
 Link list function for builtins
 *************************************************/	
-void			builtin(t_shell *list, char **envp);
+void			builtin(t_shell *list, char **envp, char *line);
 void			call_pwd(void);
 int				ft_strcmp(char *s1, char *s2);
 int				ft_strncmp2(char *s1, char *s2, int n);
@@ -142,6 +144,7 @@ void			replace_in_env(t_shell *list, char *env, char *arg);
 void			*add_export_to_env(t_env **env_tail, char *arg);
 int				check_arg(char *arg);
 int				ft_compare(const char *s1, const char *s2);
+void			*free_env_array(char **env_array);
 t_env			*ft_copy(t_env *curr, t_shell *list);
 t_env			*create_node(char *node);
 char			*search_env(t_shell *list);
@@ -149,7 +152,7 @@ int				call_unset(t_shell *list, char *var);
 void			ft_remove_from_list(t_shell *list, char *var);
 int				ft_delete_first_node(t_env **env_head, t_env *curr, char *var);
 void			print_list(t_env *copy);
-void			mini_exit(t_shell *list, char *arg);
+int				mini_exit(t_shell *list, char *arg, char *line);
 
 /*************************************************
 Link list function for linked list
@@ -176,5 +179,8 @@ void			ft_split2_to_long(const char *line, size_t i);
 // void			add_to_env_copy(t_shell *list, char **env_array, char *arg, int l);
 // void			ft_swap(char *s1, char *s2);
 // int				ft_count_copy(char **env_array);
+
+void			exec_with_pipe(t_shell *list, char **envp, char *line);
+void			exec(t_shell *list, char **envp, char *line);
 
 #endif

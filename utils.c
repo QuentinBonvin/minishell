@@ -45,7 +45,9 @@ void	printf_cmd(t_shell *list)
 void	free_cmd(t_shell *list)
 {
 	t_cmd	*current;
+	int		i;
 
+	i = 0;
 	current = list->head;
 	if (list == NULL)
 		exit(EXIT_FAILURE);
@@ -56,6 +58,12 @@ void	free_cmd(t_shell *list)
 	}
 	list->head = NULL;
 	list->tail = NULL;
+	while (current->tab[i])
+	{
+		free(current->tab[i]);
+		i++;
+	}
+	free(current->tab);
 	free(current);
 	// free(list->cmd);
 }

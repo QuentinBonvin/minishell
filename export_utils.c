@@ -11,7 +11,6 @@ void	print_array(char **env_array, int len)
 		printf("%s\n", env_array[i]);
 		i++;
 	}
-	// free(env_array);
 }
 
 t_env	*ft_copy(t_env *curr, t_shell *list)
@@ -68,6 +67,7 @@ int	ft_compare(const char *s1, const char *s2)
 	size_t	i;
 
 	i = 0;
+	while((s1[i] != '\0' && s2[i] != '\0') && s1[i] == s2[i])
 	{
 		if (s1[i] == '\0' && s2[i] == '\0')
 			return (0);
