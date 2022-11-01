@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	bins(t_shell *list, char **envp)
+void	bins(t_cmd *cmd, t_shell *list, char **envp)
 {
 	char	**split_path;
 	char	*path;
@@ -11,37 +11,41 @@ void	bins(t_shell *list, char **envp)
 	split_path = ft_split(path, ':');
 	split_path[0] = ft_substr(split_path[0], 5, ft_strlen(split_path[0]));
 	while (split_path[++i])
+	{
 		split_path[i] = ft_strjoin(split_path[i], "/");
+		// fprintf(stderr,"split_path[i] = %s\n", split_path[i]);
+	}
 	i = -1;
 	while (split_path[++i])
-		split_path[i] = ft_strjoin(split_path[i], list->tail->tab[0]);
+	{
+		split_path[i] = ft_strjoin(split_path[i], cmd->tab[0]);
+			// fprintf(stderr,"split_path = %s\n", split_path[i]);
+
+	}
 	bins_execute(split_path, list, envp);
+	free_split_path(split_path);
+		// curr = curr->prev;
 }
 
 void	bins_execute(char **split_path, t_shell *list, char **envp)
 {
-	int i;
+		int 	i;
+		t_cmd	*curr;
 
-	i = 0;
-	pid_t	child_pid;
 
-	child_pid = fork();
-	if (child_pid == 0)
-	{
+		i = 0;
+		curr = list->head;
 		while (split_path[i])
 		{
-			if (execve(split_path[i], &list->tail->tab[0], envp) == -1)
+			printf("curr->tab[0] = %s\n", curr->tab[0]);
+			if (execve(split_path[i], &curr->tab[0], envp) == -1)
 				i++;
+			// curr = curr->prev;
 		}
 		// if (i == 9)
 		// 	ft_printf(list->tail->tab[0], "%s");
 		// 	ft_printf(": command not found\n");
-	}
-	else
-	{
-		wait(&child_pid);
-	}
-	free_split_path(split_path);
+	// free_split_path(split_path);
 	//free_tab_cmd(list);
 }
 

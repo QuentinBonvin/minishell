@@ -51,7 +51,7 @@ void	*add_envp_to_env(t_env **env_tail, char **envp)
 	return (0);
 }
 
-void	printf_env(t_shell *list)
+int	printf_env(t_shell *list)
 {
 	t_env	*curr;
 	int		i;
@@ -72,6 +72,7 @@ void	printf_env(t_shell *list)
 		}
 	curr = curr->prev;
 	}
+	return (0);
 }
 
 void	free_env(t_shell *list)

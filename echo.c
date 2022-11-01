@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	mini_echo(t_shell *list, char *command)
+int	mini_echo(t_shell *list, char *command)
 {
 	int		option;
 	int		i;
@@ -8,14 +8,8 @@ void	mini_echo(t_shell *list, char *command)
 	i = -1;
 	option = 0;
 	if (command == NULL)
-		return ;
+		return (-1) ;
 	i = ft_find_sign(command);
-	if (list->head->tab[1][0] == '>')
-	{
-		printf("hello");
-		redir(list);
-		return ;
-	}
 	while (command[i] && (command[i + 1] == 'n'))
 	{
 		option = 1;
@@ -26,6 +20,7 @@ void	mini_echo(t_shell *list, char *command)
 		execute_dollar(list, i, option, command);
 	else
 		print_echo(list, i, option);
+	return (0);
 }
 
 void	execute_dollar(t_shell *list, int i, int option, char *command)

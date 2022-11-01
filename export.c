@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	sort_list(t_shell *list, char *arg)
+int	sort_list(t_shell *list, char *arg)
 {
 	char	**env_array;
 	int		l;
@@ -41,6 +41,7 @@ void	sort_list(t_shell *list, char *arg)
 			add_export_to_env(&list->env_tail, arg);
 	}
 	env_array = NULL;
+	return (0);
 }
 
 void	replace_in_env(t_shell *list, char *env, char *arg)

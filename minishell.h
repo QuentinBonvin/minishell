@@ -18,6 +18,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
+# include <fcntl.h>
 
 // struct termios saved;
 // struct termios attributes;
@@ -26,6 +27,9 @@
 Link list for environnement
 *************************************************/
 int	g_exit_status;
+
+# define TRUE 1
+# define FALSE 0
 
 typedef struct s_env
 {
@@ -42,6 +46,9 @@ typedef struct s_cmd
 	char				*content;
 	char				**tab;
 	struct s_cmd		*next;
+	int					fd_in;
+	int					fd_out;
+	pid_t				pid;
 	struct s_cmd		*prev;
 }	t_cmd;
 
@@ -53,6 +60,7 @@ typedef struct s_shell
 	int				end;
 	int				start;
 	int				index;
+	int				redir_status;
 	int				double_quote;
 	t_cmd			*cmd;
 	t_cmd			*head;
@@ -67,7 +75,7 @@ Link list function for environnement
 // t_env			*create_cell(char **envp);
 void			*create_cell(t_env **env_head, t_env **env_tail, char **envp);
 void			init_env(char **envp, t_shell *list);
-void			printf_env(t_shell *list);
+int				printf_env(t_shell *list);
 // t_env			*add_envp_to_env(t_env *env, char **envp/*, int i*/);
 void			*add_envp_to_env(t_env **head, char **envp);
 
@@ -104,7 +112,7 @@ void 			hide_keystrokes(struct termios *attr);
 /*************************************************
 Exec bins
 *************************************************/	
-void	bins(t_shell *list, char **envp);
+void	bins(t_cmd *cmd, t_shell *list, char **envp);
 void	bins_execute(char **split_path, t_shell *list, char **envp);
 void	free_split_path(char **split_path);
 void	free_tab_cmd(t_shell *list);
@@ -120,8 +128,9 @@ void	free_tab_cmd(t_shell *list);
 /*************************************************
 Link list function for builtins
 *************************************************/	
-void			builtin(t_shell *list, char **envp, char *line);
-void			call_pwd(void);
+int				exec_builtin(t_shell *list, char **envp, char *line);
+int				builtin(t_shell *list, char **envp, char *line);
+int				call_pwd(void);
 int				ft_strcmp(char *s1, char *s2);
 int				ft_strncmp2(char *s1, char *s2, int n);
 int				call_cd(t_shell *list);
@@ -129,12 +138,12 @@ void			ft_error_cd(char *arg);
 int				set_env(char *name, char *pwd, t_shell *list);
 char			*get_env(char *name, t_shell *list);
 char			*join_home(char *curr, int length);
-void			mini_echo(t_shell *list, char *command);
+int				mini_echo(t_shell *list, char *command);
 int				print_echo(t_shell *list, int i, int option);
 void			execute_dollar(t_shell *list, int i, int option, char *command);
 int				ft_find_sign(char *command);
 void			dollar_var(t_shell *list, char *var);
-void			sort_list(t_shell *list, char *arg);
+int				sort_list(t_shell *list, char *arg);
 char 			**convert_list(t_shell *list);
 int				ft_count_env(t_shell *list);
 void			sort_and_swap(char **env_array, int l);
@@ -182,6 +191,11 @@ void			ft_split2_to_long(const char *line, size_t i);
 
 void			exec_with_pipe(t_shell *list, char **envp, char *line);
 void			exec(t_shell *list, char **envp, char *line);
-void			redir(t_shell *list);
+void			simple_output(t_shell *list, int i);
+int				is_redir(t_shell *list);
+
+void			init_pipe(t_shell *list);
+void			close_pipe(t_shell *list);
+void			wait_pipe(t_shell *list);
 
 #endif

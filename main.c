@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **envp)
 			else
 			{
 				list = check_line(line, list);
+				init_pipe(list);
 				exec(list,envp,line);
 				add_history(line);
 				tcsetattr(STDIN_FILENO, TCSANOW, &saved);
@@ -39,5 +40,6 @@ int	main(int argc, char **argv, char **envp)
 	free(line);
 	free_env(list);
 	free(list);
+	exit(1);
 	return (EXIT_SUCCESS);
 }

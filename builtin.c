@@ -1,6 +1,38 @@
 #include "minishell.h"
 
-void	builtin(t_shell *list, char **envp, char *line)
+int	builtin(t_shell *list, char **envp, char *line)
+{
+	t_cmd	*current;
+	int		l;
+	int		i;
+
+	i = 0;
+	l = 0;
+	(void)envp;
+	(void)line;
+	current = list->head;
+	if (current->tab[0] == NULL)
+		return (-1);
+	l = ft_strlen((current->tab[0]));
+
+	if (ft_strncmp2(current->tab[0], "pwd", 4) == 0)
+		return (0);
+	else if ((ft_strncmp2(current->tab[0], "cd", 3) == 0))
+		return (0);
+	else if ((ft_strncmp2(current->tab[0], "echo", l) == 0))
+		return (0);
+	else if ((ft_strncmp2(current->tab[0], "export", 6) == 0))
+		return (0);
+	else if (ft_strcmp(current->tab[0], "unset") == 0)
+		return (0);
+	else if (ft_strncmp2(current->tab[0], "env", 4) == 0)
+		return (0);
+	else if (ft_strncmp2(current->tab[0], "exit", 4) == 0)
+		return (0);
+	return (-1);
+}
+
+int	exec_builtin(t_shell *list, char **envp, char *line)
 {
 	t_cmd	*current;
 	int		l;
@@ -11,38 +43,33 @@ void	builtin(t_shell *list, char **envp, char *line)
 	(void)envp;
 	current = list->head;
 	if (current->tab[0] == NULL)
-		return ;
+		return (-1);
 	l = ft_strlen((current->tab[0]));
-
 	if (ft_strncmp2(current->tab[0], "pwd", 4) == 0)
-		call_pwd();
+		return (call_pwd());
 	else if ((ft_strncmp2(current->tab[0], "cd", 3) == 0))
-		call_cd(list);
+		return (call_cd(list));
 	else if ((ft_strncmp2(current->tab[0], "echo", l) == 0))
-		mini_echo(list, current->tab[1]);
+		return (mini_echo(list, current->tab[1]));
 	else if ((ft_strncmp2(current->tab[0], "export", 6) == 0))
-		sort_list(list, current->tab[1]);
+		return (sort_list(list, current->tab[1]));
 	else if (ft_strcmp(current->tab[0], "unset") == 0)
-		call_unset(list, current->tab[1]);
+		return (call_unset(list, current->tab[1]));
 	else if (ft_strncmp2(current->tab[0], "env", 4) == 0)
-		printf_env(list);
+		return (printf_env(list));
 	else if (ft_strncmp2(current->tab[0], "exit", 4) == 0)
-	{
-		mini_exit(list, current->tab[1], line);
-		printf("exit works\n");
-	}
-	else
-		bins(list, envp);
-		// search_env(list);
+		return (mini_exit(list, current->tab[1], line));
+	return (-1);
 }
 
-void	call_pwd(void)
+int	call_pwd(void)
 {
 	char	*aux;
 
 	aux = getcwd(NULL, 0);
 	printf("%s\n", aux);
 	free(aux);
+	return (0);
 }
 
 char	*search_env(t_shell *list)
