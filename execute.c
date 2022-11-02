@@ -18,12 +18,14 @@ void	exec(t_shell *list, char **envp, char *line)
 void    exec_with_pipe(t_shell *list, char **envp, char *line)
 {
     (void)line;
+    char **execute;
     int     i;
     t_cmd    *current;
     current = list->head;
     current->pid = 0;
     i = 0;
     
+    execute = bins(current, list, envp);
     while (current != NULL)
     {
         current->pid = fork();
@@ -36,7 +38,7 @@ void    exec_with_pipe(t_shell *list, char **envp, char *line)
             close_pipe(list);
 			if (builtin(list, envp, line) == -1)
             {
-            	bins(current, list, envp);
+                bins_execute(execute, list, envp, current);
             }
             exit(0);
         }
