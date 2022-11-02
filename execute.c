@@ -10,7 +10,9 @@ void	exec(t_shell *list, char **envp, char *line)
 		exec_builtin(list, envp, line);
 	}
 	else
+    {
 		exec_with_pipe(list, envp, line);
+    }
 }
 
 void    exec_with_pipe(t_shell *list, char **envp, char *line)

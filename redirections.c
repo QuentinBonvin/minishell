@@ -7,12 +7,17 @@ void	simple_output(t_shell *list, int i)
 	char	*file;
 
 	fd = 0;
+	file = NULL;
 	curr = list->head;
 	i += 1;
-	file = curr->tab[i];
+	if (curr->tab[1] != '>')
+	{
+		file = curr->tab[i];
+	}
 	printf("file: %s\n",file);
-	file = ft_strjoin(file, ".txt");
-	fd = open(file, O_WRONLY | O_CREAT, 0644);
+	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	printf("are we here");
+	write(3, &curr->tab[1], ft_strlen(curr->tab[1]));
 	write(fd, "\n", 1);
 	close(fd);
 }
