@@ -112,8 +112,8 @@ void 			hide_keystrokes(struct termios *attr);
 /*************************************************
 Exec bins
 *************************************************/	
-void	bins(t_cmd *cmd, t_shell *list, char **envp);
-void	bins_execute(char **split_path, t_shell *list, char **envp);
+char	**bins(t_cmd *cmd, t_shell *list, char **envp);
+void	bins_execute(char **split_path, t_shell *list, char **envp, t_cmd *cmd);
 void	free_split_path(char **split_path);
 void	free_tab_cmd(t_shell *list);
 
