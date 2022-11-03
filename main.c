@@ -29,6 +29,7 @@ int	main(int argc, char **argv, char **envp)
 			{
 				list = check_line(line, list);
 				init_pipe(list);
+				is_redir(list);
 				exec(list,envp,line);
 				add_history(line);
 				tcsetattr(STDIN_FILENO, TCSANOW, &saved);

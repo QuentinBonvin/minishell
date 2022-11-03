@@ -1,25 +1,27 @@
 #include "minishell.h"
 
-void	simple_output(t_shell *list, int i)
+int	simple_output(t_cmd *curr, int i)
 {
-	t_cmd	*curr;
+	// t_cmd	*curr;
 	int		fd;
-	char	*file;
 
 	fd = 0;
-	file = NULL;
-	curr = list->head;
-	i += 1;
-	if (curr->tab[1] != '>')
+
+	printf("file = %s\n", curr->tab[i]);
+	fd = open(curr->tab[i], O_CREAT | O_RDWR | O_TRUNC, 0644);
+	printf("FD open: %d\n", fd);
+	if (fd == -1)
 	{
-		file = curr->tab[i];
+		perror("open: ");
+		return (-1);
 	}
-	printf("file: %s\n",file);
-	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	printf("are we here");
-	write(3, &curr->tab[1], ft_strlen(curr->tab[1]));
-	write(fd, "\n", 1);
-	close(fd);
+	//if (curr->fd_out > 2)
+	//	close(curr->fd_out);
+	curr->fd_out = fd;
+	delete_chev(curr, i);
+	printf("redir fd_in = %d\n", curr->fd_in);
+    printf("redir fd_out = %d\n", curr->fd_out);
+	return (0);
 }
 
 // {

@@ -5,12 +5,13 @@ void	exec(t_shell *list, char **envp, char *line)
 	t_cmd	*current;
 
 	current = list->head;
-	if (current->prev == NULL && (builtin(list, envp, line) != -1))
+	if (current->prev == NULL && (builtin(list, envp, line) != -1) && (list->redir_status != TRUE))
 	{
 		exec_builtin(list, envp, line);
 	}
 	else
     {
+        // int	simple_output(t_shell *list, int i)
 		exec_with_pipe(list, envp, line);
     }
 }
@@ -24,10 +25,11 @@ void    exec_with_pipe(t_shell *list, char **envp, char *line)
     current = list->head;
     current->pid = 0;
     i = 0;
-    
     execute = bins(current, list, envp);
     while (current != NULL)
     {
+        printf("execution fd_in = %d\n", current->fd_in);
+        printf("execution fd_out = %d\n", current->fd_out);
         current->pid = fork();
         if (current->pid == 0)
         {
@@ -36,10 +38,11 @@ void    exec_with_pipe(t_shell *list, char **envp, char *line)
             if (current->fd_in > 2)
                 dup2(current->fd_in, STDIN_FILENO);
             close_pipe(list);
-			if (builtin(list, envp, line) == -1)
-            {
+			//if (builtin(list, envp, line) == -1)
+            //{
                 bins_execute(execute, list, envp, current);
-            }
+
+            // }
             exit(0);
         }
         current = current->prev;
@@ -67,6 +70,13 @@ void    init_pipe(t_shell *list)
         current = current->prev;
     }
     current->fd_out = 1;
+    current = list->head;
+    while (current)
+    {
+        printf("INIT fd_in = %d\n", current->fd_in);
+        printf("INIT fd_out = %d\n", current->fd_out);
+        current = current->prev;
+    }
 }
 
 void    close_pipe(t_shell *list)

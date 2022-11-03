@@ -1,7 +1,5 @@
 #include "minishell.h"
 
-//we take the linked list and convert it to a char** per node
-
 void	list_to_array(t_shell *list)
 {
 	t_cmd	*curr;
@@ -24,7 +22,7 @@ void	list_to_array(t_shell *list)
 			tmp->tab = ft_split(tmp->content, ' ');
 		tmp = tmp->prev;
 	}
-	is_redir(list);
+	// is_redir(list);
 	tmp = curr;
 	while (tmp)
 	{
@@ -41,25 +39,54 @@ int	is_redir(t_shell *list)
 	int		i;
 
 	curr = list->head;
-	i = 0;
-	while(curr->tab[i])
+	while (curr)
 	{
-		if (curr->tab[i][0] == '>' && curr->tab[i][1] != '>')
+		i = 0;
+		while(curr->tab[i])
 		{
-			list->redir_status = TRUE;
-			simple_output(list, i);
+			if (curr->tab[i][0] == '>' && curr->tab[i][1] != '>')
+			{
+				list->redir_status = TRUE;
+				delete_chev(curr, i);
+				simple_output(curr, i);
+			}
+			else if (curr->tab[i][0] == '>' && curr->tab[i][1] == '>')
+			{
+				list->redir_status = TRUE;
+				// output_append(list, i);
+				printf("output append\n");
+			}
+			else if (curr->tab[i][0] == '<' && curr->tab[i][1] != '<')
+				printf("input\n");
+			else if (curr->tab[i][0] == '<' && curr->tab[i][1] == '<')
+				printf("heredoc\n");
+			i++;
 		}
-		if (curr->tab[i][0] == '>' && curr->tab[i][1] == '>')
-		{
-			list->redir_status = TRUE;
-			// output_append(list, i);
-			printf("output append\n");
-		}
-		if (curr->tab[i][0] == '<' && curr->tab[i][1] != '<')
-			printf("input\n");
-		if (curr->tab[i][0] == '<' && curr->tab[i][1] == '<')
-			printf("heredoc\n");
-		i++;
+		curr = curr->prev;
 	}
 	return (0);
+}
+
+void	delete_chev(t_cmd *curr, int i)
+{
+	int 	j;
+	// t_cmd	*curr;
+
+	printf("tab[i]: %s\n", curr->tab[i]);
+	free(curr->tab[i]);
+	// i = 0;
+	j = i + 1;
+	while (curr->tab[j])
+	{
+		curr->tab[i] = curr->tab[j];
+		printf("%s\n", curr->tab[i]);
+		i++;
+		j++;
+		// printf("%s\n", curr->tab[j]);
+	}
+	curr->tab[i] = NULL;
+	// j = -1;
+	// while (curr->tab[++j])
+	// 	printf("new tab: %s\n", curr->tab[j]);
+
 }

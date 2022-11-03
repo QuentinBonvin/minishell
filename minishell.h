@@ -191,8 +191,10 @@ void			ft_split2_to_long(const char *line, size_t i);
 
 void			exec_with_pipe(t_shell *list, char **envp, char *line);
 void			exec(t_shell *list, char **envp, char *line);
-void			simple_output(t_shell *list, int i);
 int				is_redir(t_shell *list);
+int				simple_output(t_cmd *curr, int i);
+void	delete_chev(t_cmd *list, int i);
+
 
 void			init_pipe(t_shell *list);
 void			close_pipe(t_shell *list);
