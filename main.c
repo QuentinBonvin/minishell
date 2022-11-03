@@ -5,7 +5,6 @@ int	main(int argc, char **argv, char **envp)
 	struct termios	saved;
 	char			*line;
 	t_shell			*list;
-
 	(void)argc;
 	(void)argv;
 	list = malloc(sizeof(t_shell));

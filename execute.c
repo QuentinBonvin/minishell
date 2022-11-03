@@ -5,7 +5,7 @@ void	exec(t_shell *list, char **envp, char *line)
 	t_cmd	*current;
 
 	current = list->head;
-	if (current->prev == NULL && (builtin(list, envp, line) != -1) && (list->redir_status != TRUE))
+	if (current->prev == NULL && (builtin(list, envp, line) != -1) && (current->redir_status != TRUE))
 	{
 		exec_builtin(list, envp, line);
 	}
@@ -28,8 +28,8 @@ void    exec_with_pipe(t_shell *list, char **envp, char *line)
     execute = bins(current, list, envp);
     while (current != NULL)
     {
-        printf("execution fd_in = %d\n", current->fd_in);
-        printf("execution fd_out = %d\n", current->fd_out);
+        // printf("execution fd_in = %d\n", current->fd_in);
+        // printf("execution fd_out = %d\n", current->fd_out);
         current->pid = fork();
         if (current->pid == 0)
         {
@@ -38,11 +38,13 @@ void    exec_with_pipe(t_shell *list, char **envp, char *line)
             if (current->fd_in > 2)
                 dup2(current->fd_in, STDIN_FILENO);
             close_pipe(list);
-			//if (builtin(list, envp, line) == -1)
-            //{
+			if (builtin(list, envp, line) == -1)
+            {
                 bins_execute(execute, list, envp, current);
+            }
+            else
+                exec_builtin(list, envp, line);
 
-            // }
             exit(0);
         }
         current = current->prev;
@@ -73,8 +75,8 @@ void    init_pipe(t_shell *list)
     current = list->head;
     while (current)
     {
-        printf("INIT fd_in = %d\n", current->fd_in);
-        printf("INIT fd_out = %d\n", current->fd_out);
+        // printf("INIT fd_in = %d\n", current->fd_in);
+        // printf("INIT fd_out = %d\n", current->fd_out);
         current = current->prev;
     }
 }

@@ -43,6 +43,7 @@ Link list for cmd
 *************************************************/
 typedef struct s_cmd
 {
+	int				redir_status;
 	char				*content;
 	char				**tab;
 	struct s_cmd		*next;
@@ -60,7 +61,6 @@ typedef struct s_shell
 	int				end;
 	int				start;
 	int				index;
-	int				redir_status;
 	int				double_quote;
 	t_cmd			*cmd;
 	t_cmd			*head;
@@ -193,7 +193,12 @@ void			exec_with_pipe(t_shell *list, char **envp, char *line);
 void			exec(t_shell *list, char **envp, char *line);
 int				is_redir(t_shell *list);
 int				simple_output(t_cmd *curr, int i);
-void	delete_chev(t_cmd *list, int i);
+void			delete_chev(t_cmd *list, int i);
+int				dobble_output(t_cmd *curr, int i);
+int				simple_input(t_cmd *curr, int i);
+int				own_heredocs(t_cmd *curr, int i);
+int				is_a_chevron(t_cmd *curr, int i);
+
 
 
 void			init_pipe(t_shell *list);

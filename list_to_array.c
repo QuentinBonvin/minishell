@@ -24,13 +24,13 @@ void	list_to_array(t_shell *list)
 	}
 	// is_redir(list);
 	tmp = curr;
-	while (tmp)
-	{
-		i = -1;
-		while (tmp->tab[++i])
-			printf("tab: %s\n", tmp->tab[i]);
-		tmp = tmp->prev;
-	}
+	// while (tmp)
+	// {
+	// 	i = -1;
+	// 	while (tmp->tab[++i])
+	// 		printf("tab: %s\n", tmp->tab[i]);
+	// 	tmp = tmp->prev;
+	// }
 }
 
 int	is_redir(t_shell *list)
@@ -44,23 +44,30 @@ int	is_redir(t_shell *list)
 		i = 0;
 		while(curr->tab[i])
 		{
-			if (curr->tab[i][0] == '>' && curr->tab[i][1] != '>')
+			if (curr->tab[i][0] == '>' && curr->tab[i][1] != '>' && curr->tab[i] != NULL)
 			{
-				list->redir_status = TRUE;
+				curr->redir_status = TRUE;
 				delete_chev(curr, i);
 				simple_output(curr, i);
 			}
-			else if (curr->tab[i][0] == '>' && curr->tab[i][1] == '>')
+			else if (curr->tab[i][0] == '>' && curr->tab[i][1] == '>' && curr->tab[i] != NULL)
 			{
-				list->redir_status = TRUE;
-				// output_append(list, i);
-				printf("output append\n");
+				curr->redir_status = TRUE;
+				delete_chev(curr, i);
+				dobble_output(curr, i);
 			}
-			else if (curr->tab[i][0] == '<' && curr->tab[i][1] != '<')
-				printf("input\n");
-			else if (curr->tab[i][0] == '<' && curr->tab[i][1] == '<')
-				printf("heredoc\n");
-			i++;
+			else if (curr->tab[i][0] == '<' && curr->tab[i][1] != '<' && curr->tab[i] != NULL)
+			{
+				delete_chev(curr, i);
+				simple_input(curr, i);
+			}
+			else if (curr->tab[i][0] == '<' && curr->tab[i][1] == '<' && curr->tab[i] != NULL)
+			{
+				delete_chev(curr, i);
+				own_heredocs(curr, i);
+			}
+			else
+				i++;
 		}
 		curr = curr->prev;
 	}
@@ -70,23 +77,44 @@ int	is_redir(t_shell *list)
 void	delete_chev(t_cmd *curr, int i)
 {
 	int 	j;
-	// t_cmd	*curr;
-
-	printf("tab[i]: %s\n", curr->tab[i]);
 	free(curr->tab[i]);
-	// i = 0;
 	j = i + 1;
 	while (curr->tab[j])
 	{
 		curr->tab[i] = curr->tab[j];
-		printf("%s\n", curr->tab[i]);
 		i++;
 		j++;
-		// printf("%s\n", curr->tab[j]);
 	}
 	curr->tab[i] = NULL;
-	// j = -1;
-	// while (curr->tab[++j])
-	// 	printf("new tab: %s\n", curr->tab[j]);
-
 }
+
+// int	is_a_chevron(t_cmd *curr, int i)
+// {
+// 	if (curr->tab[i][0] == '>' && curr->tab[i][1] != '>' && curr->tab[i + 1] != NULL)
+// 	{
+// 		curr->redir_status = TRUE;
+// 		delete_chev(curr, i);
+// 		simple_output(curr, i);
+// 		return (0);
+// 	}
+// 	else if (curr->tab[i][0] == '>' && curr->tab[i][1] == '>' && curr->tab[i + 1] != NULL)
+// 	{
+// 		curr->redir_status = TRUE;
+// 		delete_chev(curr, i);
+// 		dobble_output(curr, i);
+// 		return (0);
+// 	}
+// 	else if (curr->tab[i][0] == '<' && curr->tab[i][1] != '<' && curr->tab[i + 1] != NULL)
+// 	{
+// 		delete_chev(curr, i);
+// 		simple_input(curr, i);
+// 		return (0);
+// 	}
+// 	else if (curr->tab[i][0] == '<' && curr->tab[i][1] == '<' && curr->tab[i + 1] != NULL)
+// 	{
+// 		delete_chev(curr, i);
+// 		own_heredocs(curr, i);
+// 		return (0);
+// 	}
+// 	return (1);
+// }
