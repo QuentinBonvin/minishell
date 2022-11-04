@@ -17,13 +17,16 @@ void	list_to_array(t_shell *list)
 			tmp->tab = ft_split(tmp->content, '\'');
 		}
 		else if (string_search(tmp->content, '\"') == -1)
+		{
+			list->double_quote = 1;
 			tmp->tab = ft_split(tmp->content, '\"');
+		}
 		else
 			tmp->tab = ft_split(tmp->content, ' ');
 		tmp = tmp->prev;
 	}
-	// is_redir(list);
 	tmp = curr;
+	find_dollar(list);
 	// while (tmp)
 	// {
 	// 	i = -1;
@@ -31,6 +34,31 @@ void	list_to_array(t_shell *list)
 	// 		printf("tab: %s\n", tmp->tab[i]);
 	// 	tmp = tmp->prev;
 	// }
+}
+
+void	find_dollar(t_shell *list)
+{
+	t_cmd	*curr;
+	int		i;
+	char	*tmp;
+
+	curr = list->head;
+	while (curr)
+	{
+		i = 0;
+		while (curr->tab[i])
+		{
+			if (curr->tab[i][0] == '$' && list->single_quote == 0)
+			{
+				tmp = ft_substr(curr->tab[i], (1), ft_strlen(curr->tab[i]));
+				tmp = dollar_var(list, tmp);
+				free(curr->tab[i]);
+				curr->tab[i] = tmp;
+			}
+			i++;
+		}
+		curr = curr->prev;
+	}
 }
 
 int	is_redir(t_shell *list)

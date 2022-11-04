@@ -67,6 +67,8 @@ int	ft_compare(const char *s1, const char *s2)
 	size_t	i;
 
 	i = 0;
+	// printf("s1: %s\n", s1);
+	// printf("s2: %s\n", s2);
 	while((s1[i] != '\0' && s2[i] != '\0') && s1[i] == s2[i])
 	{
 		if (s1[i] == '\0' && s2[i] == '\0')

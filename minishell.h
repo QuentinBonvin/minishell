@@ -138,11 +138,13 @@ void			ft_error_cd(char *arg);
 int				set_env(char *name, char *pwd, t_shell *list);
 char			*get_env(char *name, t_shell *list);
 char			*join_home(char *curr, int length);
-int				mini_echo(t_shell *list, char *command);
+int				mini_echo(t_shell *list, char **command);
 int				print_echo(t_shell *list, int i, int option);
-void			execute_dollar(t_shell *list, int i, int option, char *command);
+void			execute_dollar(t_shell *list, int i, int option, char **command);
+void			check_dollar(char **command, int option, t_shell *list);
+int				index_check(t_shell *list, int option, int i);
 int				ft_find_sign(char *command);
-void			dollar_var(t_shell *list, char *var);
+char			*dollar_var(t_shell *list, char *var);
 int				sort_list(t_shell *list, char *arg);
 char 			**convert_list(t_shell *list);
 int				ft_count_env(t_shell *list);
@@ -204,5 +206,6 @@ int				is_a_chevron(t_cmd *curr, int i);
 void			init_pipe(t_shell *list);
 void			close_pipe(t_shell *list);
 void			wait_pipe(t_shell *list);
+void			find_dollar(t_shell *list);
 
 #endif

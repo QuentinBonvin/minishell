@@ -50,7 +50,7 @@ int	exec_builtin(t_shell *list, char **envp, char *line)
 	else if ((ft_strncmp2(current->tab[0], "cd", 3) == 0))
 		return (call_cd(list));
 	else if ((ft_strncmp2(current->tab[0], "echo", l) == 0))
-		return (mini_echo(list, current->tab[1]));
+		return (mini_echo(list, current->tab));
 	else if ((ft_strncmp2(current->tab[0], "export", 6) == 0))
 		return (sort_list(list, current->tab[1]));
 	else if (ft_strcmp(current->tab[0], "unset") == 0)
