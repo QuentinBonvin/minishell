@@ -2,21 +2,21 @@
 
 int	sort_list(t_shell *list, char *arg)
 {
-	char	**env_array;
-	int		l;
+	// char	**env_array;
+	// int		l;
 	int		i;
 	char	*tmp;
 	char	*env;
 
 	i = 0;
-	l = 0;
-	env = NULL;
-	env_array = convert_list(list);
-	l = (ft_count_env(list));
-	sort_and_swap(env_array, (l));
+	// l = 0;
+	// env = NULL;
+	// env_array = convert_list(list);
+	// l = (ft_count_env(list));
+	// sort_and_swap(env_array, (l));
 	if (arg == NULL)
 	{
-		print_array(env_array, (l + 1));
+		print_array(list);
 	}
 	else
 	{
@@ -26,6 +26,8 @@ int	sort_list(t_shell *list, char *arg)
 			{
 				tmp = ft_substr(arg, 0, i);
 				env = check_if_in_env(list, tmp);
+				printf("tmp: %s\n", tmp);
+				printf("env: %s\n", env);
 				break ;
 			}
 			else
@@ -34,13 +36,13 @@ int	sort_list(t_shell *list, char *arg)
 		}
 		if (env != NULL)
 		{
-			// printf("arg: %s\n", arg);
+			printf("arg: %s\n", arg);
 			replace_in_env(list, env, arg);
 		}
 		else
 			add_export_to_env(&list->env_tail, arg);
 	}
-	env_array = NULL;
+	// env_array = NULL;
 	return (0);
 }
 
@@ -52,7 +54,10 @@ void	replace_in_env(t_shell *list, char *env, char *arg)
 	while (curr)
 	{
 		if (curr->content == env)
+		{
 			curr->content = arg;
+			printf("%s\n", curr->content);
+		}
 		curr = curr->prev;
 	}
 }

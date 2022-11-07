@@ -4,6 +4,8 @@ int	call_unset(t_shell *list, char *var)
 {
 	if (var == NULL)
 		return (0);
+	if (check_if_in_env(list, var) == NULL)
+		return (0);
 	ft_remove_from_list(list, var);
 	return (0);
 }

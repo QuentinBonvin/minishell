@@ -33,7 +33,7 @@ char	*dollar_var(t_shell *list, char *var)
 	i = 0;
 	tmp = check_if_in_env(list, var);
 	if (tmp == NULL)
-		printf("%s\n", var);
+		return (0);
 	while (tmp[i] && tmp != NULL)
 	{
 		if (tmp[i] == '=')

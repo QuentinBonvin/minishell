@@ -149,7 +149,7 @@ int				sort_list(t_shell *list, char *arg);
 char 			**convert_list(t_shell *list);
 int				ft_count_env(t_shell *list);
 void			sort_and_swap(char **env_array, int l);
-void			print_array(char **env_array, int len);
+void			print_array(t_shell *list);
 char			*check_if_in_env(t_shell *list, char *arg);
 void			replace_in_env(t_shell *list, char *env, char *arg);
 void			*add_export_to_env(t_env **env_tail, char *arg);

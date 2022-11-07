@@ -27,13 +27,13 @@ void	list_to_array(t_shell *list)
 	}
 	tmp = curr;
 	find_dollar(list);
-	// while (tmp)
-	// {
-	// 	i = -1;
-	// 	while (tmp->tab[++i])
-	// 		printf("tab: %s\n", tmp->tab[i]);
-	// 	tmp = tmp->prev;
-	// }
+	while (tmp)
+	{
+		i = -1;
+		while (tmp->tab[++i])
+			printf("tab: %s\n", tmp->tab[i]);
+		tmp = tmp->prev;
+	}
 }
 
 void	find_dollar(t_shell *list)

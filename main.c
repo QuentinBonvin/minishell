@@ -32,13 +32,13 @@ int	main(int argc, char **argv, char **envp)
 				exec(list,envp,line);
 				add_history(line);
 				tcsetattr(STDIN_FILENO, TCSANOW, &saved);
-				free_cmd(list);
 				free(line);
+				free_cmd(list);
 			}
 		}
 	}
 	free(line);
-	free_env(list);
+	// free_env(list);
 	free(list);
 	exit(1);
 	return (EXIT_SUCCESS);

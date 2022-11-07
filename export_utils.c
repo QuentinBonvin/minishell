@@ -1,16 +1,26 @@
 #include "minishell.h"
 
-void	print_array(char **env_array, int len)
+void	print_array(t_shell *list)
 {
-	int	i;
+	char	**env_array;
+	int		l;
+	int		i;
+	// char	*tmp;
+	char	*env;
 
 	i = 0;
-	while (i < (len - 1))
+	l = 0;
+	env = NULL;
+	env_array = convert_list(list);
+	l = (ft_count_env(list));
+	sort_and_swap(env_array, (l));
+	while (i < (l - 1))
 	{
 		printf("%s", "declare -x ");
 		printf("%s\n", env_array[i]);
 		i++;
 	}
+	free(env_array);
 }
 
 t_env	*ft_copy(t_env *curr, t_shell *list)
@@ -67,8 +77,6 @@ int	ft_compare(const char *s1, const char *s2)
 	size_t	i;
 
 	i = 0;
-	// printf("s1: %s\n", s1);
-	// printf("s2: %s\n", s2);
 	while((s1[i] != '\0' && s2[i] != '\0') && s1[i] == s2[i])
 	{
 		if (s1[i] == '\0' && s2[i] == '\0')
