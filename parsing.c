@@ -6,6 +6,7 @@ t_shell	*check_line(char *line, t_shell *list)
 	list->single_quote = 0;
 	ft_split2(line, '|', list);
 	printf_cmd(list);
-	list_to_array(list);
+	list_to_array(list, line);
+
 	return (list);
 }
