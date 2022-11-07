@@ -1,7 +1,8 @@
 #include "minishell.h"
 
-void	list_to_array(t_shell *list)
+void	list_to_array(t_shell *list, char *line)
 {
+	//FILE* myFile = fopen("demo.txt", "w+");
 	t_cmd	*curr;
 	t_cmd	*tmp;
 	int		i;
@@ -11,18 +12,19 @@ void	list_to_array(t_shell *list)
 	tmp = curr;
 	while (tmp != NULL)
 	{
-		if (string_search(tmp->content, '\'') == -1)
+		if (string_search(tmp->content, '\'') == -1 && check_data_to_lst(line) == 0)
 		{
 			list->single_quote = 1;
 			tmp->tab = ft_split(tmp->content, '\'');
 		}
-		else if (string_search(tmp->content, '\"') == -1)
-		{
-			list->double_quote = 1;
+		else if (string_search(tmp->content, '\"') == -1 && check_data_to_lst(line) == 0)
 			tmp->tab = ft_split(tmp->content, '\"');
-		}
 		else
+		{
 			tmp->tab = ft_split(tmp->content, ' ');
+			//fprintf(myFile, "address of tmp->tab\n%p\n", tmp->tab);
+		}
+		free(tmp->content);
 		tmp = tmp->prev;
 	}
 	tmp = curr;

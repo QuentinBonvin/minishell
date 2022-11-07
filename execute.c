@@ -18,10 +18,11 @@ void	exec(t_shell *list, char **envp, char *line)
 
 void    exec_with_pipe(t_shell *list, char **envp, char *line)
 {
-    (void)line;
-    char **execute;
+    //FILE	*file = fopen("debug.txt", "a+");
+    char    **execute;
     int     i;
-    t_cmd    *current;
+    t_cmd   *current;
+
     current = list->head;
     current->pid = 0;
     i = 0;
@@ -38,17 +39,13 @@ void    exec_with_pipe(t_shell *list, char **envp, char *line)
             if (current->fd_in > 2)
                 dup2(current->fd_in, STDIN_FILENO);
             close_pipe(list);
-			if (builtin(list, envp, line) == -1)
-            {
+			if (exec_builtin(list, envp, line) == -1)
                 bins_execute(execute, list, envp, current);
-            }
-            else
-                exec_builtin(list, envp, line);
-
             exit(0);
         }
         current = current->prev;
     }
+    free_split_path(execute);
     // printf("multiple pipe\n");
     close_pipe(list);
     wait_pipe(list);

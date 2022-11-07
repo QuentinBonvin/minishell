@@ -179,7 +179,7 @@ void			remove_node(t_cmd *node);
 void			free_tab(char **env);
 void		    init_list(t_shell *list);
 int				string_start(char *line, char c);
-void			list_to_array(t_shell *list);
+void			list_to_array(t_shell *list, char *line);
 void			ft_split2(char const *line, char c, t_shell *list);
 void			ft_split2_to_long(const char *line, size_t i);
 
@@ -207,5 +207,8 @@ void			init_pipe(t_shell *list);
 void			close_pipe(t_shell *list);
 void			wait_pipe(t_shell *list);
 void			find_dollar(t_shell *list);
+
+void			void_argv_argc(int argc, char **argv);
+void			prompt(char *line, t_shell *list, char **envp, struct termios *saved);
 
 #endif

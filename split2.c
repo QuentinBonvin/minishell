@@ -2,6 +2,7 @@
 
 void	ft_split2(char const *line, char c, t_shell *list)
 {
+	//FILE* myFile = fopen("demo.txt", "w+");
 	size_t	i;
 	int		index;
 
@@ -29,6 +30,7 @@ void	ft_split2(char const *line, char c, t_shell *list)
 				&& list->tail == NULL)
 				index = 0;
 			list->token = ft_substr(line, index, (i - index));
+			//fprintf(myFile, "address of list->token\n%p\n", list->token);
 			if (list->tail == NULL)
 				start_stack(&list->head, &list->tail, list->token);
 			else
