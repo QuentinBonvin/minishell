@@ -17,7 +17,7 @@ int	print_echo(t_shell *list, int i, int option)
 		while (curr->tab[i])
 		{
 			ft_putstr(curr->tab[i]);
-			ft_putstr(" ");
+			// ft_putstr(" ");
 			i++;
 		}
 		curr = curr->prev;

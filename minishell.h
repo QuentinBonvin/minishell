@@ -213,5 +213,6 @@ void			find_dollar(t_shell *list, t_env *env);
 void			void_argv_argc(int argc, char **argv);
 void			prompt(char *line, t_shell *list, char **envp, struct termios *saved, t_env *env);
 char			what_quote(char *data);
+void			trim_quote(t_shell *list);
 
 #endif

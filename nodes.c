@@ -2,15 +2,12 @@
 
 void	*start_stack(t_cmd **head, t_cmd **tail, char *token)
 {
-	FILE* myFile = fopen("demo.txt", "w+");
 	t_cmd	*new_node;
 
 	new_node = malloc(sizeof(t_cmd));
 	if (new_node == NULL)
 		return (0);
 	new_node->content = token;
-	fprintf(myFile, "address of new_node->content\n%p\n", new_node->content);
-	fprintf(myFile, "address of token\n%p\n", token);
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	*head = new_node;
