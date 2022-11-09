@@ -25,13 +25,14 @@ int	print_echo(t_shell *list, int i, int option)
 	return (0);
 }
 
-char	*dollar_var(t_shell *list, char *var)
+char	*dollar_var(t_shell *list, char *var, t_env *env)
 {
 	char	*tmp;
 	int		i;
 
 	i = 0;
-	tmp = check_if_in_env(list, var);
+	(void)list;
+	tmp = check_if_in_env(env, var);
 	if (tmp == NULL)
 		return (0);
 	while (tmp[i] && tmp != NULL)

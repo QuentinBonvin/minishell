@@ -1,74 +1,75 @@
 #include "minishell.h"
 
-int	sort_list(t_shell *list, char *arg)
+int	sort_list(t_env *env, char **arg)
 {
-	// char	**env_array;
-	// int		l;
 	int		i;
+	int		j;
 	char	*tmp;
-	char	*env;
+	char	*envp;
 
-	i = 0;
-	// l = 0;
-	// env = NULL;
-	// env_array = convert_list(list);
-	// l = (ft_count_env(list));
-	// sort_and_swap(env_array, (l));
-	if (arg == NULL)
+	i = 1;
+	if (arg[i] == NULL)
 	{
-		print_array(list);
+		print_array(env);
 	}
 	else
 	{
 		while (arg[i])
 		{
-			if (arg[i] == '=')
+			j = 0;
+			while(arg[i][j])
 			{
-				tmp = ft_substr(arg, 0, i);
-				env = check_if_in_env(list, tmp);
-				printf("tmp: %s\n", tmp);
-				printf("env: %s\n", env);
-				break ;
+				if (arg[i][j] == '=')
+				{
+					tmp = ft_substr(arg[i], 0, i);
+					printf("tmp: %s\n", tmp);
+					envp = check_if_in_env(env, tmp);
+					replace_in_env(env, envp, arg[i]);
+					free(tmp);
+					break ;
+				}
+				// else
+				// 	//envp = NULL;
+				j++;
 			}
-			else
-				env = NULL;
+			add_export_to_env(&env->env_tail, arg[i]);
 			i++;
 		}
-		if (env != NULL)
-		{
-			printf("arg: %s\n", arg);
-			replace_in_env(list, env, arg);
-		}
-		else
-			add_export_to_env(&list->env_tail, arg);
+		// if (envp != NULL)
+		// {
+		// 	printf("arg[i]: %s\n", arg[i]);
+		// }
+		// else
+		// {
+		// 	printf("arg[i]: %s\n", arg[1]);
+		// }
 	}
 	// env_array = NULL;
 	return (0);
 }
 
-void	replace_in_env(t_shell *list, char *env, char *arg)
+void	replace_in_env(t_env *env, char *envp, char *arg)
 {
 	t_env	*curr;
 
-	curr = list->env_head;
+	curr = env->env_head;
 	while (curr)
 	{
-		if (curr->content == env)
+		if (curr->content == envp)
 		{
 			curr->content = arg;
-			printf("%s\n", curr->content);
 		}
 		curr = curr->prev;
 	}
 }
 
-char	*check_if_in_env(t_shell *list, char *arg)
+char	*check_if_in_env(t_env *env, char *arg)
 {
 	t_env	*curr;
 	int		i;
 	int		l;
 
-	curr = list->env_head;
+	curr = env->env_head;
 	l = ft_strlen(arg);
 	i = 0;
 	while (curr)
@@ -123,7 +124,7 @@ void	sort_and_swap(char **env_array, int l)
 	}
 }
 
-char	**convert_list(t_shell *list)
+char	**convert_list(t_env *env)
 {
 	char	**env_array;
 	int		length;
@@ -131,8 +132,8 @@ char	**convert_list(t_shell *list)
 	int		i;
 
 	i = 0;
-	length = ft_count_env(list);
-	curr = list->env_head;
+	length = ft_count_env(env);
+	curr = env->env_head;
 	env_array = (char **)malloc(sizeof(char **) * (length + 2));
 	while (curr)
 	{

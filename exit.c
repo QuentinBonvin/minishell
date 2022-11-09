@@ -1,14 +1,30 @@
 #include "minishell.h"
 
-int	mini_exit(t_shell *list, char *arg, char *line)
+int	mini_exit(t_shell *list, char *arg, char *line, t_env *env)
 {
+	(void)env;
+	(void)list;
 	if (arg == NULL)
 	{
-		free_cmd(list);
-		free_env(list);
+		// free_cmd(list);
+		free_env(env);
 		free(line);
-		// free(list->cmd->tab);
+		// free(list);
 		exit (g_exit_status);
 	}
+	else 
+	{
+		g_exit_status = ft_atoi((arg));
+	}
+	return (g_exit_status);
+}
+
+int	call_pwd(void)
+{
+	char	*aux;
+
+	aux = getcwd(NULL, 0);
+	printf("%s\n", aux);
+	free(aux);
 	return (0);
 }

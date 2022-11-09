@@ -1,22 +1,22 @@
 #include "minishell.h"
 
-void	exec(t_shell *list, char **envp, char *line)
+void	exec(t_shell *list, char **envp, char *line, t_env *env)
 {
 	t_cmd	*current;
 
 	current = list->head;
 	if (current->prev == NULL && (builtin(list, envp, line) != -1) && (current->redir_status != TRUE))
 	{
-		exec_builtin(list, envp, line);
+		exec_builtin(list, envp, line, env);
 	}
 	else
     {
         // int	simple_output(t_shell *list, int i)
-		exec_with_pipe(list, envp, line);
+		exec_with_pipe(list, envp, line, env);
     }
 }
 
-void    exec_with_pipe(t_shell *list, char **envp, char *line)
+void    exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
 {
     //FILE	*file = fopen("debug.txt", "a+");
     char    **execute;
@@ -26,7 +26,7 @@ void    exec_with_pipe(t_shell *list, char **envp, char *line)
     current = list->head;
     current->pid = 0;
     i = 0;
-    execute = bins(current, list, envp);
+    execute = bins(current, list, envp, env);
     while (current != NULL)
     {
         // printf("execution fd_in = %d\n", current->fd_in);
@@ -39,7 +39,7 @@ void    exec_with_pipe(t_shell *list, char **envp, char *line)
             if (current->fd_in > 2)
                 dup2(current->fd_in, STDIN_FILENO);
             close_pipe(list);
-			if (exec_builtin(list, envp, line) == -1)
+			if (exec_builtin(list, envp, line, env) == -1)
                 bins_execute(execute, list, envp, current);
             exit(0);
         }

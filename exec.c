@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	call_cd(t_shell *list)
+int	call_cd(t_shell *list, t_env *env)
 {
 	char	*home;
 	int		res;
@@ -11,8 +11,8 @@ int	call_cd(t_shell *list)
 	i = 0;
 	res = 0;
 	arg = list->head->tab[1];
-	pwd = get_env("PWD", list);
-	home = get_env("HOME", list);
+	pwd = get_env("PWD", env);
+	home = get_env("HOME", env);
 	if (arg)
 	{
 		if (arg[i] == '~')
@@ -26,20 +26,20 @@ int	call_cd(t_shell *list)
 				ft_error_cd(arg);
 		}
 		home = getcwd(NULL, 0);
-		set_env("OLDPWD", pwd, list);
-		set_env("PWD", home, list);
+		set_env("OLDPWD", pwd, env);
+		set_env("PWD", home, env);
 	}
 	else if (!arg)
 	{
 		res = chdir(home);
-		set_env("PWD", home, list);
-		set_env("OLDPWD", pwd, list);
+		set_env("PWD", home, env);
+		set_env("OLDPWD", pwd, env);
 	}
 	pwd = getcwd(NULL, 0);
 	return (res);
 }
 
-char	*get_env(char *name, t_shell *list)
+char	*get_env(char *name, t_env *env)
 {
 	t_env	*curr;
 	char	*home;
@@ -47,7 +47,7 @@ char	*get_env(char *name, t_shell *list)
 	int		i;
 
 	i = 0;
-	curr = list->env_head;
+	curr = env->env_head;
 	l = ft_strlen(name) + 1;
 	home = NULL;
 	while (curr != NULL)
@@ -78,18 +78,18 @@ char	*join_home(char *curr, int length)
 	return (home);
 }
 
-int	set_env(char *name, char *pwd, t_shell *list)
+int	set_env(char *name, char *pwd, t_env *env)
 {
 	char	*var_ok;
 	char	*tmp;
 	char	*new;
 
 	tmp = ft_strjoin(name, "=");
-	var_ok = check_if_in_env(list, tmp);
+	var_ok = check_if_in_env(env, tmp);
 	if (var_ok != NULL)
 	{
 		new = ft_strjoin(tmp, pwd);
-		replace_in_env(list, var_ok, new);
+		replace_in_env(env, var_ok, new);
 	}
 	return (0);
 }

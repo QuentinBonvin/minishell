@@ -1,20 +1,20 @@
 #include "minishell.h"
 
-void	print_array(t_shell *list)
+void	print_array(t_env *env)
 {
 	char	**env_array;
 	int		l;
 	int		i;
-	// char	*tmp;
-	char	*env;
+	char	*envp;
 
 	i = 0;
 	l = 0;
-	env = NULL;
-	env_array = convert_list(list);
-	l = (ft_count_env(list));
+	envp = NULL;
+	env_array = convert_list(env);
+	l = (ft_count_env(env));
+	printf("length: %d\n", l);
 	sort_and_swap(env_array, (l));
-	while (i < (l - 1))
+	while (i < (l))
 	{
 		printf("%s", "declare -x ");
 		printf("%s\n", env_array[i]);
@@ -23,13 +23,13 @@ void	print_array(t_shell *list)
 	free(env_array);
 }
 
-t_env	*ft_copy(t_env *curr, t_shell *list)
+t_env	*ft_copy(t_env *curr, t_env *env)
 {
 	t_env	*curr2;
 	t_env	*new;
 	t_env	*tmp;
 
-	curr2 = list->env_tail;
+	curr2 = env->env_tail;
 	tmp = NULL;
 	new = malloc(sizeof(t_env));
 	while (curr != NULL)
@@ -44,13 +44,13 @@ t_env	*ft_copy(t_env *curr, t_shell *list)
 	return (tmp);
 }
 
-int	ft_count_env(t_shell *list)
+int	ft_count_env(t_env *env)
 {
 	int		i;
 	t_env	*curr;
 
 	i = 0;
-	curr = list->env_head;
+	curr = env->env_head;
 	while (curr != NULL)
 	{
 		curr = curr->prev;
@@ -77,7 +77,7 @@ int	ft_compare(const char *s1, const char *s2)
 	size_t	i;
 
 	i = 0;
-	while((s1[i] != '\0' && s2[i] != '\0') && s1[i] == s2[i])
+	while ((s1[i] != '\0' && s2[i] != '\0') && s1[i] == s2[i])
 	{
 		if (s1[i] == '\0' && s2[i] == '\0')
 			return (0);
@@ -93,7 +93,7 @@ void	*add_export_to_env(t_env **env_tail, char *arg)
 	new_node = malloc(sizeof(t_env));
 	if (new_node == NULL)
 		return (0);
-	new_node->content = arg;
+	new_node->content = ft_strdup(arg);
 	new_node->prev = (*env_tail)->prev;
 	(*env_tail)->prev = new_node;
 	new_node->next = (*env_tail);

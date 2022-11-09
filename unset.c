@@ -1,24 +1,31 @@
 #include "minishell.h"
 
-int	call_unset(t_shell *list, char *var)
+int	call_unset(t_env *env, char **var)
 {
-	if (var == NULL)
+	int	i;
+
+	i = 1;
+	if (var[i] == NULL)
 		return (0);
-	if (check_if_in_env(list, var) == NULL)
-		return (0);
-	ft_remove_from_list(list, var);
+	while (var[i])
+	{
+		if (check_if_in_env(env, var[i]) == NULL)
+			return (0);
+		ft_remove_from_list(env, var[i]);
+		i++;	
+	}
 	return (0);
 }
 
-void	ft_remove_from_list(t_shell *list, char *var)
+void	ft_remove_from_list(t_env *env, char *var)
 {
 	t_env	*curr;
 	t_env	*tmp;
 	int		l;
 
-	curr = list->env_head;
+	curr = env->env_head;
 	l = (ft_strlen(var) + 1);
-	if (ft_delete_first_node(&list->env_head, curr, var))
+	if (ft_delete_first_node(&env->env_head, curr, var))
 		return ;
 	while (curr != NULL && ft_strncmp2(curr->content, var, l) != 0)
 	{

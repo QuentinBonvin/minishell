@@ -1,30 +1,26 @@
 #include "minishell.h"
 
-void	init_env(char **envp, t_shell *list)
+void	init_env(char **envp, t_env *env)
 {
 	int		i;
-	t_env	*env;
 
 	i = 0;
-	env = malloc(sizeof(t_env));
 	while (envp[i])
 	{
 		if (i == 0)
-			create_cell(&list->env_head, &list->env_tail, envp);
+			create_cell(&env->env_head, &env->env_tail, &envp[i]);
 		else
 		{
-			add_envp_to_env(&list->env_tail, &envp[i]);
+			add_envp_to_env(&env->env_tail, &envp[i]);
 		}
 		i++;
 	}
-	free(env);
 }
 
 void	*create_cell(t_env **env_head, t_env **env_tail, char **envp)
 {
 	t_env	*cell;
 
-	(void)envp;
 	cell = malloc(sizeof(t_env));
 	if (!(cell))
 		return (NULL);
@@ -51,13 +47,13 @@ void	*add_envp_to_env(t_env **env_tail, char **envp)
 	return (0);
 }
 
-int	printf_env(t_shell *list)
+int	printf_env(t_env *env)
 {
-	t_env	*curr;
 	int		i;
+	t_env	*curr;
 
 	i = 0;
-	curr = list->env_head;
+	curr = env->env_head;
 	while (curr)
 	{
 		i = 0;
@@ -75,19 +71,21 @@ int	printf_env(t_shell *list)
 	return (0);
 }
 
-void	free_env(t_shell *list)
+void	free_env(t_env *env)
 {
 	t_env	*current;
 
-	current = list->env_head;
-	if (list == NULL)
+	current = env->env_head;
+	if (env == NULL)
 		exit(EXIT_FAILURE);
 	while (current->prev != NULL)
 	{
+		// if (current->content != NULL)
+		// 	free(current->content);
 		current = current->prev;
 		free(current->next);
 	}
-	list->env_head = NULL;
-	list->env_tail = NULL;
+	env->env_head = NULL;
+	env->env_tail = NULL;
 	free(current);
 }

@@ -1,16 +1,17 @@
 #include "minishell.h"
 
-char	**bins(t_cmd *cmd, t_shell *list, char **envp)
+char	**bins(t_cmd *cmd, t_shell *list, char **envp, t_env *env)
 {
 	char	**split_path;
 	char	*path;
 	char	*pathtmp;
 	(void)envp;
 	(void)cmd;
+	(void)list;
 	int		i;
 
 	i = -1;
-	path = search_env(list);
+	path = search_env(env);
 	split_path = ft_split(path, ':');
 	//free(split_path_tmp);
 
