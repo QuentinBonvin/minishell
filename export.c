@@ -8,43 +8,30 @@ int	sort_list(t_env *env, char **arg)
 	char	*envp;
 
 	i = 1;
+	envp = NULL;
 	if (arg[i] == NULL)
-	{
 		print_array(env);
-	}
 	else
 	{
 		while (arg[i])
 		{
-			j = 0;
-			while(arg[i][j])
+			j = -1;
+			while (arg[i][++j])
 			{
 				if (arg[i][j] == '=')
 				{
-					tmp = ft_substr(arg[i], 0, i);
-					printf("tmp: %s\n", tmp);
+					tmp = ft_substr(arg[i], 0, j);
 					envp = check_if_in_env(env, tmp);
 					replace_in_env(env, envp, arg[i]);
 					free(tmp);
 					break ;
 				}
-				// else
-				// 	//envp = NULL;
-				j++;
 			}
-			add_export_to_env(&env->env_tail, arg[i]);
+			if (envp == NULL)
+				add_export_to_env(&env->env_tail, arg[i]);
 			i++;
 		}
-		// if (envp != NULL)
-		// {
-		// 	printf("arg[i]: %s\n", arg[i]);
-		// }
-		// else
-		// {
-		// 	printf("arg[i]: %s\n", arg[1]);
-		// }
 	}
-	// env_array = NULL;
 	return (0);
 }
 
@@ -57,7 +44,7 @@ void	replace_in_env(t_env *env, char *envp, char *arg)
 	{
 		if (curr->content == envp)
 		{
-			curr->content = arg;
+			curr->content = ft_strdup(arg);
 		}
 		curr = curr->prev;
 	}

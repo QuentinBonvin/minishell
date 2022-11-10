@@ -5,8 +5,8 @@ void	list_to_array(t_shell *list, char *line, t_env *env)
 	t_cmd	*curr;
 	t_cmd	*tmp;
 	int		i;
-	(void)line;
 
+	(void)line;
 	i = 0;
 	curr = list->head;
 	tmp = curr;
@@ -16,7 +16,6 @@ void	list_to_array(t_shell *list, char *line, t_env *env)
 		{
 			list->single_quote = 1;
 			tmp->tab = ft_split(tmp->content, '\'');
-
 		}
 		else if (what_quote(tmp->content) == 2)
 		{
@@ -30,13 +29,6 @@ void	list_to_array(t_shell *list, char *line, t_env *env)
 	}
 	tmp = curr;
 	find_dollar(list, env);
-	// while (tmp)
-	// {
-	// 	i = -1;
-	// 	while (tmp->tab[++i])
-	// 		printf("tab: %s\n", tmp->tab[i]);
-	// 	tmp = tmp->prev;
-	// }
 }
 
 char	what_quote(char *data)
@@ -71,7 +63,7 @@ void	find_dollar(t_shell *list, t_env *env)
 		i = 0;
 		while (curr->tab[i])
 		{
-			if (curr->tab[i][0] == '$' && list->single_quote == 0)
+			if (curr->tab[i][0] == '$' && curr->tab[i][1] != '?' && list->single_quote == 0)
 			{
 				tmp2 = ft_substr(curr->tab[i], (1), ft_strlen(curr->tab[i]));
 				tmp = dollar_var(list, tmp2, env);
@@ -84,6 +76,18 @@ void	find_dollar(t_shell *list, t_env *env)
 		curr = curr->prev;
 	}
 }
+
+int	return_value(t_shell *list)
+{
+	char	*status;
+
+	(void)list;
+	status = ft_strdup(ft_itoa(g_exit_status));
+	printf("%d\n", g_exit_status);
+	return (g_exit_status);	
+}
+
+
 
 int	is_redir(t_shell *list)
 {

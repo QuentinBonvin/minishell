@@ -5,32 +5,27 @@ void	exec(t_shell *list, char **envp, char *line, t_env *env)
 	t_cmd	*current;
 
 	current = list->head;
-	if (current->prev == NULL && (builtin(list, envp, line) != -1) && (current->redir_status != TRUE))
+	if (current->prev == NULL && (builtin(list, envp, line) != -1)
+			&& (current->redir_status != TRUE))
 	{
 		exec_builtin(list, envp, line, env);
 	}
 	else
-    {
-        // int	simple_output(t_shell *list, int i)
 		exec_with_pipe(list, envp, line, env);
-    }
 }
 
-void    exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
+void	exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
 {
-    //FILE	*file = fopen("debug.txt", "a+");
-    char    **execute;
-    int     i;
-    t_cmd   *current;
+	char	**execute;
+	int		i;
+	t_cmd	*current;
 
     current = list->head;
     current->pid = 0;
     i = 0;
     execute = bins(current, list, envp, env);
     while (current != NULL)
-    {
-        // printf("execution fd_in = %d\n", current->fd_in);
-        // printf("execution fd_out = %d\n", current->fd_out);
+	{
         current->pid = fork();
         if (current->pid == 0)
         {
@@ -41,15 +36,13 @@ void    exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
             close_pipe(list);
 			if (exec_builtin(list, envp, line, env) == -1)
                 bins_execute(execute, list, envp, current);
-            exit(0);
+            exit(1);
         }
         current = current->prev;
     }
     free_split_path(execute);
-    // printf("multiple pipe\n");
     close_pipe(list);
     wait_pipe(list);
-    //builtin(list, envp, line);
 }
 
 void    init_pipe(t_shell *list)
@@ -97,13 +90,16 @@ void    close_pipe(t_shell *list)
 void    wait_pipe(t_shell *list)
 {
     t_cmd *current;
+    // int     status;
 
     current = list->head;
     while (current != NULL)
     {
         // printf("hello2\n");
         if (current->pid > 0)
+        {
             waitpid(current->pid, NULL, 0);
+        }
         current = current->prev;
     }
 }

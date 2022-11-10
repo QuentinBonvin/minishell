@@ -19,6 +19,7 @@
 # include <readline/history.h>
 # include <termios.h>
 # include <fcntl.h>
+# include <errno.h>
 
 // struct termios saved;
 // struct termios attributes;
@@ -75,7 +76,7 @@ Link list function for environnement
 // t_env			*create_cell(char **envp);
 void			*create_cell(t_env **env_head, t_env **env_tail, char **envp);
 void			init_env(char **envp, t_env *env);
-int				printf_env(t_env *env);
+int				printf_env(t_env *env, t_shell *list);
 // t_env			*add_envp_to_env(t_env *env, char **envp/*, int i*/);
 void			*add_envp_to_env(t_env **head, char **envp);
 
@@ -136,7 +137,7 @@ int				call_pwd(void);
 int				ft_strcmp(char *s1, char *s2);
 int				ft_strncmp2(char *s1, char *s2, int n);
 int				call_cd(t_shell *list, t_env *env);
-void			ft_error_cd(char *arg);
+int				ft_error(char **arg);
 int				set_env(char *name, char *pwd, t_env *env);
 char			*get_env(char *name, t_env *env);
 char			*join_home(char *curr, int length);
@@ -214,5 +215,6 @@ void			void_argv_argc(int argc, char **argv);
 void			prompt(char *line, t_shell *list, char **envp, struct termios *saved, t_env *env);
 char			what_quote(char *data);
 void			trim_quote(t_shell *list);
+int				return_value(t_shell *list);
 
 #endif

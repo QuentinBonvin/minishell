@@ -65,7 +65,6 @@ void	free_cmd(t_shell *list)
 	}
 	free(current->tab);
 	free(current);
-	// free(list->cmd);
 }
 
 void	init_list(t_shell *list)

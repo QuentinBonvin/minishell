@@ -51,7 +51,7 @@ int	exec_builtin(t_shell *list, char **envp, char *line, t_env *env)
 	else if (ft_strcmp(current->tab[0], "unset") == 0)
 		return (call_unset(env, current->tab));
 	else if (ft_strncmp2(current->tab[0], "env", 4) == 0)
-		return (printf_env(env));
+		return (printf_env(env, list));
 	else if (ft_strncmp2(current->tab[0], "exit", 4) == 0)
 		return (mini_exit(list, current->tab[1], line, env));
 	return (-1);

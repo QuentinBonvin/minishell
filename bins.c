@@ -60,12 +60,14 @@ void	bins_execute(char **split_path, t_shell *list, char **envp, t_cmd *cmd)
 		tmp2 = ft_strjoin(tmp, curr->tab[0]);
 		free (tmp);
 		if (execve(tmp2, curr->tab, envp) == -1)
+			g_exit_status = 1;
 		free(tmp2);
 		y++;
 	}
 	if (curr == NULL)
 	{
 		printf("command not found\n");
+		g_exit_status = 1;
 	}
 	free_split_path(split_path);
 }
