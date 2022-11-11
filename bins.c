@@ -40,6 +40,7 @@ void	bins_execute(char **split_path, char **envp, t_cmd *cmd)
 		tmp = ft_strjoin(split_path[y], "/");
 		tmp2 = ft_strjoin(tmp, curr->tab[0]);
 		free (tmp);
+<<<<<<< HEAD
 		if (!access(tmp2, X_OK))
 		{
 			if (execve(tmp2, curr->tab, envp) == -1)
@@ -48,6 +49,17 @@ void	bins_execute(char **split_path, char **envp, t_cmd *cmd)
 				free(tmp2);
 			}
 		}
+=======
+		if (execve(tmp2, curr->tab, envp) == -1)
+			g_exit_status = 1;
+		free(tmp2);
+		y++;
+	}
+	if (curr == NULL)
+	{
+		printf("command not found\n");
+		g_exit_status = 1;
+>>>>>>> c587c0be935fc70b7e71d26d731a5220efc8485f
 	}
 	check_command_not_found(i, tmp2, curr);
 	free_split_path(split_path);

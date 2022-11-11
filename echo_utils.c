@@ -8,7 +8,8 @@ int	print_echo(t_shell *list, int i, int option)
 	curr = list->head;
 	if (option == 1 && (list->double_quote == 0 && list->single_quote == 0))
 		i = 2;
-	else if (option == 1 && (list->double_quote == 1 || list->single_quote == 1))
+	else if (option == 1
+		&& (list->double_quote == 1 || list->single_quote == 1))
 		i = 1;
 	else
 		i = 1;

@@ -23,7 +23,7 @@ int	call_cd(t_shell *list, t_env *env)
 		res = chdir(arg);
 		{
 			if (res != 0)
-				ft_error_cd(arg);
+				ft_error(list->head->tab);
 		}
 		home = getcwd(NULL, 0);
 		set_env("OLDPWD", pwd, env);
@@ -94,8 +94,15 @@ int	set_env(char *name, char *pwd, t_env *env)
 	return (0);
 }
 
-void	ft_error_cd(char *arg)
+int	ft_error(char **arg)
 {
-	printf("bash: cd: %s", arg);
-	printf(" : No such file or directory\n");
+	printf("%s", arg[0]);
+	printf(": ");
+	printf("%s", arg[1]);
+	printf(": ");
+	printf("%s", strerror(errno));
+	printf(" ");
+	printf("\n");
+	g_exit_status = 1;
+	return (1);
 }
