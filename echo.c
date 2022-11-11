@@ -17,11 +17,11 @@ int	mini_echo(t_shell *list, char **command)
 		option = 1;
 		i++;
 	}
-	if (ft_strcmp(command[i], "$?") == 0)
-	{
-		g_exit_status = return_value(list);
-		return (g_exit_status);
-	}
+	// if (ft_strcmp(command[i], "$?") == 0)
+	// {
+	// 	g_exit_status = return_value(list);
+	// 	return (g_exit_status);
+	// }
 	print_echo(list, i, option);
 	if (option == 1)
 		return (0);

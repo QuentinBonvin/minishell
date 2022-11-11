@@ -5,7 +5,6 @@ void	list_to_array(t_shell *list, t_env *env)
 	t_cmd	*tmp;
 	int		i;
 
-	(void)line;
 	i = 0;
 	tmp = list->head;
 	while (tmp != NULL)
@@ -26,7 +25,6 @@ void	list_to_array(t_shell *list, t_env *env)
 		tmp = tmp->prev;
 	}
 	find_dollar(list, env);
-<<<<<<< HEAD
 	// tmp = list->head;
 	// while (tmp)
 	// {
@@ -35,8 +33,6 @@ void	list_to_array(t_shell *list, t_env *env)
 	// 		printf("tab: %s\n", tmp->tab[i]);
 	// 	tmp = tmp->prev;
 	// }
-=======
->>>>>>> c587c0be935fc70b7e71d26d731a5220efc8485f
 }
 
 char	what_quote(char *data)

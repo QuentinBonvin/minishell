@@ -208,13 +208,9 @@ void			void_argv_argc(int argc, char **argv);
 void			prompt(char *line, t_shell *list, char **envp, struct termios *saved, t_env *env);
 char			what_quote(char *data);
 void			trim_quote(t_shell *list);
-<<<<<<< HEAD
 void			free_all(t_shell *list, t_env *env, char *line);
 int				check_command_not_found(int i, char *str, t_cmd	*curr);
 
 
-=======
-int				return_value(t_shell *list);
->>>>>>> c587c0be935fc70b7e71d26d731a5220efc8485f
 
 #endif
