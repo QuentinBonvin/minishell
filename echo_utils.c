@@ -17,8 +17,13 @@ int	print_echo(t_shell *list, int i, int option)
 		while (curr->tab[i])
 		{
 			ft_putstr(curr->tab[i]);
-			// ft_putstr(" ");
-			i++;
+			if (list->double_quote == 1 || list->single_quote == 1)
+				i++;
+			else
+			{
+				ft_putstr(" ");
+				i++;
+			}
 		}
 		curr = curr->prev;
 	}
@@ -42,16 +47,14 @@ char	*dollar_var(t_shell *list, char *var, t_env *env)
 		i++;
 	}
 	tmp = ft_substr(tmp, (i + 1), ft_strlen(tmp));
-	// printf("%s", tmp);
-	// printf(" ");
 	return (tmp);
 }
 
 int	index_check(t_shell *list, int option, int i)
 {
-	if ((list->double_quote == 0 && list->single_quote == 0) && option == 1 )
+	if ((list->double_quote == 0 && list->single_quote == 0) && option == 1)
 		i = 2;
-	else /*option == 1 no quote then */
+	else
 		i = 1;
 	return (i);
 }

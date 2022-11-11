@@ -1,22 +1,18 @@
 #include "minishell.h"
 
-void	list_to_array(t_shell *list, char *line, t_env *env)
+void	list_to_array(t_shell *list, t_env *env)
 {
-	t_cmd	*curr;
 	t_cmd	*tmp;
 	int		i;
-	(void)line;
 
 	i = 0;
-	curr = list->head;
-	tmp = curr;
+	tmp = list->head;
 	while (tmp != NULL)
 	{
 		if (what_quote(tmp->content) == 1)
 		{
 			list->single_quote = 1;
 			tmp->tab = ft_split(tmp->content, '\'');
-
 		}
 		else if (what_quote(tmp->content) == 2)
 		{
@@ -28,8 +24,8 @@ void	list_to_array(t_shell *list, char *line, t_env *env)
 		free(tmp->content);
 		tmp = tmp->prev;
 	}
-	tmp = curr;
 	find_dollar(list, env);
+	// tmp = list->head;
 	// while (tmp)
 	// {
 	// 	i = -1;

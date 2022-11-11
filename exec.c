@@ -16,10 +16,10 @@ int	call_cd(t_shell *list, t_env *env)
 	if (arg)
 	{
 		if (arg[i] == '~')
-			{
-				res = chdir(home);
-				return (res);
-			}
+		{
+			res = chdir(home);
+			return (res);
+		}
 		res = chdir(arg);
 		{
 			if (res != 0)

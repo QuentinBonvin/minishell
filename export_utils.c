@@ -59,19 +59,6 @@ int	ft_count_env(t_env *env)
 	return (i);
 }
 
-t_env	*create_node(char *node)
-{
-	t_env	*new;
-
-	new = malloc(sizeof(t_env));
-	if (new)
-	{
-		new->content = ft_strdup(node);
-		new->prev = NULL;
-	}
-	return (new);
-}
-
 int	ft_compare(const char *s1, const char *s2)
 {
 	size_t	i;

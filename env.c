@@ -80,8 +80,6 @@ void	free_env(t_env *env)
 		exit(EXIT_FAILURE);
 	while (current->prev != NULL)
 	{
-		// if (current->content != NULL)
-		// 	free(current->content);
 		current = current->prev;
 		free(current->next);
 	}

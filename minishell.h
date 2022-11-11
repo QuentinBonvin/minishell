@@ -103,29 +103,27 @@ int 	last_char_is_pipe(char *line);
 int		pipe_at_start_or_end(char *line);
 char	*split_space(t_shell *list, int c);
 int 	check_if_space_beewtween_quote(char *line, int index_space);
+char	*string_after_trim(char *str, t_shell *list);
+int		ft_split2_too_long(const char *line, int i);
+
+
 
 /*************************************************
 Signal
 *************************************************/	
 void			ctrl_c_signal(int signum);
-void			ctrl_d_signal(int signum);
 void			handle_signal(struct termios *saved);
 void 			hide_keystrokes(struct termios *attr);
+void			handle_sigquit(int signal);
 /*************************************************
 Exec bins
 *************************************************/	
-char	**bins(t_cmd *cmd, t_shell *list, char **envp, t_env *env);
-void	bins_execute(char **split_path, t_shell *list, char **envp, t_cmd *cmd);
+char	**bins(t_cmd *cmd, t_env *env);
+void	bins_execute(char **split_path, char **envp, t_cmd *cmd);
 void	free_split_path(char **split_path);
 void	free_tab_cmd(t_shell *list);
-
-
-// void	print_env(t_content_env *env);
-// int		init_env(t_content_env **new_env, char **envp);
-// t_content_env	*add_list(t_content_env *list, char *date);
-// t_content_env	*create_cell(char *data);
-// t_content_env	*empty_list(void);
-// int		isempty(t_content_env *L);
+int		command_not_found(char **cmd, t_cmd *curr, char **envp);
+int		ft_strcmp_env(char *s1, char *s2);
 
 /*************************************************
 Link list function for builtins
@@ -181,9 +179,8 @@ void			remove_node(t_cmd *node);
 void			free_tab(char **env);
 void		    init_list(t_shell *list);
 int				string_start(char *line, char c);
-void			list_to_array(t_shell *list, char *line, t_env *env);
+void			list_to_array(t_shell *list, t_env *env);
 void			ft_split2(char const *line, char c, t_shell *list);
-void			ft_split2_to_long(const char *line, size_t i);
 
 /*normally can delete*/
 // void			remove_node(t_node *node);
@@ -202,17 +199,17 @@ int				dobble_output(t_cmd *curr, int i);
 int				simple_input(t_cmd *curr, int i);
 int				own_heredocs(t_cmd *curr, int i);
 int				is_a_chevron(t_cmd *curr, int i);
-
-
-
 void			init_pipe(t_shell *list);
 void			close_pipe(t_shell *list);
 void			wait_pipe(t_shell *list);
 void			find_dollar(t_shell *list, t_env *env);
-
 void			void_argv_argc(int argc, char **argv);
 void			prompt(char *line, t_shell *list, char **envp, struct termios *saved, t_env *env);
 char			what_quote(char *data);
 void			trim_quote(t_shell *list);
+void			free_all(t_shell *list, t_env *env, char *line);
+int				check_command_not_found(int i, char *str, t_cmd	*curr);
+
+
 
 #endif
