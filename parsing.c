@@ -5,8 +5,7 @@ t_shell	*check_line(char *line, t_shell *list, t_env *env)
 	list->double_quote = 0;
 	list->single_quote = 0;
 	ft_split2(line, '|', list);
-	// printf_cmd(list);
-	list_to_array(list, line, env);
+	list_to_array(list, env);
 	trim_quote(list);
 	return (list);
 }
@@ -27,14 +26,18 @@ void	trim_quote(t_shell *list)
 			else if (list->double_quote == 1)
 				tmp->tab[i] = ft_strtrim(tmp->tab[i], "\"");
 		}
+		i = -1;
 		tmp = tmp->prev;
 	}
-	tmp = list->head;
+	// tmp = list->head;
 	// while (tmp)
 	// {
-	// 	i = -1;
-	// 	while (tmp->tab[++i])
+	// 	i = 0;
+	// 	while (tmp->tab[i])
+	// 	{
 	// 		printf("tab: %s\n", tmp->tab[i]);
+	// 		i++;
+	// 	}
 	// 	tmp = tmp->prev;
 	// }
 }

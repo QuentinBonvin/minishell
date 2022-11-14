@@ -1,15 +1,12 @@
 #include "minishell.h"
 
-void	list_to_array(t_shell *list, char *line, t_env *env)
+void	list_to_array(t_shell *list, t_env *env)
 {
-	t_cmd	*curr;
 	t_cmd	*tmp;
 	int		i;
 
-	(void)line;
 	i = 0;
-	curr = list->head;
-	tmp = curr;
+	tmp = list->head;
 	while (tmp != NULL)
 	{
 		if (what_quote(tmp->content) == 1)
@@ -27,8 +24,15 @@ void	list_to_array(t_shell *list, char *line, t_env *env)
 		free(tmp->content);
 		tmp = tmp->prev;
 	}
-	tmp = curr;
 	find_dollar(list, env);
+	tmp = list->head;
+	while (tmp)
+	{
+		i = -1;
+		while (tmp->tab[++i])
+			printf("tab: %s\n", tmp->tab[i]);
+		tmp = tmp->prev;
+	}
 }
 
 char	what_quote(char *data)
@@ -63,7 +67,8 @@ void	find_dollar(t_shell *list, t_env *env)
 		i = 0;
 		while (curr->tab[i])
 		{
-			if (curr->tab[i][0] == '$' && curr->tab[i][1] != '?' && list->single_quote == 0)
+			if (curr->tab[i][0] == '$' && curr->tab[i][1] != '?'
+				&& list->single_quote == 0)
 			{
 				tmp2 = ft_substr(curr->tab[i], (1), ft_strlen(curr->tab[i]));
 				tmp = dollar_var(list, tmp2, env);
@@ -86,8 +91,6 @@ int	return_value(t_shell *list)
 	printf("%d\n", g_exit_status);
 	return (g_exit_status);	
 }
-
-
 
 int	is_redir(t_shell *list)
 {
@@ -149,4 +152,5 @@ void	delete_chev(t_cmd *curr, int i)
 		j++;
 	}
 	curr->tab[i] = NULL;
+	return (g_exit_status);
 }

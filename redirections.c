@@ -2,14 +2,10 @@
 
 int	simple_output(t_cmd *curr, int i)
 {
-	// t_cmd	*curr;
-	int		fd;
+	int	fd;
 
 	fd = 0;
-
-	// printf("file = %s\n", curr->tab[i]);
 	fd = open(curr->tab[i], O_CREAT | O_RDWR | O_TRUNC, 0644);
-	// printf("FD open: %d\n", fd);
 	if (fd == -1)
 	{
 		perror("open: ");
@@ -19,21 +15,15 @@ int	simple_output(t_cmd *curr, int i)
 		close(curr->fd_out);
 	curr->fd_out = fd;
 	delete_chev(curr, i);
-	// printf("redir fd_in = %d\n", curr->fd_in);
-    // printf("redir fd_out = %d\n", curr->fd_out);
 	return (0);
 }
 
 int	dobble_output(t_cmd *curr, int i)
 {
-	// t_cmd	*curr;
-	int		fd;
+	int	fd;
 
 	fd = 0;
-
-	// printf("file = %s\n", curr->tab[i]);
 	fd = open(curr->tab[i], O_CREAT | O_RDWR | O_APPEND, 0644);
-	// printf("FD open: %d\n", fd);
 	if (fd == -1)
 	{
 		perror("open: ");
@@ -43,21 +33,15 @@ int	dobble_output(t_cmd *curr, int i)
 		close(curr->fd_out);
 	curr->fd_out = fd;
 	delete_chev(curr, i);
-	// printf("redir fd_in = %d\n", curr->fd_in);
-    // printf("redir fd_out = %d\n", curr->fd_out);
 	return (0);
 }
 
 int	simple_input(t_cmd *curr, int i)
 {
-	// t_cmd	*curr;
-	int		fd;
+	int	fd;
 
 	fd = 0;
-
-	// printf("file = %s\n", curr->tab[i]);
 	fd = open(curr->tab[i], O_RDONLY, 0644);
-	// printf("FD open: %d\n", fd);
 	if (fd == -1)
 	{
 		perror("open: ");
@@ -67,16 +51,14 @@ int	simple_input(t_cmd *curr, int i)
 		close(curr->fd_out);
 	curr->fd_in = fd;
 	delete_chev(curr, i);
-	// printf("redir fd_in = %d\n", curr->fd_in);
-    // printf("redir fd_out = %d\n", curr->fd_out);
 	return (0);
 }
 
 int	own_heredocs(t_cmd *curr, int i)
 {
-	int fd[2];
-	char *line;
-	char *delimiter;
+	int		fd[2];
+	char	*line;
+	char	*delimiter;
 
 	delimiter = curr->tab[i];
 	pipe(fd);
@@ -85,7 +67,7 @@ int	own_heredocs(t_cmd *curr, int i)
 	while (1)
 	{
 		line = readline("heredoc> ");
-		if(!line)
+		if (!line)
 			break ;
 		if (ft_strcmp(line, delimiter) != 0)
 			ft_putendl_fd(line, fd[1]);

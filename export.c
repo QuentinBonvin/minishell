@@ -15,8 +15,8 @@ int	sort_list(t_env *env, char **arg)
 	{
 		while (arg[i])
 		{
-			j = -1;
-			while (arg[i][++j])
+			j = 0;
+			while (arg[i][j])
 			{
 				if (arg[i][j] == '=')
 				{
@@ -26,6 +26,7 @@ int	sort_list(t_env *env, char **arg)
 					free(tmp);
 					break ;
 				}
+				j++;
 			}
 			if (envp == NULL)
 				add_export_to_env(&env->env_tail, arg[i]);
@@ -109,24 +110,4 @@ void	sort_and_swap(char **env_array, int l)
 		}
 		l--;
 	}
-}
-
-char	**convert_list(t_env *env)
-{
-	char	**env_array;
-	int		length;
-	t_env	*curr;
-	int		i;
-
-	i = 0;
-	length = ft_count_env(env);
-	curr = env->env_head;
-	env_array = (char **)malloc(sizeof(char **) * (length + 2));
-	while (curr)
-	{
-		env_array[i] = curr->content;
-		curr = curr->prev;
-		i++;
-	}
-	return (env_array);
 }

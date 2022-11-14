@@ -18,7 +18,13 @@ int	print_echo(t_shell *list, int i, int option)
 		while (curr->tab[i])
 		{
 			ft_putstr(curr->tab[i]);
-			i++;
+			if (list->double_quote == 1 || list->single_quote == 1)
+				i++;
+			else
+			{
+				ft_putstr(" ");
+				i++;
+			}
 		}
 		curr = curr->prev;
 	}
@@ -49,7 +55,7 @@ int	index_check(t_shell *list, int option, int i)
 {
 	if ((list->double_quote == 0 && list->single_quote == 0) && option == 1)
 		i = 2;
-	else /*option == 1 no quote then */
+	else
 		i = 1;
 	return (i);
 }

@@ -12,7 +12,7 @@ int	call_unset(t_env *env, char **var)
 		if (check_if_in_env(env, var[i]) == NULL)
 			return (0);
 		ft_remove_from_list(env, var[i]);
-		i++;	
+		i++;
 	}
 	return (0);
 }
@@ -35,7 +35,6 @@ void	ft_remove_from_list(t_env *env, char *var)
 	if (ft_strncmp2(curr->content, var, l) == 0)
 	{
 		tmp->prev = curr->prev;
-		// free(curr->prev);
 		free(curr);
 	}
 	else

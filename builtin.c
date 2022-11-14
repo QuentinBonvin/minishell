@@ -66,13 +66,13 @@ char	*search_env(t_env *env)
 	curr = env->env_head;
 	while (curr)
 	{
-		if (ft_strcmp(curr->content, "PATH") == 0)
+		if (ft_strcmp_env(curr->content, "PATH=") == 0)
 		{
 			return (curr->content);
 		}
 		curr = curr->prev;
 	}
-	return (0);
+	return (NULL);
 }
 
 int	ft_strcmp(char *s1, char *s2)
@@ -86,6 +86,20 @@ int	ft_strcmp(char *s1, char *s2)
 		return (0);
 	else
 		return (-1);
+}
+
+int	ft_strcmp_env(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while ((s1[i] != '\0' && s2[i] != '\0') && s1[i] == s2[i])
+	{
+		if (s1[i + 1] == '=')
+			return (0);
+		i++;
+	}
+	return (-1);
 }
 
 int	ft_strncmp2(char *s1, char *s2, int n)

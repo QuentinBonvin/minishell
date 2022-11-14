@@ -6,13 +6,11 @@ int	mini_exit(t_shell *list, char *arg, char *line, t_env *env)
 	(void)list;
 	if (arg == NULL)
 	{
-		// free_cmd(list);
 		free_env(env);
 		free(line);
-		// free(list);
 		exit (g_exit_status);
 	}
-	else 
+	else
 	{
 		g_exit_status = ft_atoi((arg));
 	}
