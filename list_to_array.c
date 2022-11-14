@@ -1,3 +1,4 @@
+
 #include "minishell.h"
 
 void	list_to_array(t_shell *list, t_env *env)
@@ -25,14 +26,14 @@ void	list_to_array(t_shell *list, t_env *env)
 		tmp = tmp->prev;
 	}
 	find_dollar(list, env);
-	tmp = list->head;
-	while (tmp)
-	{
-		i = -1;
-		while (tmp->tab[++i])
-			printf("tab: %s\n", tmp->tab[i]);
-		tmp = tmp->prev;
-	}
+	// tmp = list->head;
+	// while (tmp)
+	// {
+	// 	i = -1;
+	// 	while (tmp->tab[++i])
+	// 		printf("tab: %s\n", tmp->tab[i]);
+	// 	tmp = tmp->prev;
+	// }
 }
 
 char	what_quote(char *data)

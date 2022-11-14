@@ -31,15 +31,13 @@ int	builtin(t_shell *list, char **envp, char *line)
 int	exec_builtin(t_shell *list, char **envp, char *line, t_env *env)
 {
 	t_cmd	*current;
-	// int		l;
 	int		i;
 
-	i = 0;
 	(void)envp;
+	i = 0;
 	current = list->head;
 	if (current->tab[0] == NULL)
 		return (-1);
-	// l = ft_strlen((current->tab[0]));
 	if (ft_strncmp2(current->tab[0], "pwd", 4) == 0)
 		return (call_pwd());
 	else if ((ft_strncmp2(current->tab[0], "cd", 3) == 0))

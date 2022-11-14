@@ -107,6 +107,10 @@ int 	check_if_space_beewtween_quote(char *line, int index_space);
 char	*string_after_trim(char *str, t_shell *list);
 int		ft_split2_too_long(const char *line, int i);
 void	detect_chev(int i, t_cmd *curr);
+int		check_pipe(char *data, int i);
+int		check_another_quote(char *data, int i);
+
+
 
 
 
@@ -126,6 +130,7 @@ void	free_split_path(char **split_path);
 void	free_tab_cmd(t_shell *list);
 int		command_not_found(char **cmd, t_cmd *curr, char **envp);
 int		ft_strcmp_env(char *s1, char *s2);
+void	start_bins(t_cmd *current, t_env *env, char **envp, char **execute);
 
 /*************************************************
 Link list function for builtins
