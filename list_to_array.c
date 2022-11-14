@@ -25,14 +25,14 @@ void	list_to_array(t_shell *list, t_env *env)
 		tmp = tmp->prev;
 	}
 	find_dollar(list, env);
-	tmp = list->head;
-	while (tmp)
-	{
-		i = -1;
-		while (tmp->tab[++i])
-			printf("tab: %s\n", tmp->tab[i]);
-		tmp = tmp->prev;
-	}
+	// tmp = list->head;
+	// while (tmp)
+	// {
+	// 	i = -1;
+	// 	while (tmp->tab[++i])
+	// 		printf("tab: %s\n", tmp->tab[i]);
+	// 	tmp = tmp->prev;
+	// }
 }
 
 char	what_quote(char *data)
@@ -76,81 +76,26 @@ void	find_dollar(t_shell *list, t_env *env)
 				free(curr->tab[i]);
 				curr->tab[i] = tmp;
 			}
+			if (curr->tab[i][0] == '$' && curr->tab[i][1] == '?')
+				return_value(list, curr->tab);
 			i++;
 		}
 		curr = curr->prev;
 	}
 }
 
-int	return_value(t_shell *list)
+int	return_value(t_shell *list, char **command)
 {
-	char	*status;
+	int	i;
+	t_cmd *tmp;
 
-	(void)list;
-	status = ft_strdup(ft_itoa(g_exit_status));
-	printf("%d\n", g_exit_status);
-	return (g_exit_status);	
-}
-
-int	is_redir(t_shell *list)
-{
-	t_cmd	*curr;
-	int		i;
-
-	curr = list->head;
-	while (curr)
+	i = 0;
+	tmp = list->head;
+	while (command[i])
 	{
-		i = 0;
-		while (curr->tab[i])
-		{
-			if (curr->tab[i][0] == '>' && curr->tab[i][1] != '>'
-				&& curr->tab[i] != NULL)
-			{
-				curr->redir_status = TRUE;
-				delete_chev(curr, i);
-				simple_output(curr, i);
-			}
-			else if (curr->tab[i][0] == '>' && curr->tab[i][1] == '>'
-				&& curr->tab[i] != NULL)
-			{
-				curr->redir_status = TRUE;
-				delete_chev(curr, i);
-				dobble_output(curr, i);
-			}
-			else if (curr->tab[i][0] == '<' && curr->tab[i][1] != '<'
-				&& curr->tab[i] != NULL)
-			{
-				curr->redir_status = TRUE;
-				delete_chev(curr, i);
-				simple_input(curr, i);
-			}
-			else if (curr->tab[i][0] == '<' && curr->tab[i][1] == '<'
-				&& curr->tab[i] != NULL)
-			{
-				curr->redir_status = TRUE;
-				delete_chev(curr, i);
-				own_heredocs(curr, i);
-			}
-			else
-				i++;
-		}
-		curr = curr->prev;
-	}
-	return (0);
-}
-
-void	delete_chev(t_cmd *curr, int i)
-{
-	int		j;
-
-	free(curr->tab[i]);
-	j = i + 1;
-	while (curr->tab[j])
-	{
-		curr->tab[i] = curr->tab[j];
+		if (ft_strcmp(command[i], "$?") == 0)
+			command[i] = ft_itoa(g_exit_status);
 		i++;
-		j++;
 	}
-	curr->tab[i] = NULL;
-	return (g_exit_status);
+	return (g_exit_status);	
 }

@@ -46,7 +46,7 @@ Link list for cmd
 *************************************************/
 typedef struct s_cmd
 {
-	int				redir_status;
+	int					redir_status;
 	char				*content;
 	char				**tab;
 	struct s_cmd		*next;
@@ -58,16 +58,16 @@ typedef struct s_cmd
 
 typedef struct s_shell
 {
-	t_env			*node;
-	char			*token;
-	int				single_quote;
-	int				end;
-	int				start;
-	int				index;
-	int				double_quote;
-	t_cmd			*cmd;
-	t_cmd			*head;
-	t_cmd			*tail;
+	t_env				*node;
+	char				*token;
+	int					single_quote;
+	int					end;
+	int					start;
+	int					index;
+	int					double_quote;
+	t_cmd				*cmd;
+	t_cmd				*head;
+	t_cmd				*tail;
 }	t_shell;
 
 /*************************************************
@@ -92,45 +92,44 @@ int				check_error(char *line);
 /*************************************************
 function for parsing
 *************************************************/
-int		check_data_to_lst(char *data);
-int		is_double_pipe(char *data, int i);
-int		after_is_quote(char *data, int i);
-int		is_quote(char *data, int i);
-int		is_s_quote(char *data, int i);
-int		is_d_quote(char *data, int i);
-int		check_space_beetween_pipe(char *data, int i);
-int		first_char_is_pipe(char *line);
-int 	last_char_is_pipe(char *line);
-int		pipe_at_start_or_end(char *line);
-char	*split_space(t_shell *list, int c);
-int 	check_if_space_beewtween_quote(char *line, int index_space);
-char	*string_after_trim(char *str, t_shell *list);
-int		ft_split2_too_long(const char *line, int i);
-void	detect_chev(int i, t_cmd *curr);
-
-
+int				check_data_to_lst(char *data);
+int				is_double_pipe(char *data, int i);
+int				after_is_quote(char *data, int i);
+int				is_quote(char *data, int i);
+int				is_s_quote(char *data, int i);
+int				is_d_quote(char *data, int i);
+int				check_space_beetween_pipe(char *data, int i);
+int				first_char_is_pipe(char *line);
+int				last_char_is_pipe(char *line);
+int				pipe_at_start_or_end(char *line);
+char			*split_space(t_shell *list, int c);
+int				check_if_space_beewtween_quote(char *line, int index_space);
+char			*string_after_trim(char *str, t_shell *list);
+int				ft_split2_too_long(const char *line, int i);
+void			detect_chev(int i, t_cmd *curr);
 
 /*************************************************
 Signal
 *************************************************/	
 void			ctrl_c_signal(int signum);
 void			handle_signal(struct termios *saved);
-void 			hide_keystrokes(struct termios *attr);
+void			hide_keystrokes(struct termios *attr);
 void			handle_sigquit(int signal);
 /*************************************************
 Exec bins
 *************************************************/	
-char	**bins(t_cmd *cmd, t_env *env);
-void	bins_execute(char **split_path, char **envp, t_cmd *cmd);
-void	free_split_path(char **split_path);
-void	free_tab_cmd(t_shell *list);
-int		command_not_found(char **cmd, t_cmd *curr, char **envp);
-int		ft_strcmp_env(char *s1, char *s2);
+char			**bins(t_cmd *cmd, t_env *env);
+void			bins_execute(char **split_path, char **envp, t_cmd *cmd);
+void			free_split_path(char **split_path);
+void			free_tab_cmd(t_shell *list);
+int				command_not_found(char **cmd, t_cmd *curr, char **envp);
+int				ft_strcmp_env(char *s1, char *s2);
 
 /*************************************************
 Link list function for builtins
 *************************************************/	
-int				exec_builtin(t_shell *list, char **envp, char *line, t_env *env);
+int				exec_builtin(t_shell *list, char **envp,
+					char *line, t_env *env);
 int				builtin(t_shell *list, char **envp, char *line);
 int				call_pwd(void);
 int				ft_strcmp(char *s1, char *s2);
@@ -141,14 +140,16 @@ int				set_env(char *name, char *pwd, t_env *env);
 char			*get_env(char *name, t_env *env);
 char			*join_home(char *curr, int length);
 int				mini_echo(t_shell *list, char **command);
+void			printer(char *command, t_shell *list);
 int				print_echo(t_shell *list, int i, int option);
-void			execute_dollar(t_shell *list, int i, int option, char **command);
+void			execute_dollar(t_shell *list, int i,
+					int option, char **command);
 void			check_dollar(char **command, int option, t_shell *list);
 int				index_check(t_shell *list, int option, int i);
 int				ft_find_sign(char *command);
 char			*dollar_var(t_shell *list, char *var, t_env *env);
 int				sort_list(t_env *env, char **arg);
-char 			**convert_list(t_env *env);
+char			**convert_list(t_env *env);
 int				ft_count_env(t_env *env);
 void			sort_and_swap(char **env_array, int l);
 void			print_array(t_env *env);
@@ -179,20 +180,12 @@ void			free_cmd(t_shell *list);
 void			free_env(t_env *env);
 void			remove_node(t_cmd *node);
 void			free_tab(char **env);
-void		    init_list(t_shell *list);
+void			init_list(t_shell *list);
 int				string_start(char *line, char c);
 void			list_to_array(t_shell *list, t_env *env);
 void			ft_split2(char const *line, char c, t_shell *list);
-
-/*normally can delete*/
-// void			remove_node(t_node *node);
-// void			print_new_env(char **env_array, int len);
-// char			*env_ok(char *name, t_shell *list);
-// void			add_to_env_copy(t_shell *list, char **env_array, char *arg, int l);
-// void			ft_swap(char *s1, char *s2);
-// int				ft_count_copy(char **env_array);
-
-void			exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env);
+void			exec_with_pipe(t_shell *list, char **envp,
+					char *line, t_env *env);
 void			exec(t_shell *list, char **envp, char *line, t_env *env);
 int				is_redir(t_shell *list);
 int				simple_output(t_cmd *curr, int i);
@@ -206,12 +199,13 @@ void			close_pipe(t_shell *list);
 void			wait_pipe(t_shell *list);
 void			find_dollar(t_shell *list, t_env *env);
 void			void_argv_argc(int argc, char **argv);
-int				prompt(t_shell *list, char **envp, struct termios *saved, t_env *env);
+int				prompt(t_shell *list, char **envp,
+					struct termios *saved, t_env *env);
 char			what_quote(char *data);
 void			trim_quote(t_shell *list);
 void			free_all(t_shell *list, t_env *env, char *line);
 int				check_command_not_found(int i, char *str, t_cmd	*curr);
-
-
+int				return_value(t_shell *list, char **command);
+int				ft_equal(char **arg, int i, int j, t_env *env);
 
 #endif

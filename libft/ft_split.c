@@ -6,7 +6,7 @@
 /*   By: nnemeth <nnemeth@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 10:25:49 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/10/24 15:18:18 by nnemeth          ###   ########.fr       */
+/*   Updated: 2022/11/14 13:46:39 by nnemeth          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ char	**ft_split(char const *s, char c)
 	index = -1;
 	while (i <= ft_strlen(s))
 	{
-		
 		if (s[i] != c && index < 0)
 			index = i;
 		else if ((s[i] == c || i == ft_strlen(s)) && index >= 0)

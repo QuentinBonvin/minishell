@@ -45,7 +45,8 @@ void	exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
 						bins_execute(execute, envp, current);
 					}
 			}
-            printf("bash: %s: command not found\n", current->tab[i]);
+            // printf("bash: %s: command not found\n", current->tab[1]);
+			g_exit_status = 127;
 			exit(127);
 		}
 		current = current->prev;
@@ -103,7 +104,7 @@ void	wait_pipe(t_shell *list)
 	{
 		if (current->pid > 0)
         {
-			waitpid(current->pid, NULL, 0);
+			waitpid(current->pid, &wstatus, 0);
             if (WIFEXITED(wstatus))
                 g_exit_status = WEXITSTATUS(wstatus); 
         }
@@ -113,8 +114,6 @@ void	wait_pipe(t_shell *list)
 
 int	command_not_found(char **cmd, t_cmd *curr, char **envp)
 {
-    t_cmd *current;
-
 	(void)cmd;
 	int	i;
 

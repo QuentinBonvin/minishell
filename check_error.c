@@ -27,8 +27,9 @@ int	check_data_to_lst(char *data)
 		}
 		if (data[i] == '|')
 		{
-			if ((is_double_pipe(data, i) == -1) || (pipe_at_start_or_end(data) == -1 ||
-				check_space_beetween_pipe(data, i) == -1))
+			if ((is_double_pipe(data, i) == -1)
+				|| (pipe_at_start_or_end(data) == -1
+					|| check_space_beetween_pipe(data, i) == -1))
 				return (-1);
 		}
 		if (data[i] == '\0')

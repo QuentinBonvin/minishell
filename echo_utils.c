@@ -17,18 +17,32 @@ int	print_echo(t_shell *list, int i, int option)
 	{
 		while (curr->tab[i])
 		{
-			ft_putstr(curr->tab[i]);
-			if (list->double_quote == 1 || list->single_quote == 1)
-				i++;
-			else
-			{
-				ft_putstr(" ");
-				i++;
-			}
+			printer(curr->tab[i], list);
+			// ft_putstr(curr->tab[i]);
+			// if (list->double_quote == 1 || list->single_quote == 1)
+			// 	i++;
+			// else
+			// {
+			// 	ft_putstr(" ");
+			// 	i++;
+			// }
+			i++;
 		}
 		curr = curr->prev;
 	}
 	return (0);
+}
+
+void	printer(char *command, t_shell *list)
+{
+	ft_putstr(command);
+	if (list->double_quote == 1 || list->single_quote == 1)
+		return ;
+	else
+	{
+		ft_putstr(" ");
+		return ;
+	}
 }
 
 char	*dollar_var(t_shell *list, char *var, t_env *env)
