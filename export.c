@@ -5,8 +5,10 @@ int	sort_list(t_env *env, char **arg)
 	int		i;
 	int		j;
 	char	*envp;
+	int		ret;
 
 	i = 1;
+	ret = 0;
 	envp = NULL;
 	if (arg[i] == NULL)
 		print_array(env);
@@ -15,13 +17,15 @@ int	sort_list(t_env *env, char **arg)
 		while (arg[i])
 		{
 			j = 0;
+			printf("%s\n", arg[i]);
 			while (arg[i][j])
 			{
-				if (ft_equal(arg, i, j, env) == 0)
+				ret = ft_equal(arg, i, j, env);
+				if (ret == 0)
 					break ;
 				j++;
 			}
-			if (envp == NULL)
+			if (ret == 0)
 				add_export_to_env(&env->env_tail, arg[i]);
 			i++;
 		}
@@ -34,13 +38,14 @@ int	ft_equal(char **arg, int i, int j, t_env *env)
 	char	*tmp;
 	char	*envp;
 
+	tmp = ft_substr(arg[i], 0, j);
+	envp = check_if_in_env(env, arg[i]);
 	if (arg[i][j] == '=')
 	{
-		tmp = ft_substr(arg[i], 0, j);
-		envp = check_if_in_env(env, tmp);
 		replace_in_env(env, envp, arg[i]);
-		free(tmp);
+		return (1);
 	}
+	free(tmp);
 	return (0);
 }
 

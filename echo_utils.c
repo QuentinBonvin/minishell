@@ -18,14 +18,6 @@ int	print_echo(t_shell *list, int i, int option)
 		while (curr->tab[i])
 		{
 			printer(curr->tab[i], list);
-			// ft_putstr(curr->tab[i]);
-			// if (list->double_quote == 1 || list->single_quote == 1)
-			// 	i++;
-			// else
-			// {
-			// 	ft_putstr(" ");
-			// 	i++;
-			// }
 			i++;
 		}
 		curr = curr->prev;

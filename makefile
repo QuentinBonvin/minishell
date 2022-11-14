@@ -1,12 +1,13 @@
 NAME = minishell
 USERNAME = ${USER}
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 CC = gcc -g 
 OBJ = ${SRCS:.c=.o}
 SRCS = main.c parsing.c env.c link_list_cmd.c builtin.c dobble_quote.c nodes.c \
 exec.c exit.c unset.c echo.c utils.c signals.c parsing_quote.c bins.c \
 export.c check_error.c list_to_array.c split2.c export_utils.c parsing_pipe.c execute.c \
-redirections.c echo_utils.c utils2.c parsing_redirection.c builtin_utils.c export_utils2.c
+redirections.c echo_utils.c utils2.c parsing_redirection.c builtin_utils.c export_utils2.c \
+execute_utils.c error.c
 LIBFT = ./libft 
 LIBFT_A = ./libft/libft.a
 
@@ -28,6 +29,6 @@ clean :
 	@make -C ${LIBFT} clean
 
 fclean : clean
-	@rm -rf ${NAME}
+	@rm -rf ${NAME}	
 
 re : fclean all

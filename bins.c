@@ -40,19 +40,25 @@ void	bins_execute(char **split_path, char **envp, t_cmd *cmd)
 	{
 		tmp = ft_strjoin(split_path[y], "/");
 		tmp2 = ft_strjoin(tmp, curr->tab[0]);
+		printf("adress %p\n and value = %s\n", tmp2, tmp2);
 		free (tmp);
 		if (!access(tmp2, X_OK))
 		{
 			if (execve(tmp2, curr->tab, envp) == -1)
 			{
 				i++;
-				free(tmp2);
+				// if (tmp2 != NULL)
+				// 	free(tmp2);
 			}
+			g_exit_status = 127;
 		}
-		g_exit_status = 127;
+		// if (tmp2 != NULL)
+		free(tmp2);
 	}
+	// if (tmp2 != NULL)
+	// 	free(tmp2);
 	check_command_not_found(i, tmp2, curr);
-	free_split_path(split_path);
+	// free_split_path(split_path);
 }
 
 void	free_split_path(char **split_path)

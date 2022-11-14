@@ -15,17 +15,7 @@ int	call_cd(t_shell *list, t_env *env)
 	home = get_env("HOME", env);
 	if (arg)
 	{
-		if (arg[i] == '~')
-		{
-			res = chdir(home);
-			return (res);
-		}
-		res = chdir(arg);
-		{
-			if (res != 0)
-				ft_error(list->head->tab);
-		}
-		home = getcwd(NULL, 0);
+		res = get_direction(arg, home, list);
 		set_env("OLDPWD", pwd, env);
 		set_env("PWD", home, env);
 	}
@@ -36,6 +26,26 @@ int	call_cd(t_shell *list, t_env *env)
 		set_env("OLDPWD", pwd, env);
 	}
 	pwd = getcwd(NULL, 0);
+	return (res);
+}
+
+int	get_direction(char *arg, char *home, t_shell *list)
+{
+	int	res;
+	int	i;
+
+	i = 0;
+	if (arg[i] == '~')
+	{
+		res = chdir(home);
+		return (res);
+	}
+	res = chdir(arg);
+	{
+		if (res != 0)
+			ft_error(list->head->tab);
+	}
+	home = getcwd(NULL, 0);
 	return (res);
 }
 
@@ -92,17 +102,4 @@ int	set_env(char *name, char *pwd, t_env *env)
 		replace_in_env(env, var_ok, new);
 	}
 	return (0);
-}
-
-int	ft_error(char **arg)
-{
-	printf("%s", arg[0]);
-	printf(": ");
-	printf("%s", arg[1]);
-	printf(": ");
-	printf("%s", strerror(errno));
-	printf(" ");
-	printf("\n");
-	g_exit_status = 1;
-	return (1);
 }

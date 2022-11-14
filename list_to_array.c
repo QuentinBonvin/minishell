@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 void	list_to_array(t_shell *list, t_env *env)
@@ -26,14 +25,14 @@ void	list_to_array(t_shell *list, t_env *env)
 		tmp = tmp->prev;
 	}
 	find_dollar(list, env);
-	// tmp = list->head;
-	// while (tmp)
-	// {
-	// 	i = -1;
-	// 	while (tmp->tab[++i])
-	// 		printf("tab: %s\n", tmp->tab[i]);
-	// 	tmp = tmp->prev;
-	// }
+// 	tmp = list->head;
+// 	while (tmp)
+// 	{
+// 		i = -1;
+// 		while (tmp->tab[++i])
+// 			printf("tab: %s\n", tmp->tab[i]);
+// 		tmp = tmp->prev;
+// 	}
 }
 
 char	what_quote(char *data)
@@ -86,16 +85,20 @@ void	find_dollar(t_shell *list, t_env *env)
 
 int	return_value(t_shell *list, char **command)
 {
-	int	i;
-	t_cmd *tmp;
+	int		i;
+	t_cmd	*tmp;
 
 	i = 0;
 	tmp = list->head;
 	while (command[i])
 	{
 		if (ft_strcmp(command[i], "$?") == 0)
+		{
+			// printf("status: %d\n", g_exit_status);
 			command[i] = ft_itoa(g_exit_status);
+		}
+
 		i++;
 	}
-	return (g_exit_status);	
+	return (g_exit_status);
 }

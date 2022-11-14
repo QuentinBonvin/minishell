@@ -70,7 +70,10 @@ int	own_heredocs(t_cmd *curr, int i)
 		if (!line)
 			break ;
 		if (ft_strcmp(line, delimiter) != 0)
+		{
 			ft_putendl_fd(line, fd[1]);
+			free(line);
+		}
 		else
 			break ;
 	}

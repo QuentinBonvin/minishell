@@ -37,9 +37,9 @@ void	exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
 				dup2(current->fd_in, STDIN_FILENO);
 			close_pipe(list);
 			if (exec_builtin(list, envp, line, env) == -1
-				&& command_not_found(execute, current, envp) != -1)
+				&& command_not_found(current, envp) != -1)
 				start_bins(current, env, envp, execute);
-			exit(0);
+			exit(127);
 		}
 		current = current->prev;
 	}
@@ -49,11 +49,10 @@ void	exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
 
 void	start_bins(t_cmd *current, t_env *env, char **envp, char **execute)
 {
-	if (bins(current, env) != NULL)
-	{
+	// if (bins(current, env) != NULL)
+	// {
 		execute = bins(current, env);
 		bins_execute(execute, envp, current);
-	}
 	if (execute != NULL)
 		free_split_path(execute);
 }
@@ -93,37 +92,4 @@ void	close_pipe(t_shell *list)
 			close(current->fd_out);
 		current = current->prev;
 	}
-}
-
-void	wait_pipe(t_shell *list)
-{
-	t_cmd	*current;
-    int     wstatus;
-
-	current = list->head;
-	while (current != NULL)
-	{
-		if (current->pid > 0)
-        {
-			waitpid(current->pid, &wstatus, 0);
-            if (WIFEXITED(wstatus))
-                g_exit_status = WEXITSTATUS(wstatus); 
-        }
-		current = current->prev;
-	}
-}
-
-int	command_not_found(char **cmd, t_cmd *curr, char **envp)
-{
-	int	i;
-
-	(void)cmd;
-	i = 0;
-	if (execve(curr->tab[0], &curr->tab[i], envp) == -1)
-		i++;
-	if (i == 0)
-	{
-		return (-1);
-	}
-	return (0);
 }

@@ -107,27 +107,23 @@ int				check_if_space_beewtween_quote(char *line, int index_space);
 char			*string_after_trim(char *str, t_shell *list);
 int				ft_split2_too_long(const char *line, int i);
 void			detect_chev(int i, t_cmd *curr);
-int		check_data_to_lst(char *data);
-int		is_double_pipe(char *data, int i);
-int		after_is_quote(char *data, int i);
-int		is_quote(char *data, int i);
-int		is_s_quote(char *data, int i);
-int		is_d_quote(char *data, int i);
-int		check_space_beetween_pipe(char *data, int i);
-int		first_char_is_pipe(char *line);
-int 	last_char_is_pipe(char *line);
-int		pipe_at_start_or_end(char *line);
-char	*split_space(t_shell *list, int c);
-int 	check_if_space_beewtween_quote(char *line, int index_space);
-char	*string_after_trim(char *str, t_shell *list);
-int		ft_split2_too_long(const char *line, int i);
-void	detect_chev(int i, t_cmd *curr);
-int		check_pipe(char *data, int i);
-int		check_another_quote(char *data, int i);
-
-
-
-
+int				check_data_to_lst(char *data);
+int				is_double_pipe(char *data, int i);
+int				after_is_quote(char *data, int i);
+int				is_quote(char *data, int i);
+int				is_s_quote(char *data, int i);
+int				is_d_quote(char *data, int i);
+int				check_space_beetween_pipe(char *data, int i);
+int				first_char_is_pipe(char *line);
+int				last_char_is_pipe(char *line);
+int				pipe_at_start_or_end(char *line);
+char			*split_space(t_shell *list, int c);
+int				check_if_space_beewtween_quote(char *line, int index_space);
+char			*string_after_trim(char *str, t_shell *list);
+int				ft_split2_too_long(const char *line, int i);
+void			detect_chev(int i, t_cmd *curr);
+int				check_pipe(char *data, int i);
+int				check_another_quote(char *data, int i);
 
 /*************************************************
 Signal
@@ -139,13 +135,14 @@ void			handle_sigquit(int signal);
 /*************************************************
 Exec bins
 *************************************************/	
-char	**bins(t_cmd *cmd, t_env *env);
-void	bins_execute(char **split_path, char **envp, t_cmd *cmd);
-void	free_split_path(char **split_path);
-void	free_tab_cmd(t_shell *list);
-int		command_not_found(char **cmd, t_cmd *curr, char **envp);
-int		ft_strcmp_env(char *s1, char *s2);
-void	start_bins(t_cmd *current, t_env *env, char **envp, char **execute);
+char			**bins(t_cmd *cmd, t_env *env);
+void			bins_execute(char **split_path, char **envp, t_cmd *cmd);
+void			free_split_path(char **split_path);
+void			free_tab_cmd(t_shell *list);
+int				command_not_found(t_cmd *curr, char **envp);
+int				ft_strcmp_env(char *s1, char *s2);
+void			start_bins(t_cmd *current, t_env *env,
+					char **envp, char **execute);
 
 /*************************************************
 Link list function for builtins
@@ -229,5 +226,7 @@ void			free_all(t_shell *list, t_env *env, char *line);
 int				check_command_not_found(int i, char *str, t_cmd	*curr);
 int				return_value(t_shell *list, char **command);
 int				ft_equal(char **arg, int i, int j, t_env *env);
+int				get_direction(char *arg, char *home, t_shell *list);
+int				bin_exec(char *tmp2, char **tab, char **envp);
 
 #endif
