@@ -36,7 +36,8 @@ void	exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
             close_pipe(list);
 			if (exec_builtin(list, envp, line, env) == -1)
                 bins_execute(execute, list, envp, current);
-            exit(1);
+            printf("bash: %s: command not found\n", current->tab[i]);
+            exit(127);
         }
         current = current->prev;
     }
@@ -65,8 +66,6 @@ void    init_pipe(t_shell *list)
     current = list->head;
     while (current)
     {
-        // printf("INIT fd_in = %d\n", current->fd_in);
-        // printf("INIT fd_out = %d\n", current->fd_out);
         current = current->prev;
     }
 }
@@ -90,7 +89,7 @@ void    close_pipe(t_shell *list)
 void    wait_pipe(t_shell *list)
 {
     t_cmd *current;
-    // int     status;
+    int     wstatus;
 
     current = list->head;
     while (current != NULL)
@@ -98,8 +97,10 @@ void    wait_pipe(t_shell *list)
         // printf("hello2\n");
         if (current->pid > 0)
         {
-            waitpid(current->pid, NULL, 0);
+            waitpid(current->pid, &wstatus, 0);
+            if (WIFEXITED(wstatus))
+                g_exit_status = WEXITSTATUS(wstatus); 
         }
-        current = current->prev;
+		current = current->prev;
     }
 }

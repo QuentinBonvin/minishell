@@ -57,7 +57,10 @@ void	prompt(char *line, t_shell *list, char **envp, struct termios *saved, t_env
 	list = check_line(line, list, env);
 	init_pipe(list);
 	is_redir(list);
-	exec(list,envp,line, env);
+	// if (list->head->redir_status != TRUE)
+	// {
+		exec(list,envp,line, env);
+	// }
 	add_history(line);
 	tcsetattr(STDIN_FILENO, TCSANOW, saved);
 	// free_env(env);

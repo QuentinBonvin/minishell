@@ -117,12 +117,14 @@ int	is_redir(t_shell *list)
 			else if (curr->tab[i][0] == '<' && curr->tab[i][1] != '<'
 				&& curr->tab[i] != NULL)
 			{
+				curr->redir_status = TRUE;
 				delete_chev(curr, i);
 				simple_input(curr, i);
 			}
 			else if (curr->tab[i][0] == '<' && curr->tab[i][1] == '<'
 				&& curr->tab[i] != NULL)
 			{
+				curr->redir_status = TRUE;
 				delete_chev(curr, i);
 				own_heredocs(curr, i);
 			}
