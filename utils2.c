@@ -45,7 +45,7 @@ int	check_command_not_found(int i, char *str, t_cmd	*curr)
 {
 	if (i == 0)
 	{
-		printf("minishell: %s: command not found \n", curr->tab[0]);
+		printf("TEST minishell: %s: command not found \n", curr->tab[0]);
 		free(str);
 		return (1);
 	}

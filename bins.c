@@ -10,7 +10,7 @@ char	**bins(t_cmd *cmd, t_env *env)
 	i = -1;
 	if (search_env(env) == NULL)
 	{
-		printf("minishell: %s: command not found \n", cmd->tab[0]);
+		printf(" TEST 2 minishell: %s: command not found \n", cmd->tab[0]);
 		g_exit_status = 127;
 		return (NULL);
 	}

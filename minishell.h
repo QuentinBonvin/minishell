@@ -124,10 +124,10 @@ int		ft_split2_too_long(const char *line, int i);
 void	detect_chev(int i, t_cmd *curr);
 int		check_pipe(char *data, int i);
 int		check_another_quote(char *data, int i);
-
-
-
-
+int		detect_one_chev_input(int i, t_cmd *curr);
+int		detect_two_chev_input(int i, t_cmd *curr);
+int		detect_one_chev_output(int i, t_cmd *curr);
+int		detect_two_chev_output(int i, t_cmd *curr);
 
 /*************************************************
 Signal
