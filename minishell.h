@@ -106,6 +106,7 @@ char	*split_space(t_shell *list, int c);
 int 	check_if_space_beewtween_quote(char *line, int index_space);
 char	*string_after_trim(char *str, t_shell *list);
 int		ft_split2_too_long(const char *line, int i);
+void	detect_chev(int i, t_cmd *curr);
 
 
 
@@ -205,7 +206,7 @@ void			close_pipe(t_shell *list);
 void			wait_pipe(t_shell *list);
 void			find_dollar(t_shell *list, t_env *env);
 void			void_argv_argc(int argc, char **argv);
-void			prompt(char *line, t_shell *list, char **envp, struct termios *saved, t_env *env);
+int				prompt(t_shell *list, char **envp, struct termios *saved, t_env *env);
 char			what_quote(char *data);
 void			trim_quote(t_shell *list);
 void			free_all(t_shell *list, t_env *env, char *line);

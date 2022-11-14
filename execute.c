@@ -7,8 +7,9 @@ void	exec(t_shell *list, char **envp, char *line, t_env *env)
 	current = list->head;
 	signal(SIGINT, handle_sigquit);
 	signal(SIGQUIT, handle_sigquit);
+	//printf("redir_status = %d\n", current->redir_status);
 	if (current->prev == NULL && (builtin(list, envp, line) != -1)
-		&& (current->redir_status != TRUE))
+		&& (current->redir_status != 1))
 	{
 		exec_builtin(list, envp, line, env);
 	}
@@ -36,16 +37,13 @@ void	exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
 			if (current->fd_in > 2)
 				dup2(current->fd_in, STDIN_FILENO);
 			close_pipe(list);
-			if (exec_builtin(list, envp, line, env) == -1)
+			if (exec_builtin(list, envp, line, env) == -1 && command_not_found(execute, current, envp) != -1)
 			{
-				if (command_not_found(execute, current, envp) != -1)
-				{
 					if (bins(current, env) != NULL)
 					{
 						execute = bins(current, env);
 						bins_execute(execute, envp, current);
 					}
-				}
 			}
 			exit(0);
 		}

@@ -3,7 +3,6 @@
 int	main(int argc, char **argv, char **envp)
 {
 	struct termios	saved;
-	char			*line;
 	t_shell			*list;
 	t_env			*env;
 
@@ -15,20 +14,8 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		handle_signal(&saved);
-		line = readline("\033[0;35mqbonvin_minishell ▸ \033[0;37m");
-		if (!line)
-		{
-			printf("exit\n");
-			free_all(list, env, line);
+		if (prompt(list, envp, &saved, env) == -1)
 			break ;
-		}
-		else
-		{
-			if (check_error(line))
-				free(line);
-			else
-				prompt(line, list, envp, &saved, env);
-		}
 	}
 	return (EXIT_SUCCESS);
 }
@@ -39,15 +26,29 @@ void	void_argv_argc(int argc, char **argv)
 	(void)argv;
 }
 
-void	prompt(char *line, t_shell *list, char **envp, struct termios *saved, t_env *env)
+int	prompt(t_shell *list, char **envp, struct termios *saved, t_env *env)
 {
-	(void)saved;
-	list = check_line(line, list, env);
-	init_pipe(list);
-	is_redir(list);
-	exec(list, envp, line, env);
-	add_history(line);
-	// tcsetattr(STDIN_FILENO, TCSANOW, saved);
-	free_cmd(list);
-	free(line);
+	char	*line;
+
+	line = readline("\033[0;35mqbonvin_minishell ▸ \033[0;37m");
+	if (!line)
+	{
+		printf("exit\n");
+		free_all(list, env, line);
+		return (-1);
+	}
+	if (check_error(line) != -1)
+	{
+		list = check_line(line, list, env);
+		init_pipe(list);
+		is_redir(list);
+		exec(list, envp, line, env);
+		add_history(line);
+		tcsetattr(STDIN_FILENO, TCSANOW, saved);
+		free_cmd(list);
+		free(line);
+	}
+	else
+		free(line);
+	return (0);
 }
