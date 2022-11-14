@@ -139,14 +139,6 @@ void			handle_sigquit(int signal);
 /*************************************************
 Exec bins
 *************************************************/	
-<<<<<<< HEAD
-char			**bins(t_cmd *cmd, t_env *env);
-void			bins_execute(char **split_path, char **envp, t_cmd *cmd);
-void			free_split_path(char **split_path);
-void			free_tab_cmd(t_shell *list);
-int				command_not_found(char **cmd, t_cmd *curr, char **envp);
-int				ft_strcmp_env(char *s1, char *s2);
-=======
 char	**bins(t_cmd *cmd, t_env *env);
 void	bins_execute(char **split_path, char **envp, t_cmd *cmd);
 void	free_split_path(char **split_path);
@@ -154,7 +146,6 @@ void	free_tab_cmd(t_shell *list);
 int		command_not_found(char **cmd, t_cmd *curr, char **envp);
 int		ft_strcmp_env(char *s1, char *s2);
 void	start_bins(t_cmd *current, t_env *env, char **envp, char **execute);
->>>>>>> quentin
 
 /*************************************************
 Link list function for builtins

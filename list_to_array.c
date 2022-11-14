@@ -65,8 +65,8 @@ void	find_dollar(t_shell *list, t_env *env)
 	curr = list->head;
 	while (curr)
 	{
-		i = 0;
-		while (curr->tab[i])
+		i = -1;
+		while (curr->tab[++i])
 		{
 			if (curr->tab[i][0] == '$' && curr->tab[i][1] != '?'
 				&& list->single_quote == 0)
@@ -79,7 +79,6 @@ void	find_dollar(t_shell *list, t_env *env)
 			}
 			if (curr->tab[i][0] == '$' && curr->tab[i][1] == '?')
 				return_value(list, curr->tab);
-			i++;
 		}
 		curr = curr->prev;
 	}
