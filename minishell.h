@@ -107,6 +107,7 @@ int				check_if_space_beewtween_quote(char *line, int index_space);
 char			*string_after_trim(char *str, t_shell *list);
 int				ft_split2_too_long(const char *line, int i);
 void			detect_chev(int i, t_cmd *curr);
+
 int				check_data_to_lst(char *data);
 int				is_double_pipe(char *data, int i);
 int				after_is_quote(char *data, int i);
@@ -115,15 +116,19 @@ int				is_s_quote(char *data, int i);
 int				is_d_quote(char *data, int i);
 int				check_space_beetween_pipe(char *data, int i);
 int				first_char_is_pipe(char *line);
-int				last_char_is_pipe(char *line);
+int 			last_char_is_pipe(char *line);
 int				pipe_at_start_or_end(char *line);
 char			*split_space(t_shell *list, int c);
-int				check_if_space_beewtween_quote(char *line, int index_space);
+int 			check_if_space_beewtween_quote(char *line, int index_space);
 char			*string_after_trim(char *str, t_shell *list);
 int				ft_split2_too_long(const char *line, int i);
 void			detect_chev(int i, t_cmd *curr);
 int				check_pipe(char *data, int i);
 int				check_another_quote(char *data, int i);
+int				detect_one_chev_input(int i, t_cmd *curr);
+int				detect_two_chev_input(int i, t_cmd *curr);
+int				detect_one_chev_output(int i, t_cmd *curr);
+int				detect_two_chev_output(int i, t_cmd *curr);
 
 /*************************************************
 Signal

@@ -12,7 +12,7 @@ int	is_redir(t_shell *list)
 		i = 0;
 		while (curr->tab[i])
 		{
-            detect_chev(i, curr);
+			detect_chev(i, curr);
 			i++;
 		}
 		curr = curr->prev;
@@ -22,34 +22,15 @@ int	is_redir(t_shell *list)
 
 void	detect_chev(int i, t_cmd *curr)
 {
-	if (curr->tab[i][0] == '>' && curr->tab[i][1] != '>'
-		&& curr->tab[i] != NULL)
-	{
+	if (detect_one_chev_input(i, curr) == 0)
 		curr->redir_status = 1;
-		delete_chev(curr, i);
-		simple_output(curr, i);
-	}
-	else if (curr->tab[i][0] == '>' && curr->tab[i][1] == '>'
-		&& curr->tab[i] != NULL)
-	{
+	else if (detect_two_chev_input(i, curr) == 0)
 		curr->redir_status = 1;
-		delete_chev(curr, i);
-		dobble_output(curr, i);
-	}
-	else if (curr->tab[i][0] == '<' && curr->tab[i][1] != '<'
-		&& curr->tab[i] != NULL)
-	{
+	else if (detect_one_chev_output(i, curr) == 0)
 		curr->redir_status = 1;
-		delete_chev(curr, i);
-		simple_input(curr, i);
-	}
-	else if (curr->tab[i][0] == '<' && curr->tab[i][1] == '<'
-		&& curr->tab[i] != NULL)
-	{
+	else if (detect_two_chev_input(i, curr) == 0)
 		curr->redir_status = 1;
-		delete_chev(curr, i);
-		own_heredocs(curr, i);
-	}
+	return ;
 }
 
 void	delete_chev(t_cmd *curr, int i)
