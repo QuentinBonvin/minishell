@@ -7,7 +7,6 @@ void	exec(t_shell *list, char **envp, char *line, t_env *env)
 	current = list->head;
 	signal(SIGINT, handle_sigquit);
 	signal(SIGQUIT, handle_sigquit);
-	//printf("redir_status = %d\n", current->redir_status);
 	if (current->prev == NULL && (builtin(list, envp, line) != -1)
 		&& (current->redir_status != 1))
 	{
@@ -37,24 +36,26 @@ void	exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
 			if (current->fd_in > 2)
 				dup2(current->fd_in, STDIN_FILENO);
 			close_pipe(list);
-			if (exec_builtin(list, envp, line, env) == -1 && command_not_found(execute, current, envp) != -1)
-			{
-					if (bins(current, env) != NULL)
-					{
-						execute = bins(current, env);
-						bins_execute(execute, envp, current);
-					}
-			}
-            // printf("bash: %s: command not found\n", current->tab[1]);
-			g_exit_status = 127;
-			exit(127);
+			if (exec_builtin(list, envp, line, env) == -1
+				&& command_not_found(execute, current, envp) != -1)
+				start_bins(current, env, envp, execute);
+			exit(0);
 		}
 		current = current->prev;
 	}
-	if (execute != NULL)
-		free_split_path(execute);
 	close_pipe(list);
 	wait_pipe(list);
+}
+
+void	start_bins(t_cmd *current, t_env *env, char **envp, char **execute)
+{
+	if (bins(current, env) != NULL)
+	{
+		execute = bins(current, env);
+		bins_execute(execute, envp, current);
+	}
+	if (execute != NULL)
+		free_split_path(execute);
 }
 
 void	init_pipe(t_shell *list)
@@ -114,9 +115,9 @@ void	wait_pipe(t_shell *list)
 
 int	command_not_found(char **cmd, t_cmd *curr, char **envp)
 {
-	(void)cmd;
 	int	i;
 
+	(void)cmd;
 	i = 0;
 	if (execve(curr->tab[0], &curr->tab[i], envp) == -1)
 		i++;

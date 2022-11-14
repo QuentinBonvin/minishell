@@ -1,3 +1,4 @@
+
 #include "minishell.h"
 
 void	list_to_array(t_shell *list, t_env *env)

@@ -52,7 +52,6 @@ int	printf_env(t_env *env, t_shell *list)
 	int		i;
 	t_env	*curr;
 
-	i = 0;
 	curr = env->env_head;
 	if (list->head->tab[1] != NULL)
 	{
@@ -62,15 +61,14 @@ int	printf_env(t_env *env, t_shell *list)
 	}
 	while (curr)
 	{
-		i = 0;
-		while (curr->content[i] != '\0')
+		i = -1;
+		while (curr->content[++i] != '\0')
 		{
 			if (curr->content[i] == '=')
 			{
 				printf("%s\n", curr->content);
 				break ;
 			}
-			i++;
 		}
 	curr = curr->prev;
 	}

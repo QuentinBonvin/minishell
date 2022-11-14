@@ -33,8 +33,8 @@ int	exec_builtin(t_shell *list, char **envp, char *line, t_env *env)
 	t_cmd	*current;
 	int		i;
 
-	i = 0;
 	(void)envp;
+	i = 0;
 	current = list->head;
 	if (current->tab[0] == NULL)
 		return (-1);
