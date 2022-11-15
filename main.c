@@ -34,7 +34,7 @@ int	prompt(t_shell *list, char **envp, struct termios *saved, t_env *env)
 	if (!line)
 	{
 		printf("exit\n");
-		free_all(list, env, line);
+		//free_all(list, env, line);
 		return (-1);
 	}
 	add_history(line);

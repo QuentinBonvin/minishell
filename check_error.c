@@ -14,6 +14,8 @@ int	check_data_to_lst(char *data)
 
 	j = 0;
 	i = 0;
+	if (data[i] == '\0')
+		return (-1);
 	while (data[i])
 	{
 		j = i;
