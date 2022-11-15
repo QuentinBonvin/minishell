@@ -4,7 +4,6 @@ int	print_echo(t_shell *list, int i, int option)
 {
 	t_cmd	*curr;
 
-	(void)option;
 	curr = list->head;
 	if (option == 1 && (list->double_quote == 0 && list->single_quote == 0))
 		i = 2;

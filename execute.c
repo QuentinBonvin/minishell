@@ -51,8 +51,8 @@ void	start_bins(t_cmd *current, t_env *env, char **envp, char **execute)
 {
 	// if (bins(current, env) != NULL)
 	// {
-		execute = bins(current, env);
-		bins_execute(execute, envp, current);
+	execute = bins(current, env);
+	bins_execute(execute, envp, current);
 	if (execute != NULL)
 		free_split_path(execute);
 }

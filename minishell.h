@@ -73,7 +73,6 @@ typedef struct s_shell
 /*************************************************
 Link list function for environnement
 *************************************************/
-// t_env			*create_cell(char **envp);
 void			*create_cell(t_env **env_head, t_env **env_tail, char **envp);
 void			init_env(char **envp, t_env *env);
 int				printf_env(t_env *env, t_shell *list);
@@ -116,10 +115,10 @@ int				is_s_quote(char *data, int i);
 int				is_d_quote(char *data, int i);
 int				check_space_beetween_pipe(char *data, int i);
 int				first_char_is_pipe(char *line);
-int 			last_char_is_pipe(char *line);
+int				last_char_is_pipe(char *line);
 int				pipe_at_start_or_end(char *line);
 char			*split_space(t_shell *list, int c);
-int 			check_if_space_beewtween_quote(char *line, int index_space);
+int				check_if_space_beewtween_quote(char *line, int index_space);
 char			*string_after_trim(char *str, t_shell *list);
 int				ft_split2_too_long(const char *line, int i);
 void			detect_chev(int i, t_cmd *curr);
@@ -233,5 +232,9 @@ int				return_value(t_shell *list, char **command);
 int				ft_equal(char **arg, int i, int j, t_env *env);
 int				get_direction(char *arg, char *home, t_shell *list);
 int				bin_exec(char *tmp2, char **tab, char **envp);
+void			replace_value(char *arg, int j, t_env *env);
+void			add_new(t_env *env, char *arg);
+int				is_equal(char *arg, int j);
+void			combine(char *arg, t_env *env);
 
 #endif

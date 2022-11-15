@@ -42,3 +42,36 @@ int	check_arg(char *arg)
 		return (3);
 	return (1);
 }
+
+void	replace_in_env(t_env *env, char *envp, char *arg)
+{
+	t_env	*curr;
+
+	curr = env->env_head;
+	while (curr)
+	{
+		if (curr->content == envp)
+		{
+			curr->content = ft_strdup(arg);
+		}
+		curr = curr->prev;
+	}
+}
+
+char	*check_if_in_env(t_env *env, char *arg)
+{
+	t_env	*curr;
+	int		i;
+	int		l;
+
+	curr = env->env_head;
+	l = ft_strlen(arg);
+	i = 0;
+	while (curr)
+	{
+		if (ft_strncmp(curr->content, arg, l) == 0)
+			return (curr->content);
+		curr = curr->prev;
+	}
+	return (NULL);
+}

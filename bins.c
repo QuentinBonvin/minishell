@@ -40,7 +40,6 @@ void	bins_execute(char **split_path, char **envp, t_cmd *cmd)
 	{
 		tmp = ft_strjoin(split_path[y], "/");
 		tmp2 = ft_strjoin(tmp, curr->tab[0]);
-		printf("adress %p\n and value = %s\n", tmp2, tmp2);
 		free (tmp);
 		if (!access(tmp2, X_OK))
 		{

@@ -29,15 +29,4 @@ void	trim_quote(t_shell *list)
 		i = -1;
 		tmp = tmp->prev;
 	}
-	// tmp = list->head;
-	// while (tmp)
-	// {
-	// 	i = 0;
-	// 	while (tmp->tab[i])
-	// 	{
-	// 		printf("tab: %s\n", tmp->tab[i]);
-	// 		i++;
-	// 	}
-	// 	tmp = tmp->prev;
-	// }
 }
