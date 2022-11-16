@@ -28,30 +28,29 @@ int	builtin(t_shell *list, char **envp, char *line)
 	return (-1);
 }
 
-int	exec_builtin(t_shell *list, char **envp, char *line, t_env *env)
+int	exec_builtin(t_cmd *current, t_shell *list, char *line, t_env *env)
 {
-	t_cmd	*current;
+	//t_cmd	*current;
 	int		i;
 
-	(void)envp;
 	i = 0;
-	current = list->head;
+	//current = list->head;
 	if (current->tab[0] == NULL)
 		return (-1);
 	if (ft_strncmp2(current->tab[0], "pwd", 4) == 0)
 		return (call_pwd());
 	else if ((ft_strncmp2(current->tab[0], "cd", 3) == 0))
-		return (call_cd(list, env));
+		return (call_cd(current, env));
 	else if ((ft_strncmp2(current->tab[0], "echo", 4) == 0))
-		return (mini_echo(list, current->tab));
+		return (mini_echo(current, current->tab, list));
 	else if ((ft_strncmp2(current->tab[0], "export", 7) == 0))
 		return (sort_list(env, current->tab));
 	else if (ft_strcmp(current->tab[0], "unset") == 0)
 		return (call_unset(env, current->tab));
 	else if (ft_strncmp2(current->tab[0], "env", 4) == 0)
-		return (printf_env(env, list));
+		return (printf_env(env, current));
 	else if (ft_strncmp2(current->tab[0], "exit", 4) == 0)
-		return (mini_exit(list, current->tab[1], line, env));
+		return (mini_exit(current, current->tab[1], line, env));
 	return (-1);
 }
 

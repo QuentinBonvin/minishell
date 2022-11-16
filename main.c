@@ -6,7 +6,8 @@ int	main(int argc, char **argv, char **envp)
 	t_shell			*list;
 	t_env			*env;
 
-	void_argv_argc(argc, argv);
+	if (void_argv_argc(argc, argv) == -1)
+		return (EXIT_SUCCESS);
 	list = malloc(sizeof(t_shell));
 	env = malloc(sizeof(t_env));
 	init_env(envp, env);
@@ -20,10 +21,13 @@ int	main(int argc, char **argv, char **envp)
 	return (EXIT_SUCCESS);
 }
 
-void	void_argv_argc(int argc, char **argv)
+int	void_argv_argc(int argc, char **argv)
 {
-	(void)argc;
 	(void)argv;
+	if (argc > 1)
+		return (-1);
+	return (0);
+
 }
 
 int	prompt(t_shell *list, char **envp, struct termios *saved, t_env *env)

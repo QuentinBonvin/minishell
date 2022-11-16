@@ -47,15 +47,15 @@ void	*add_envp_to_env(t_env **env_tail, char **envp)
 	return (0);
 }
 
-int	printf_env(t_env *env, t_shell *list)
+int	printf_env(t_env *env, t_cmd *current)
 {
 	int		i;
 	t_env	*curr;
 
 	curr = env->env_head;
-	if (list->head->tab[1] != NULL)
+	if (current->tab[1] != NULL)
 	{
-		printf("env: %s: No such file or directory\n", list->head->tab[1]);
+		printf("env: %s: No such file or directory\n", current->tab[1]);
 		g_exit_status = 127;
 		return (127);
 	}

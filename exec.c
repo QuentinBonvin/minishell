@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	call_cd(t_shell *list, t_env *env)
+int	call_cd(t_cmd *curr, t_env *env)
 {
 	char	*home;
 	int		res;
@@ -10,12 +10,12 @@ int	call_cd(t_shell *list, t_env *env)
 
 	i = 0;
 	res = 0;
-	arg = list->head->tab[1];
+	arg = curr->tab[1];
 	pwd = get_env("PWD", env);
 	home = get_env("HOME", env);
 	if (arg)
 	{
-		res = get_direction(arg, home, list);
+		res = get_direction(arg, home, curr);
 		set_env("OLDPWD", pwd, env);
 		set_env("PWD", home, env);
 	}
@@ -29,7 +29,7 @@ int	call_cd(t_shell *list, t_env *env)
 	return (res);
 }
 
-int	get_direction(char *arg, char *home, t_shell *list)
+int	get_direction(char *arg, char *home, t_cmd *curr)
 {
 	int	res;
 	int	i;
@@ -43,7 +43,7 @@ int	get_direction(char *arg, char *home, t_shell *list)
 	res = chdir(arg);
 	{
 		if (res != 0)
-			ft_error(list->head->tab);
+			ft_error(curr->tab);
 	}
 	home = getcwd(NULL, 0);
 	return (res);

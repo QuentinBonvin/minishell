@@ -10,7 +10,7 @@ void	exec(t_shell *list, char **envp, char *line, t_env *env)
 	if (current->prev == NULL && (builtin(list, envp, line) != -1)
 		&& (current->redir_status != 1))
 	{
-		exec_builtin(list, envp, line, env);
+		exec_builtin(current, list, line, env);
 	}
 	else
 	{
@@ -22,7 +22,7 @@ void	exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
 {
 	t_cmd	*current;
 	char	**execute;
-
+	int		test = 0;
 	current = list->head;
 	current->pid = 0;
 	execute = NULL;
@@ -31,16 +31,20 @@ void	exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
 		current->pid = fork();
 		if (current->pid == 0)
 		{
+			// printf("fd_in = %d | test = %d\n", current->fd_in, test);
+			// printf("fd_out = %d | test = %d\n", current->fd_out, test);
+			// printf("command = %s\n", current->tab[0]);
 			if (current->fd_out > 2)
 				dup2(current->fd_out, STDOUT_FILENO);
 			if (current->fd_in > 2)
 				dup2(current->fd_in, STDIN_FILENO);
 			close_pipe(list);
-			if (exec_builtin(list, envp, line, env) == -1
+			if (exec_builtin(current, list, line, env) == -1
 				&& command_not_found(current, envp) != -1)
 				start_bins(current, env, envp, execute);
 			exit(127);
 		}
+		test++;
 		current = current->prev;
 	}
 	close_pipe(list);

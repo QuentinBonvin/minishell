@@ -50,6 +50,7 @@ typedef struct s_cmd
 	char				*content;
 	char				**tab;
 	struct s_cmd		*next;
+	struct s_shell		*list;
 	int					fd_in;
 	int					fd_out;
 	pid_t				pid;
@@ -60,11 +61,11 @@ typedef struct s_shell
 {
 	t_env				*node;
 	char				*token;
-	int					single_quote;
 	int					end;
+	int					single_quote;
+	int					double_quote;
 	int					start;
 	int					index;
-	int					double_quote;
 	t_cmd				*cmd;
 	t_cmd				*head;
 	t_cmd				*tail;
@@ -75,7 +76,7 @@ Link list function for environnement
 *************************************************/
 void			*create_cell(t_env **env_head, t_env **env_tail, char **envp);
 void			init_env(char **envp, t_env *env);
-int				printf_env(t_env *env, t_shell *list);
+int				printf_env(t_env *env, t_cmd *current);
 // t_env			*add_envp_to_env(t_env *env, char **envp/*, int i*/);
 void			*add_envp_to_env(t_env **head, char **envp);
 
@@ -128,6 +129,8 @@ int				detect_one_chev_input(int i, t_cmd *curr);
 int				detect_two_chev_input(int i, t_cmd *curr);
 int				detect_one_chev_output(int i, t_cmd *curr);
 int				detect_two_chev_output(int i, t_cmd *curr);
+void			delete_empty_tab(t_shell *list);
+
 
 /*************************************************
 Signal
@@ -151,20 +154,20 @@ void			start_bins(t_cmd *current, t_env *env,
 /*************************************************
 Link list function for builtins
 *************************************************/	
-int				exec_builtin(t_shell *list, char **envp,
+int				exec_builtin(t_cmd *current, t_shell *list,
 					char *line, t_env *env);
 int				builtin(t_shell *list, char **envp, char *line);
 int				call_pwd(void);
 int				ft_strcmp(char *s1, char *s2);
 int				ft_strncmp2(char *s1, char *s2, int n);
-int				call_cd(t_shell *list, t_env *env);
+int				call_cd(t_cmd *current, t_env *env);
 int				ft_error(char **arg);
 int				set_env(char *name, char *pwd, t_env *env);
 char			*get_env(char *name, t_env *env);
 char			*join_home(char *curr, int length);
-int				mini_echo(t_shell *list, char **command);
+int				mini_echo(t_cmd *current, char **command, t_shell *list);
 void			printer(char *command, t_shell *list);
-int				print_echo(t_shell *list, int i, int option);
+int				print_echo(t_cmd *current, int i, int option, t_shell *list);
 void			execute_dollar(t_shell *list, int i,
 					int option, char **command);
 void			check_dollar(char **command, int option, t_shell *list);
@@ -189,7 +192,7 @@ int				call_unset(t_env *env, char **var);
 void			ft_remove_from_list(t_env *env, char *var);
 int				ft_delete_first_node(t_env **env_head, t_env *curr, char *var);
 void			print_list(t_env *copy);
-int				mini_exit(t_shell *list, char *arg, char *line, t_env *env);
+int				mini_exit(t_cmd *current, char *arg, char *line, t_env *env);
 
 /*************************************************
 Link list function for linked list
@@ -221,7 +224,7 @@ void			init_pipe(t_shell *list);
 void			close_pipe(t_shell *list);
 void			wait_pipe(t_shell *list);
 void			find_dollar(t_shell *list, t_env *env);
-void			void_argv_argc(int argc, char **argv);
+int				void_argv_argc(int argc, char **argv);
 int				prompt(t_shell *list, char **envp,
 					struct termios *saved, t_env *env);
 char			what_quote(char *data);
@@ -230,7 +233,7 @@ void			free_all(t_shell *list, t_env *env, char *line);
 int				check_command_not_found(int i, char *str, t_cmd	*curr);
 int				return_value(t_shell *list, char **command);
 int				ft_equal(char **arg, int i, int j, t_env *env);
-int				get_direction(char *arg, char *home, t_shell *list);
+int				get_direction(char *arg, char *home, t_cmd *curr);
 int				bin_exec(char *tmp2, char **tab, char **envp);
 void			replace_value(char *arg, int j, t_env *env);
 void			add_new(t_env *env, char *arg);

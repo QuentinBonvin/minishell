@@ -1,47 +1,79 @@
 #include "minishell.h"
 
+static void	delete_space(t_shell *list);
+
 void	list_to_array(t_shell *list, t_env *env)
 {
 	t_cmd	*tmp;
 	int		i;
+	int		j;
 
 	i = 0;
+	j = 0;
 	tmp = list->head;
 	while (tmp != NULL)
 	{
-		if (what_quote(tmp->content) == 1)
+		tmp->tab = (char**) malloc(5 * sizeof(char*));
+		i = 0;
+		while (tmp->content[i])
 		{
-			list->single_quote = 1;
-			tmp->tab = ft_split(tmp->content, '\'');
+			if (tmp->content[0] == DOBBLE_QUOTE)
+				list->double_quote = 1;
+			if (tmp->content[0] == SIMPLE_QUOTE)
+				list->single_quote = 1;
+			if (tmp->content[i] == ' ')
+			{
+				tmp->tab[0] = ft_substr(tmp->content, 0, i);
+				j = i;
+				break ;
+			}
+			i++;
 		}
-		else if (what_quote(tmp->content) == 2)
+
+		while (tmp->content[j])
 		{
-			list->double_quote = 1;
-			tmp->tab = ft_split(tmp->content, '\"');
+			if (what_quote(&tmp->content[j]) == 1)
+			{
+				list->single_quote = 1;
+				tmp->tab = ft_split(tmp->content, '\'');
+			}
+			else if (what_quote(&tmp->content[j]) == 2)
+			{
+				list->double_quote = 1;
+				tmp->tab = ft_split(tmp->content, '\"');
+			}
+			else if (what_quote(&tmp->content[j]) == 3)
+			{
+				// list->double_quote = 1;
+				tmp->tab = ft_split(tmp->content, ' ');
+			}
+			j++;
 		}
-		else if (what_quote(tmp->content) == 3)
-			tmp->tab = ft_split(tmp->content, ' ');
 		free(tmp->content);
 		tmp = tmp->prev;
 	}
+	//(void)env;
 	find_dollar(list, env);
-	// tmp = list->head;
-	// while (tmp)
-	// {
-	// 	i = -1;
-	// 	while (tmp->tab[++i])
-	// 		printf("tab: %s\n", tmp->tab[i]);
-	// 	tmp = tmp->prev;
-	// }
+	tmp = list->head;
+	while (tmp)
+	{
+		i = -1;
+		while (tmp->tab[++i])
+			printf("tab: %s\n", tmp->tab[i]);
+		tmp = tmp->prev;
+	}
+	delete_space(list);
 }
 
 char	what_quote(char *data)
 {
 	int	j;
+	int	quote;
 	int	i;
 
 	j = 0;
 	i = 0;
+	quote = 0;
 	while (data[i])
 	{
 		if (data[i] == '\'')
@@ -64,8 +96,8 @@ void	find_dollar(t_shell *list, t_env *env)
 	curr = list->head;
 	while (curr)
 	{
-		i = -1;
-		while (curr->tab[++i])
+		i = 0;
+		while (curr->tab[i])
 		{
 			if (curr->tab[i][0] == '$' && curr->tab[i][1] != '?'
 				&& list->single_quote == 0)
@@ -76,8 +108,10 @@ void	find_dollar(t_shell *list, t_env *env)
 				free(curr->tab[i]);
 				curr->tab[i] = tmp;
 			}
-			if (curr->tab[i][0] == '$' && curr->tab[i][1] == '?')
+			if (ft_strcmp(curr->tab[i], "$?") == 0)
 				return_value(list, curr->tab);
+			else
+				i++;
 		}
 		curr = curr->prev;
 	}
@@ -99,4 +133,30 @@ int	return_value(t_shell *list, char **command)
 		i++;
 	}
 	return (g_exit_status);
+}
+
+static void	delete_space(t_shell *list)
+{
+	t_cmd	*tmp;
+
+	//char	*tmp_trim;
+	int		i;
+	int		y;
+
+	y = 0;
+	i = 0;
+
+	tmp = list->head;
+	while (tmp)
+	{
+		i = 0;
+		while (tmp->tab[i])
+		{
+			tmp->tab[i] = ft_strtrim(tmp->tab[i], " ");
+			i++;
+		}
+		tmp = tmp->prev;
+	}
+	
+
 }

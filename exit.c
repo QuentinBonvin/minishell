@@ -1,9 +1,8 @@
 #include "minishell.h"
 
-int	mini_exit(t_shell *list, char *arg, char *line, t_env *env)
+int	mini_exit(t_cmd *curr, char *arg, char *line, t_env *env)
 {
-	(void)env;
-	(void)list;
+	(void)curr;
 	if (arg == NULL)
 	{
 		free_env(env);
