@@ -5,6 +5,7 @@ static void	delete_space(t_shell *list);
 void	list_to_array(t_shell *list, t_env *env)
 {
 	t_cmd	*tmp;
+	int		space;
 	int		i;
 	int		j;
 
@@ -13,39 +14,35 @@ void	list_to_array(t_shell *list, t_env *env)
 	tmp = list->head;
 	while (tmp != NULL)
 	{
-		//tmp->tab = (char**) malloc(sizeof(char*));
-		i = 0;
-		while (tmp->content[i])
+		space = count_space(tmp->content);
+		i = -1;
+		while (tmp->content[++i])
 		{
-			if (tmp->content[0] == DOBBLE_QUOTE)
+			if (tmp->content[0] == DOBBLE_QUOTE && space > 0)
 				list->double_quote = 1;
-			if (tmp->content[0] == SIMPLE_QUOTE)
+			if (tmp->content[0] == SIMPLE_QUOTE && space > 0)
 				list->single_quote = 1;
 			if (tmp->content[i] == ' ')
 			{
-				//tmp->tab[0] = ft_substr(tmp->content, 0, i);
-				//printf("adress tmp->tab[0] = %p\n", tmp->tab[0]);
 				j = i;
 				break ;
 			}
-			i++;
 		}
-
 		while (tmp->content[j])
 		{
-			if (what_quote(&tmp->content[j]) == 1)
+			if (what_quote(&tmp->content[j]) == 1 && space > 0)
 			{
 				list->single_quote = 1;
 				tmp->tab = ft_split(tmp->content, '\'');
 				break ;
 			}
-			else if (what_quote(&tmp->content[j]) == 2)
+			else if (what_quote(&tmp->content[j]) == 2 && space > 0)
 			{
 				list->double_quote = 1;
 				tmp->tab = ft_split(tmp->content, '\"');
 				break ;
 			}
-			else if (what_quote(&tmp->content[j]) == 3)
+			else if (what_quote(&tmp->content[j]) == 3 || space == 0)
 			{
 				// list->double_quote = 1;
 				tmp->tab = ft_split(tmp->content, ' ');
@@ -60,13 +57,13 @@ void	list_to_array(t_shell *list, t_env *env)
 	//(void)env;
 	find_dollar(list, env);
 	// tmp = list->head;
-	while (tmp)
-	{
-		i = -1;
-		while (tmp->tab[++i])
-			printf("tab: %s\n", tmp->tab[i]);
-		tmp = tmp->prev;
-	}
+	// while (tmp)
+	// {
+	// 	i = -1;
+	// 	while (tmp->tab[++i])
+	// 		printf("tab: %s\n", tmp->tab[i]);
+	// 	tmp = tmp->prev;
+	// }
 	delete_space(list);
 }
 
@@ -91,37 +88,6 @@ char	what_quote(char *data)
 	return (3);
 }
 
-void	find_dollar(t_shell *list, t_env *env)
-{
-	t_cmd	*curr;
-	int		i;
-	char	*tmp;
-	char	*tmp2;
-
-	curr = list->head;
-	while (curr)
-	{
-		i = 0;
-		while (curr->tab[i])
-		{
-			if (curr->tab[i][0] == '$' && curr->tab[i][1] != '?'
-				&& list->single_quote == 0)
-			{
-				tmp2 = ft_substr(curr->tab[i], (1), ft_strlen(curr->tab[i]));
-				tmp = dollar_var(list, tmp2, env);
-				free(tmp2);
-				free(curr->tab[i]);
-				curr->tab[i] = tmp;
-			}
-			if (ft_strcmp(curr->tab[i], "$?") == 0)
-				return_value(list, curr->tab);
-			else
-				i++;
-		}
-		curr = curr->prev;
-	}
-}
-
 int	return_value(t_shell *list, char **command)
 {
 	int		i;
@@ -144,7 +110,6 @@ static void	delete_space(t_shell *list)
 {
 	t_cmd	*tmp;
 
-	//char	*tmp_trim;
 	int		i;
 	int		y;
 
@@ -162,6 +127,21 @@ static void	delete_space(t_shell *list)
 		}
 		tmp = tmp->prev;
 	}
-	
+}
 
+int	count_space(char *line)
+{
+	int i;
+	int	space;
+
+	i = 0;
+	space = 0;
+
+	while (line[i])
+	{
+		if (line[i] == ' ')
+			space++;
+		i++;
+	}
+	return (space);
 }

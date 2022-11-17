@@ -2,18 +2,27 @@
 
 int	mini_exit(t_cmd *curr, char *arg, char *line, t_env *env)
 {
+    int i;
+
+    i = 0;
 	(void)curr;
-	if (arg == NULL)
+    if (arg != NULL)
 	{
-		free_env(env);
-		free(line);
-		exit (g_exit_status);
+		i = ft_atoi(arg);
+        printf("exit\n");
+        free_env(env); 
+        free(line);
+        // free_cmd(curr);
+		exit (i);
 	}
-	else
-	{
-		g_exit_status = ft_atoi((arg));
-	}
-	return (g_exit_status);
+    else
+    {
+        printf("exit\n");
+        free_env(env); 
+        free(line);
+        exit (g_exit_status);
+    }
+    return (0);
 }
 
 int	call_pwd(void)

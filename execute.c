@@ -22,7 +22,7 @@ void	exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
 {
 	t_cmd	*current;
 	char	**execute;
-	int		test = 0;
+
 	current = list->head;
 	current->pid = 0;
 	execute = NULL;
@@ -31,9 +31,6 @@ void	exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
 		current->pid = fork();
 		if (current->pid == 0)
 		{
-			// printf("fd_in = %d | test = %d\n", current->fd_in, test);
-			// printf("fd_out = %d | test = %d\n", current->fd_out, test);
-			// printf("command = %s\n", current->tab[0]);
 			if (current->fd_out > 2)
 				dup2(current->fd_out, STDOUT_FILENO);
 			if (current->fd_in > 2)
@@ -44,7 +41,6 @@ void	exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
 				start_bins(current, env, envp, execute);
 			exit(127);
 		}
-		test++;
 		current = current->prev;
 	}
 	close_pipe(list);
@@ -53,8 +49,6 @@ void	exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
 
 void	start_bins(t_cmd *current, t_env *env, char **envp, char **execute)
 {
-	// if (bins(current, env) != NULL)
-	// {
 	execute = bins(current, env);
 	bins_execute(execute, envp, current);
 	if (execute != NULL)

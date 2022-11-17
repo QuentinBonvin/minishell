@@ -106,8 +106,7 @@ char			*split_space(t_shell *list, int c);
 int				check_if_space_beewtween_quote(char *line, int index_space);
 char			*string_after_trim(char *str, t_shell *list);
 int				ft_split2_too_long(const char *line, int i);
-void			detect_chev(int i, t_cmd *curr);
-
+int				detect_chev(int i, t_cmd *curr);
 int				check_data_to_lst(char *data);
 int				is_double_pipe(char *data, int i);
 int				after_is_quote(char *data, int i);
@@ -122,7 +121,6 @@ char			*split_space(t_shell *list, int c);
 int				check_if_space_beewtween_quote(char *line, int index_space);
 char			*string_after_trim(char *str, t_shell *list);
 int				ft_split2_too_long(const char *line, int i);
-void			detect_chev(int i, t_cmd *curr);
 int				check_pipe(char *data, int i);
 int				check_another_quote(char *data, int i);
 int				detect_one_chev_input(int i, t_cmd *curr);
@@ -131,8 +129,9 @@ int				detect_one_chev_output(int i, t_cmd *curr);
 int				detect_two_chev_output(int i, t_cmd *curr);
 void			delete_empty_tab(t_shell *list);
 int				only_space(char *line);
-
-
+int				count_space(char *line);
+void			own_heredocs_to_long(char *delimiter, char *line, int *fd,
+					t_cmd *curr);
 
 /*************************************************
 Signal
@@ -244,5 +243,9 @@ void			combine(char *arg, t_env *env);
 int				print_and_return(t_cmd *current, int i, int option,
 					 t_shell *list);
 int				ft_error_print(char **arg);
+int				swap_tab(char **str, int i);
+void			detect_dollar(t_shell *list, char **str, t_env *env);
+void			no_home(char **split_path, t_cmd *curr, int i);
+int				home_not_set(char *home);
 
 #endif

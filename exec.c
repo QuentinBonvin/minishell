@@ -13,6 +13,11 @@ int	call_cd(t_cmd *curr, t_env *env)
 	arg = curr->tab[1];
 	pwd = get_env("PWD", env);
 	home = get_env("HOME", env);
+	if (home == NULL)
+	{
+		printf("Home not set\n");
+		return (0);
+	}
 	if (arg)
 	{
 		res = get_direction(arg, home, curr);
@@ -60,6 +65,7 @@ char	*get_env(char *name, t_env *env)
 	curr = env->env_head;
 	l = ft_strlen(name) + 1;
 	home = NULL;
+	// printf("%s\n", curr->content);
 	while (curr != NULL)
 	{
 		if ((name[i] == '=' || name[i] == '\0') && (curr->content[i] == '='))
@@ -74,6 +80,8 @@ char	*get_env(char *name, t_env *env)
 			i = 0;
 		}
 	}
+	if (curr == NULL)
+		return (0);
 	home = join_home(curr->content, l);
 	return (home);
 }

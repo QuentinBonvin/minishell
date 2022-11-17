@@ -7,10 +7,10 @@ char	**bins(t_cmd *cmd, t_env *env)
 	char	*pathtmp;
 	int		i;
 
+	(void)cmd;
 	i = -1;
 	if (search_env(env) == NULL)
 	{
-		printf(" TEST 2 minishell: %s: command not found \n", cmd->tab[0]);
 		g_exit_status = 127;
 		return (NULL);
 	}
@@ -36,6 +36,7 @@ void	bins_execute(char **split_path, char **envp, t_cmd *cmd)
 	i = 0;
 	y = -1;
 	curr = cmd;
+	no_home(split_path, curr, i);
 	while (split_path[++y])
 	{
 		tmp = ft_strjoin(split_path[y], "/");
@@ -44,20 +45,12 @@ void	bins_execute(char **split_path, char **envp, t_cmd *cmd)
 		if (!access(tmp2, X_OK))
 		{
 			if (execve(tmp2, curr->tab, envp) == -1)
-			{
 				i++;
-				// if (tmp2 != NULL)
-				// 	free(tmp2);
-			}
 			g_exit_status = 127;
 		}
-		// if (tmp2 != NULL)
 		free(tmp2);
 	}
-	// if (tmp2 != NULL)
-	// 	free(tmp2);
 	check_command_not_found(i, tmp2, curr);
-	// free_split_path(split_path);
 }
 
 void	free_split_path(char **split_path)
@@ -84,4 +77,14 @@ void	free_tab_cmd(t_shell *list)
 		i++;
 	}
 	free(list->cmd->tab);
+}
+
+void	no_home(char **split_path, t_cmd *curr, int i)
+{
+	if (split_path == NULL)
+	{
+		check_command_not_found(i, NULL, curr);
+		return ;
+	}
+	return ;
 }

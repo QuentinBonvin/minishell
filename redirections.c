@@ -4,8 +4,7 @@ int	simple_output(t_cmd *curr, int i)
 {
 	int	fd;
 
-	fd = 0;
-	fd = open(curr->tab[i], O_CREAT | O_RDWR | O_TRUNC, 0644);
+	fd = open(curr->tab[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 	{
 		perror("open: ");
@@ -23,7 +22,7 @@ int	dobble_output(t_cmd *curr, int i)
 	int	fd;
 
 	fd = 0;
-	fd = open(curr->tab[i], O_CREAT | O_RDWR | O_APPEND, 0644);
+	fd = open(curr->tab[i], O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
 	{
 		perror("open: ");
@@ -57,19 +56,25 @@ int	simple_input(t_cmd *curr, int i)
 int	own_heredocs(t_cmd *curr, int i)
 {
 	int		fd[2];
-	char	*line;
 	char	*delimiter;
 
 	delimiter = curr->tab[i];
 	pipe(fd);
 	if (delimiter == NULL)
 		return (0);
+	own_heredocs_to_long(delimiter, NULL, fd, curr);
+	delete_chev(curr, i);
+	return (0);
+}
+
+void	own_heredocs_to_long(char *delimiter, char *line, int *fd, t_cmd *curr)
+{
 	while (1)
 	{
 		line = readline("heredoc> ");
 		if (!line)
 			break ;
-		if (ft_strcmp(line, delimiter) != 0)
+		if (ft_strncmp(line, delimiter, ft_strlen(line)) != 0)
 		{
 			ft_putendl_fd(line, fd[1]);
 			free(line);
@@ -82,6 +87,5 @@ int	own_heredocs(t_cmd *curr, int i)
 	if (curr->fd_in > 2)
 		close (curr->fd_in);
 	curr->fd_in = fd[0];
-	delete_chev(curr, i);
-	return (0);
+	return ;
 }
