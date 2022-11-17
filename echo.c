@@ -50,6 +50,16 @@ int	mini_echo(t_cmd *current, char **command, t_shell *list)
 	}
 	// return_value(list, command);
 	i = 0;
+	// print_echo(current, i, option, list);
+	if (option == 1 && command[1] == NULL)
+		ft_error_print(command);
+	else
+		print_and_return(current, i, option, list);
+	return (0);
+}
+
+int	print_and_return(t_cmd *current, int i, int option, t_shell *list)
+{
 	print_echo(current, i, option, list);
 	if (option == 1)
 	{

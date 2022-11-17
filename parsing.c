@@ -4,8 +4,8 @@ t_shell	*check_line(char *line, t_shell *list, t_env *env)
 {
 	list->double_quote = 0;
 	list->single_quote = 0;
-	printf("quote: %d\n", list->double_quote);
-	printf("quote: %d\n", list->double_quote);
+	// printf("quote: %d\n", list->double_quote);
+	// printf("quote: %d\n", list->double_quote);
 
 	ft_split2(line, '|', list);
 	list_to_array(list, env);
@@ -49,7 +49,7 @@ void	delete_empty_tab(t_shell *list)
 		i = 0;
 		while(curr->tab[i])
 		{
-			printf("curr->tab[%d] = %s\n", i, curr->tab[i]);
+			//printf("curr->tab[%d] = %s\n", i, curr->tab[i]);
 			if (ft_strcmp(curr->tab[i], "") == 0)
 			{
 				free(curr->tab[i]);
@@ -63,7 +63,10 @@ void	delete_empty_tab(t_shell *list)
 			}
 			i++;
 		}
-		curr->tab[i] = NULL;
+		if (i > 0)
+			curr->tab[i] = NULL;
+
+
 		curr = curr->prev;
 	}
 

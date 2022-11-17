@@ -2,6 +2,8 @@
 
 int	check_error(char *line)
 {
+	if (only_space(line) == -1)
+		return (-1);
 	if (check_data_to_lst(line) == -1)
 		return (-1);
 	return (0);
@@ -51,4 +53,23 @@ int	check_another_quote(char *data, int i)
 		return (-1);
 	}
 	return (0);
+}
+
+int	only_space(char *line)
+{
+	int	i;
+	int	space;
+
+	i = 0;
+	space = 0;
+	while (line[i])
+	{
+		if (line[i] == ' ')
+			space++;
+		i++;
+	}
+	if (space == i)
+		return (-1);
+	return (0);
+	
 }

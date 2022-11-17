@@ -35,6 +35,7 @@ int	exec_builtin(t_cmd *current, t_shell *list, char *line, t_env *env)
 
 	i = 0;
 	//current = list->head;
+	printf("adress current->tab[0] = %p\n", current->tab[0]);
 	if (current->tab[0] == NULL)
 		return (-1);
 	if (ft_strncmp2(current->tab[0], "pwd", 4) == 0)

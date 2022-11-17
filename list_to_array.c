@@ -13,7 +13,7 @@ void	list_to_array(t_shell *list, t_env *env)
 	tmp = list->head;
 	while (tmp != NULL)
 	{
-		tmp->tab = (char**) malloc(5 * sizeof(char*));
+		//tmp->tab = (char**) malloc(sizeof(char*));
 		i = 0;
 		while (tmp->content[i])
 		{
@@ -23,7 +23,8 @@ void	list_to_array(t_shell *list, t_env *env)
 				list->single_quote = 1;
 			if (tmp->content[i] == ' ')
 			{
-				tmp->tab[0] = ft_substr(tmp->content, 0, i);
+				//tmp->tab[0] = ft_substr(tmp->content, 0, i);
+				//printf("adress tmp->tab[0] = %p\n", tmp->tab[0]);
 				j = i;
 				break ;
 			}
@@ -36,16 +37,20 @@ void	list_to_array(t_shell *list, t_env *env)
 			{
 				list->single_quote = 1;
 				tmp->tab = ft_split(tmp->content, '\'');
+				break ;
 			}
 			else if (what_quote(&tmp->content[j]) == 2)
 			{
 				list->double_quote = 1;
 				tmp->tab = ft_split(tmp->content, '\"');
+				break ;
 			}
 			else if (what_quote(&tmp->content[j]) == 3)
 			{
 				// list->double_quote = 1;
 				tmp->tab = ft_split(tmp->content, ' ');
+				//printf("adress tmp->tab[0] after split = %p\n", tmp->tab[0]);
+				break ;
 			}
 			j++;
 		}
@@ -54,7 +59,7 @@ void	list_to_array(t_shell *list, t_env *env)
 	}
 	//(void)env;
 	find_dollar(list, env);
-	tmp = list->head;
+	// tmp = list->head;
 	while (tmp)
 	{
 		i = -1;

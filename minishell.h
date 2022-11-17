@@ -130,6 +130,8 @@ int				detect_two_chev_input(int i, t_cmd *curr);
 int				detect_one_chev_output(int i, t_cmd *curr);
 int				detect_two_chev_output(int i, t_cmd *curr);
 void			delete_empty_tab(t_shell *list);
+int				only_space(char *line);
+
 
 
 /*************************************************
@@ -239,5 +241,8 @@ void			replace_value(char *arg, int j, t_env *env);
 void			add_new(t_env *env, char *arg);
 int				is_equal(char *arg, int j);
 void			combine(char *arg, t_env *env);
+int				print_and_return(t_cmd *current, int i, int option,
+					 t_shell *list);
+int				ft_error_print(char **arg);
 
 #endif

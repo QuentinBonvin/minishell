@@ -68,5 +68,9 @@ void	replace_value(char *arg, int j, t_env *env)
 
 	tmp = ft_substr(arg, 0, j);
 	envp = check_if_in_env(env, tmp);
-	replace_in_env(env, envp, arg);
+	if (envp != NULL)
+		replace_in_env(env, envp, arg);
+	else 
+		add_export_to_env(&env->env_tail, arg);
+	free(tmp);
 }
