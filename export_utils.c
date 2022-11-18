@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:32:18 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 16:43:22 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/18 17:03:39 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_env	*ft_copy(t_env *curr, t_env *env)
 		if (tmp == NULL)
 			tmp = new;
 		else
-			add_envp_to_env(&tmp, &new->content);
+			add_envp_to_env(&tmp, new->content);
 		curr = curr->prev;
 	}
 	return (tmp);

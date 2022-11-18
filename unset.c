@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:27:00 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 14:27:03 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/18 19:29:43 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ void	ft_remove_from_list(t_env *env, char *var)
 	if (ft_strncmp2(curr->content, var, l) == 0)
 	{
 		tmp->prev = curr->prev;
+		free(curr->content);
+		curr->content = NULL;
 		free(curr);
+		curr = NULL;
 	}
 	else
 		return ;

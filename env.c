@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:45:21 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 14:45:22 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/18 19:30:58 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,23 @@ void	init_env(char **envp, t_env *env)
 	while (envp[i])
 	{
 		if (i == 0)
-			create_cell(&env->env_head, &env->env_tail, &envp[i]);
+			create_cell(&env->env_head, &env->env_tail, ft_strdup(envp[i]));
 		else
 		{
-			add_envp_to_env(&env->env_tail, &envp[i]);
+			add_envp_to_env(&env->env_tail, ft_strdup(envp[i]));
 		}
 		i++;
 	}
 }
 
-void	*create_cell(t_env **env_head, t_env **env_tail, char **envp)
+void	*create_cell(t_env **env_head, t_env **env_tail, char *envp)
 {
 	t_env	*cell;
 
 	cell = malloc(sizeof(t_env));
 	if (!(cell))
 		return (NULL);
-	cell->content = *envp;
+	cell->content = envp;
 	cell->next = NULL;
 	cell->prev = NULL;
 	*env_head = cell;
@@ -44,14 +44,14 @@ void	*create_cell(t_env **env_head, t_env **env_tail, char **envp)
 	return (0);
 }
 
-void	*add_envp_to_env(t_env **env_tail, char **envp)
+void	*add_envp_to_env(t_env **env_tail, char *envp)
 {
 	t_env	*new_node;
 
 	new_node = malloc(sizeof(t_env));
-	if (new_node == NULL)
-		return (0);
-	new_node->content = *envp;
+	if (!(new_node))
+		return (NULL);
+	new_node->content = envp;
 	new_node->next = *env_tail;
 	new_node->prev = NULL;
 	(*env_tail)->prev = new_node;
@@ -90,16 +90,22 @@ int	printf_env(t_env *env, t_cmd *current)
 void	free_env(t_env *env)
 {
 	t_env	*current;
+	t_env	*tmp;
 
 	current = env->env_head;
 	if (env == NULL)
 		exit(EXIT_FAILURE);
-	while (current->prev != NULL)
+	while (current != NULL)
 	{
-		current = current->prev;
-		free(current->next);
+		if (current->content == NULL || current == NULL)
+			continue ;
+		free(current->content);
+		current->content = NULL;
+		tmp = current->prev;
+		free(current);
+		current = NULL;
+		current = tmp;
 	}
 	env->env_head = NULL;
 	env->env_tail = NULL;
-	free(current);
 }

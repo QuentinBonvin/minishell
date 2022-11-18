@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:43:47 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 14:44:14 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/18 17:29:02 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int	set_env(char *name, char *pwd, t_env *env)
 	{
 		new = ft_strjoin(tmp, pwd);
 		replace_in_env(env, var_ok, new);
+		free(new);
 	}
+	free(tmp);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 16:27:51 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 16:27:52 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/18 17:01:36 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ typedef struct s_shell
 /*************************************************
 Link list function for environnement
 *************************************************/
-void			*create_cell(t_env **env_head, t_env **env_tail, char **envp);
+void			*create_cell(t_env **env_head, t_env **env_tail, char *envp);
 void			init_env(char **envp, t_env *env);
 int				printf_env(t_env *env, t_cmd *current);
 // t_env			*add_envp_to_env(t_env *env, char **envp/*, int i*/);
-void			*add_envp_to_env(t_env **head, char **envp);
+void			*add_envp_to_env(t_env **head, char *envp);
 
 /*************************************************
 Link list function for cmd

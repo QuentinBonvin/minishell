@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:47:15 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 16:32:09 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/18 17:40:10 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	bins_execute(char **split_path, char **envp, t_cmd *cmd)
 		{
 			if (execve(tmp2, cmd->tab, envp) == -1)
 				i++;
-			g_exit_status = 127;
 		}
 		free(tmp2);
 	}

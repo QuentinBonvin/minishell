@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 16:30:36 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 16:32:24 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/18 17:09:44 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	exec_builtin(t_cmd *current, t_shell *list, char *line, t_env *env)
 	int	l;
 
 	i = 0;
-	l = ft_strlen(current->tab[0]);
+	l = ft_strlen(current->tab[0]) + 1;
 	if (current->tab[0] == NULL)
 		return (-1);
 	if (ft_strncmp(current->tab[0], "pwd", l) == 0)
