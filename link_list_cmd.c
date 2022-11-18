@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:31:38 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 14:31:39 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/18 16:44:57 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ t_cmd	*add_cmd_to_list(t_cmd *list, char *token)
 	i = 0;
 	cell = create_cmd(token);
 	if (list == NULL)
-	{	
-		printf("Test\n");
 		return (cell);
-	}
 	while (curr != NULL)
 	{
 		curr->content = token;

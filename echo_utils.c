@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:45:34 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 14:45:35 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/18 16:43:03 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	print_echo(t_cmd *curr, int i, int option, t_shell *list)
 		i = 1;
 	else
 		i = 1;
-	printf("curr->tab[i] = %s\n", curr->tab[i]);
 	while (curr->tab[i])
 	{
 		printer(curr->tab[i], list);

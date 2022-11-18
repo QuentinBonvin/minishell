@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:30:46 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 16:28:36 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/18 16:41:15 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	list_to_array(t_shell *list, t_env *env)
 		i = 0;
 		while (tmp->tab[i])
 		{
-			printf("tab: %s\n", tmp->tab[i]);
 			i++;
 		}
 	tmp = tmp->prev;

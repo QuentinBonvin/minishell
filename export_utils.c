@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:32:18 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 14:32:20 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/18 16:43:22 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	print_array(t_env *env)
 	envp = NULL;
 	env_array = convert_list(env);
 	l = (ft_count_env(env));
-	printf("length: %d\n", l);
 	sort_and_swap(env_array, (l));
 	while (i < (l))
 	{
