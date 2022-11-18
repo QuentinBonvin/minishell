@@ -48,11 +48,23 @@ int	check_command_not_found(int i, char *str, t_cmd	*curr)
 	{
 		printf("minishell: %s: command not found \n", curr->tab[0]);
 		g_exit_status = 127;
-		// if (str != NULL)
-		// 	free(str);
 		return (1);
 	}
-	// if (str != NULL)
-	// 	free(str);
 	return (0);
+}
+
+int	count_space(char *line)
+{
+	int	i;
+	int	space;
+
+	i = 0;
+	space = 0;
+	while (line[i])
+	{
+		if (line[i] == ' ')
+			space++;
+		i++;
+	}
+	return (space);
 }

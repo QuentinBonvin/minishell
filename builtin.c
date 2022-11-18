@@ -15,7 +15,7 @@ int	builtin(t_shell *list, char **envp, char *line)
 		return (0);
 	else if ((ft_strncmp2(current->tab[0], "cd", 3) == 0))
 		return (0);
-	else if ((ft_strncmp2(current->tab[0], "echo", 4) == 0))
+	else if (ft_strncmp(current->tab[0], "echo", ft_strlen(current->tab[0])) == 0)
 		return (0);
 	else if ((ft_strncmp2(current->tab[0], "export", 6) == 0))
 		return (0);
@@ -30,27 +30,24 @@ int	builtin(t_shell *list, char **envp, char *line)
 
 int	exec_builtin(t_cmd *current, t_shell *list, char *line, t_env *env)
 {
-	//t_cmd	*current;
-	int		i;
+	int	i;
 
 	i = 0;
-	//current = list->head;
-	// printf("adress current->tab[0] = %p\n", current->tab[0]);
 	if (current->tab[0] == NULL)
 		return (-1);
 	if (ft_strncmp(current->tab[0], "pwd", ft_strlen(current->tab[0])) == 0)
 		return (call_pwd());
-	else if ((ft_strncmp(current->tab[0], "cd", ft_strlen(current->tab[0]) == 0)))
+	else if (ft_strncmp(current->tab[0], "cd", ft_strlen(current->tab[0])) == 0)
 		return (call_cd(current, env));
-	else if ((ft_strncmp(current->tab[0], "echo", ft_strlen(current->tab[0])) == 0))
+	else if (ft_strncmp(current->tab[0], "echo", ft_strlen(current->tab[0])) == 0)
 		return (mini_echo(current, current->tab, list));
-	else if ((ft_strncmp2(current->tab[0], "export", 7) == 0))
+	else if (ft_strncmp(current->tab[0], "export", ft_strlen(current->tab[0])) == 0)
 		return (sort_list(env, current->tab));
-	else if (ft_strcmp(current->tab[0], "unset") == 0)
+	else if (ft_strncmp(current->tab[0], "unset", ft_strlen(current->tab[0])) == 0)
 		return (call_unset(env, current->tab));
-	else if (ft_strncmp2(current->tab[0], "env", 4) == 0)
+	else if (ft_strncmp(current->tab[0], "env", ft_strlen(current->tab[0])) == 0)
 		return (printf_env(env, current));
-	else if ((ft_strncmp(current->tab[0], "exit", ft_strlen(current->tab[0])) == 0))
+	else if (ft_strncmp(current->tab[0], "exit", ft_strlen(current->tab[0])) == 0)
 		return (mini_exit(current, current->tab[1], line, env));
 	return (-1);
 }

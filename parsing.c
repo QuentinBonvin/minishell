@@ -6,14 +6,16 @@ t_shell	*check_line(char *line, t_shell *list, t_env *env)
 	list->single_quote = 0;
 	ft_split2(line, '|', list);
 	list_to_array(list, env);
-	delete_empty_tab(list);
+	//delete_empty_tab(list);
 	trim_quote(list);
+	find_dollar(list, env);
 	return (list);
 }
 
 void	trim_quote(t_shell *list)
 {
 	t_cmd	*tmp;
+	//char	*tmp2;
 	int		i;
 
 	tmp = list->head;
@@ -23,9 +25,16 @@ void	trim_quote(t_shell *list)
 		while (tmp->tab[++i])
 		{
 			if (what_quote(tmp->tab[i]) == 1)
+			{
 				tmp->tab[i] = ft_strtrim(tmp->tab[i], "\'");
+				list->single_quote = 1;
+			}
 			else if (what_quote(tmp->tab[i]) == 2)
+			{
 				tmp->tab[i] = ft_strtrim(tmp->tab[i], "\"");
+				list->double_quote = 1;
+			}
+			//free(tmp2);
 		}
 		tmp = tmp->prev;
 	}

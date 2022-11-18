@@ -48,6 +48,7 @@ typedef struct s_cmd
 {
 	int					redir_status;
 	char				*content;
+	char				*cmd;
 	char				**tab;
 	struct s_cmd		*next;
 	struct s_shell		*list;
@@ -132,6 +133,7 @@ int				only_space(char *line);
 int				count_space(char *line);
 void			own_heredocs_to_long(char *delimiter, char *line, int *fd,
 					t_cmd *curr);
+void	list_to_array2(t_shell *list, int j, int space, t_cmd *tmp);
 
 /*************************************************
 Signal
@@ -247,5 +249,7 @@ int				swap_tab(char **str, int i);
 void			detect_dollar(t_shell *list, char **str, t_env *env);
 void			no_home(char **split_path, t_cmd *curr, int i);
 int				home_not_set(char *home);
+void			ft_split_space(char *line, char c, t_cmd *curr);
+int				ft_set(char *s, char c);
 
 #endif

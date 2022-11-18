@@ -7,8 +7,8 @@ void	exec(t_shell *list, char **envp, char *line, t_env *env)
 	current = list->head;
 	signal(SIGINT, handle_sigquit);
 	signal(SIGQUIT, handle_sigquit);
-	if (current->prev == NULL && (builtin(list, envp, line) != -1)
-		&& (current->redir_status != 1))
+	/*&& (current->redir_status != 1))*/
+	if (current->prev == NULL && (builtin(list, envp, line) != -1))
 	{
 		exec_builtin(current, list, line, env);
 	}

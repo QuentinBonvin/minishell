@@ -27,7 +27,6 @@ int	void_argv_argc(int argc, char **argv)
 	if (argc > 1)
 		return (-1);
 	return (0);
-
 }
 
 int	prompt(t_shell *list, char **envp, struct termios *saved, t_env *env)
@@ -38,7 +37,7 @@ int	prompt(t_shell *list, char **envp, struct termios *saved, t_env *env)
 	if (!line)
 	{
 		printf("exit\n");
-		//free_all(list, env, line);
+		free_all(list, env, line);
 		return (-1);
 	}
 	add_history(line);
