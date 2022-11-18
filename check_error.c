@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_error.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/18 14:46:27 by qbonvin           #+#    #+#             */
+/*   Updated: 2022/11/18 15:26:19 by qbonvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	check_error(char *line)
@@ -64,12 +76,11 @@ int	only_space(char *line)
 	space = 0;
 	while (line[i])
 	{
-		if (line[i] == ' ')
+		if (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13))
 			space++;
 		i++;
 	}
 	if (space == i)
 		return (-1);
 	return (0);
-	
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/18 14:43:30 by qbonvin           #+#    #+#             */
+/*   Updated: 2022/11/18 14:44:18 by qbonvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	call_cd(t_cmd *curr, t_env *env)
@@ -5,26 +17,21 @@ int	call_cd(t_cmd *curr, t_env *env)
 	char	*home;
 	int		res;
 	char	*pwd;
-	char	*arg;
 	int		i;
 
 	i = 0;
 	res = 0;
-	arg = curr->tab[1];
 	pwd = get_env("PWD", env);
 	home = get_env("HOME", env);
-	if (home == NULL)
-	{
-		printf("Home not set\n");
+	if (home_not_set(home) == 0)
 		return (0);
-	}
-	if (arg)
+	if (curr->tab[1])
 	{
-		res = get_direction(arg, home, curr);
+		res = get_direction(curr->tab[1], home, curr);
 		set_env("OLDPWD", pwd, env);
 		set_env("PWD", home, env);
 	}
-	else if (!arg)
+	else if (!curr->tab[1])
 	{
 		res = chdir(home);
 		set_env("PWD", home, env);
@@ -65,15 +72,12 @@ char	*get_env(char *name, t_env *env)
 	curr = env->env_head;
 	l = ft_strlen(name) + 1;
 	home = NULL;
-	// printf("%s\n", curr->content);
 	while (curr != NULL)
 	{
 		if ((name[i] == '=' || name[i] == '\0') && (curr->content[i] == '='))
 			break ;
 		if (curr->content[i] == name[i])
-		{
 			i++;
-		}
 		else
 		{
 			curr = curr->prev;
@@ -94,20 +98,4 @@ char	*join_home(char *curr, int length)
 	end = ft_strlen(curr);
 	home = ft_substr(curr, length, end);
 	return (home);
-}
-
-int	set_env(char *name, char *pwd, t_env *env)
-{
-	char	*var_ok;
-	char	*tmp;
-	char	*new;
-
-	tmp = ft_strjoin(name, "=");
-	var_ok = check_if_in_env(env, tmp);
-	if (var_ok != NULL)
-	{
-		new = ft_strjoin(tmp, pwd);
-		replace_in_env(env, var_ok, new);
-	}
-	return (0);
 }

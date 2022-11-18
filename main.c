@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/18 14:29:00 by qbonvin           #+#    #+#             */
+/*   Updated: 2022/11/18 16:14:40 by qbonvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	main(int argc, char **argv, char **envp)
@@ -6,6 +18,8 @@ int	main(int argc, char **argv, char **envp)
 	t_shell			*list;
 	t_env			*env;
 
+	if (*envp == NULL)
+		return (-1);
 	if (void_argv_argc(argc, argv) == -1)
 		return (EXIT_SUCCESS);
 	list = malloc(sizeof(t_shell));
@@ -40,7 +54,8 @@ int	prompt(t_shell *list, char **envp, struct termios *saved, t_env *env)
 		free_all(list, env, line);
 		return (-1);
 	}
-	add_history(line);
+	if (ft_strlen(line) > 0)
+		add_history(line);
 	if (check_error(line) != -1)
 	{
 		list = check_line(line, list, env);

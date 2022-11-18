@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/18 14:33:03 by qbonvin           #+#    #+#             */
+/*   Updated: 2022/11/18 14:33:05 by qbonvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	mini_exit(t_cmd *curr, char *arg, char *line, t_env *env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	(void)curr;
@@ -10,14 +22,14 @@ int	mini_exit(t_cmd *curr, char *arg, char *line, t_env *env)
 	{
 		i = ft_atoi(arg);
 		printf("exit\n");
-		free_env(env); 
+		free_env(env);
 		free(line);
 		exit (i);
 	}
 	else
 	{
 		printf("exit\n");
-		free_env(env); 
+		free_env(env);
 		free(line);
 		exit (g_exit_status);
 	}

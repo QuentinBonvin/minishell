@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/18 14:31:42 by qbonvin           #+#    #+#             */
+/*   Updated: 2022/11/18 15:47:58 by qbonvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	sort_list(t_env *env, char **arg)
@@ -70,7 +82,7 @@ void	replace_value(char *arg, int j, t_env *env)
 	envp = check_if_in_env(env, tmp);
 	if (envp != NULL)
 		replace_in_env(env, envp, arg);
-	else 
+	else
 		add_export_to_env(&env->env_tail, arg);
 	free(tmp);
 }

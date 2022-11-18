@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirections.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/18 14:27:35 by qbonvin           #+#    #+#             */
+/*   Updated: 2022/11/18 16:23:57 by qbonvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	simple_output(t_cmd *curr, int i)
@@ -74,7 +86,7 @@ void	own_heredocs_to_long(char *delimiter, char *line, int *fd, t_cmd *curr)
 		line = readline("heredoc> ");
 		if (!line)
 			break ;
-		if (ft_strncmp(line, delimiter, ft_strlen(line)) != 0)
+		if (ft_strncmp(line, delimiter, ft_strlen(line)) != 0 || line[0] == 0)
 		{
 			ft_putendl_fd(line, fd[1]);
 			free(line);

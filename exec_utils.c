@@ -1,45 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_utils.c                                    :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 14:35:52 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 14:35:53 by qbonvin          ###   ########.fr       */
+/*   Created: 2022/11/18 14:43:47 by qbonvin           #+#    #+#             */
+/*   Updated: 2022/11/18 14:44:14 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	wait_pipe(t_shell *list)
+int	set_env(char *name, char *pwd, t_env *env)
 {
-	t_cmd	*current;
-	int		wstatus;
+	char	*var_ok;
+	char	*tmp;
+	char	*new;
 
-	current = list->head;
-	while (current != NULL)
+	tmp = ft_strjoin(name, "=");
+	var_ok = check_if_in_env(env, tmp);
+	if (var_ok != NULL)
 	{
-		if (current->pid > 0)
-		{
-			waitpid(current->pid, &wstatus, 0);
-			if (WIFEXITED(wstatus))
-				g_exit_status = WEXITSTATUS(wstatus);
-		}
-		current = current->prev;
-	}
-}
-
-int	command_not_found(t_cmd *curr, char **envp)
-{
-	int	i;
-
-	i = 0;
-	if (execve(curr->tab[0], &curr->tab[i], envp) == -1)
-		i++;
-	if (i == 0)
-	{
-		return (-1);
+		new = ft_strjoin(tmp, pwd);
+		replace_in_env(env, var_ok, new);
 	}
 	return (0);
+}
+
+int	home_not_set(char *home)
+{
+	if (home == NULL)
+	{
+		printf("Home not set\n");
+		return (0);
+	}
+	return (-1);
 }

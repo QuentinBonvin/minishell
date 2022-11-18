@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_utils2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/18 14:31:53 by qbonvin           #+#    #+#             */
+/*   Updated: 2022/11/18 15:53:57 by qbonvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	sort_and_swap(char **env_array, int l)
@@ -52,6 +64,7 @@ void	replace_in_env(t_env *env, char *envp, char *arg)
 	{
 		if (curr->content == envp)
 		{
+			free(curr->content);
 			curr->content = ft_strdup(arg);
 		}
 		curr = curr->prev;

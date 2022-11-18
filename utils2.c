@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/18 14:26:38 by qbonvin           #+#    #+#             */
+/*   Updated: 2022/11/18 15:15:10 by qbonvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	free_all(t_shell *list, t_env *env, char *line)
@@ -43,8 +55,7 @@ char	**convert_list(t_env *env)
 
 int	check_command_not_found(int i, char *str, t_cmd	*curr)
 {
-	(void)str;
-	if (i == 0)
+	if (str != NULL && i == 0)
 	{
 		printf("minishell: %s: command not found \n", curr->tab[0]);
 		g_exit_status = 127;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dollar.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/18 14:45:38 by qbonvin           #+#    #+#             */
+/*   Updated: 2022/11/18 16:13:25 by qbonvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	find_dollar(t_shell *list, t_env *env)
@@ -33,7 +45,7 @@ void	detect_dollar(t_shell *list, char **str, t_env *env)
 			free(str[i]);
 			str[i] = tmp;
 		}
-		else if (ft_strncmp2(str[i], "$?", 2) == 0)
+		else if (ft_strncmp(str[i], "$?", 3) == 0)
 			return_value(list, str);
 	}
 }

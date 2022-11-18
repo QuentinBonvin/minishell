@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/18 14:28:44 by qbonvin           #+#    #+#             */
+/*   Updated: 2022/11/18 16:01:50 by qbonvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_shell	*check_line(char *line, t_shell *list, t_env *env)
@@ -6,7 +18,6 @@ t_shell	*check_line(char *line, t_shell *list, t_env *env)
 	list->single_quote = 0;
 	ft_split2(line, '|', list);
 	list_to_array(list, env);
-	//delete_empty_tab(list);
 	trim_quote(list);
 	find_dollar(list, env);
 	return (list);
@@ -15,7 +26,6 @@ t_shell	*check_line(char *line, t_shell *list, t_env *env)
 void	trim_quote(t_shell *list)
 {
 	t_cmd	*tmp;
-	//char	*tmp2;
 	int		i;
 
 	tmp = list->head;
@@ -34,7 +44,6 @@ void	trim_quote(t_shell *list)
 				tmp->tab[i] = ft_strtrim(tmp->tab[i], "\"");
 				list->double_quote = 1;
 			}
-			//free(tmp2);
 		}
 		tmp = tmp->prev;
 	}

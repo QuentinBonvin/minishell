@@ -1,11 +1,20 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list_to_array.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/18 14:30:46 by qbonvin           #+#    #+#             */
+/*   Updated: 2022/11/18 16:28:36 by qbonvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-//static void	delete_space(t_shell *list);
+#include "minishell.h"
 
 void	list_to_array(t_shell *list, t_env *env)
 {
 	t_cmd	*tmp;
-	// int		space;
 	int		i;
 	int		j;
 
@@ -47,8 +56,6 @@ char	what_quote(char *data)
 			return (1);
 		else if (data[i] == '\"')
 			return (2);
-		// else if (data[i] == ' ')
-		// 	return (3);
 		else if (data[i] != '\'' && data[i] != '\"')
 			i++;
 	}
@@ -66,37 +73,13 @@ int	return_value(t_shell *list, char **command)
 	{
 		if (ft_strcmp(command[i], "$?") == 0)
 		{
+			free(command[i]);
 			command[i] = ft_itoa(g_exit_status);
 		}
 		i++;
 	}
 	return (g_exit_status);
 }
-
-// static void	delete_space(t_shell *list)
-// {
-// 	t_cmd	*tmp;
-// 	int		i;
-// 	char	*tmp2;
-// 	int		y;
-
-// 	y = 0;
-// 	i = 0;
-// 	tmp = list->head;
-// 	while (tmp)
-// 	{
-// 		i = -1;
-// 		while (tmp->tab[++i])
-// 		{
-// 			tmp2 = tmp->tab[i];
-// 			printf("%p\n", tmp->tab[i]);
-// 			tmp->tab[i] = ft_strtrim(tmp2, " ");
-// 			printf("%p\n", tmp->tab[i]);
-// 			free(tmp2);
-// 		}
-// 		tmp = tmp->prev;
-// 	}
-// }
 
 void	list_to_array2(t_shell *list, int j, int space, t_cmd *tmp)
 {

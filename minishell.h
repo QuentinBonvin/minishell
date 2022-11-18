@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/18 16:27:51 by qbonvin           #+#    #+#             */
+/*   Updated: 2022/11/18 16:27:52 by qbonvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # define SIMPLE_QUOTE 39
@@ -133,7 +145,7 @@ int				only_space(char *line);
 int				count_space(char *line);
 void			own_heredocs_to_long(char *delimiter, char *line, int *fd,
 					t_cmd *curr);
-void	list_to_array2(t_shell *list, int j, int space, t_cmd *tmp);
+void			list_to_array2(t_shell *list, int j, int space, t_cmd *tmp);
 
 /*************************************************
 Signal
@@ -243,7 +255,7 @@ void			add_new(t_env *env, char *arg);
 int				is_equal(char *arg, int j);
 void			combine(char *arg, t_env *env);
 int				print_and_return(t_cmd *current, int i, int option,
-					 t_shell *list);
+					t_shell *list);
 int				ft_error_print(char **arg);
 int				swap_tab(char **str, int i);
 void			detect_dollar(t_shell *list, char **str, t_env *env);

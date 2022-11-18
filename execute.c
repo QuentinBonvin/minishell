@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/18 14:33:13 by qbonvin           #+#    #+#             */
+/*   Updated: 2022/11/18 15:08:37 by qbonvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	exec(t_shell *list, char **envp, char *line, t_env *env)
@@ -7,8 +19,8 @@ void	exec(t_shell *list, char **envp, char *line, t_env *env)
 	current = list->head;
 	signal(SIGINT, handle_sigquit);
 	signal(SIGQUIT, handle_sigquit);
-	/*&& (current->redir_status != 1))*/
-	if (current->prev == NULL && (builtin(list, envp, line) != -1))
+	if (current->prev == NULL && (builtin(list, envp, line) != -1)
+		&& (current->redir_status != 1))
 	{
 		exec_builtin(current, list, line, env);
 	}

@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 13:33:32 by qbonvin           #+#    #+#             */
-/*   Updated: 2021/11/16 10:41:08 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/18 16:01:22 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,29 @@ static int	ft_set(char const *s1, char const *set)
 	return (0);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+// char	*ft_strtrim(char const *s1, char const *set)
+// {
+// 	size_t	start;
+// 	size_t	end;
+
+// 	start = 0;
+// 	if (s1 == NULL)
+// 		return (0);
+// 	end = ft_strlen(s1) - 1;
+// 	while (ft_set(&s1[start], set) && (s1[start] != '\0'))
+// 	{
+// 		start++;
+// 	}
+// 	while (ft_set(&s1[end], set) && (end > 0))
+// 		end--;
+// 	return (ft_substr(s1, start, end - start + 1));
+// }
+
+char	*ft_strtrim(char *s1, char const *set)
 {
 	size_t	start;
 	size_t	end;
+	char	*tmp;
 
 	start = 0;
 	if (s1 == NULL)
@@ -44,5 +63,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	}
 	while (ft_set(&s1[end], set) && (end > 0))
 		end--;
-	return (ft_substr(s1, start, end - start + 1));
+	tmp = ft_substr(s1, start, end - start + 1);
+	free(s1);
+	return (tmp);
 }
