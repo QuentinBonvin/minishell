@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:45:34 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 16:43:03 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/21 09:37:25 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	print_echo(t_cmd *curr, int i, int option, t_shell *list)
 		i = 2;
 	else if (option == 1
 		&& (list->double_quote == 1 || list->single_quote == 1))
-		i = 1;
+		i = 2;
 	else
 		i = 1;
 	while (curr->tab[i])
