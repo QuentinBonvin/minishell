@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:33:13 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 15:08:37 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/21 12:14:22 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ void	exec_with_pipe(t_shell *list, char **envp, char *line, t_env *env)
 			if (current->fd_in > 2)
 				dup2(current->fd_in, STDIN_FILENO);
 			close_pipe(list);
-			if (exec_builtin(current, list, line, env) == -1
-				&& command_not_found(current, envp) != -1)
+			if (exec_builtin(current, list, line, env) == -1)
 				start_bins(current, env, envp, execute);
 			exit(127);
 		}

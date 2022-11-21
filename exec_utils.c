@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:43:47 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 17:29:02 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/21 12:26:09 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	set_env(char *name, char *pwd, t_env *env)
 	return (0);
 }
 
-int	home_not_set(char *home)
+int	home_not_set(char *home, char *pwd)
 {
-	if (home == NULL)
+	if (home == NULL || pwd == NULL)
 	{
 		printf("Home not set\n");
 		return (0);

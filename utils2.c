@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:26:38 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 15:15:10 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/21 12:18:31 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ char	**convert_list(t_env *env)
 	return (env_array);
 }
 
-int	check_command_not_found(int i, char *str, t_cmd	*curr)
+int	check_command_not_found(int i, char **envp, t_cmd *curr)
 {
-	if (str != NULL && i == 0)
+	(void)i;
+	execve(curr->tab[0], curr->tab, envp);
+	if (curr->tab[0] != NULL)
 	{
 		printf("minishell: %s: command not found \n", curr->tab[0]);
 		g_exit_status = 127;

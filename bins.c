@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:47:15 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 17:40:10 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/21 12:18:00 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ void	bins_execute(char **split_path, char **envp, t_cmd *cmd)
 	i = 0;
 	y = -1;
 	tmp2 = NULL;
-	no_home(split_path, cmd, i);
-	while (split_path[++y])
+	while (split_path && split_path[++y])
 	{
 		tmp = ft_strjoin(split_path[y], "/");
 		if (cmd->tab[0] != NULL)
@@ -61,7 +60,7 @@ void	bins_execute(char **split_path, char **envp, t_cmd *cmd)
 		}
 		free(tmp2);
 	}
-	check_command_not_found(i, tmp2, cmd);
+	check_command_not_found(i, envp, cmd);
 }
 
 void	free_split_path(char **split_path)

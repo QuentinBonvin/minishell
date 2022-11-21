@@ -1,6 +1,6 @@
 NAME = minishell
 USERNAME = ${USER}
-CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 CC = gcc -g 
 OBJ = ${SRCS:.c=.o}
 SRCS = main.c parsing.c env.c link_list_cmd.c builtin.c nodes.c \

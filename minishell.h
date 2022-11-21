@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 16:27:51 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 17:01:36 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/21 12:26:27 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ int				prompt(t_shell *list, char **envp,
 char			what_quote(char *data);
 void			trim_quote(t_shell *list);
 void			free_all(t_shell *list, t_env *env, char *line);
-int				check_command_not_found(int i, char *str, t_cmd	*curr);
+int				check_command_not_found(int i, char **envp, t_cmd *curr);
 int				return_value(t_shell *list, char **command);
 int				ft_equal(char **arg, int i, int j, t_env *env);
 int				get_direction(char *arg, char *home, t_cmd *curr);
@@ -260,7 +260,7 @@ int				ft_error_print(char **arg);
 int				swap_tab(char **str, int i);
 void			detect_dollar(t_shell *list, char **str, t_env *env);
 void			no_home(char **split_path, t_cmd *curr, int i);
-int				home_not_set(char *home);
+int				home_not_set(char *home, char *pwd);
 void			ft_split_space(char *line, char c, t_cmd *curr);
 int				ft_set(char *s, char c);
 

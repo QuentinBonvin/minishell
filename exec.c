@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:43:30 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 17:28:43 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/21 12:26:14 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	call_cd(t_cmd *curr, t_env *env)
 	res = 0;
 	pwd = get_env("PWD", env);
 	home = get_env("HOME", env);
-	if (home_not_set(home) == 0)
+	if (home_not_set(home, pwd) == 0)
 		return (0);
 	if (curr->tab[1])
 	{

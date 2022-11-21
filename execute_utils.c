@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:35:52 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/18 19:25:56 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/21 12:21:56 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,7 @@ void	wait_pipe(t_shell *list)
 
 int	command_not_found(t_cmd *curr, char **envp)
 {
-	int	i;
-
-	i = 0;
 	if (execve(curr->tab[0], curr->tab, envp) == -1)
-		i++;
-	if (i == 0)
 	{
 		printf("command not found\n");
 		g_exit_status = 127;
