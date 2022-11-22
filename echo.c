@@ -6,7 +6,7 @@
 /*   By: qbonvin <qbonvin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:45:27 by qbonvin           #+#    #+#             */
-/*   Updated: 2022/11/21 09:37:44 by qbonvin          ###   ########.fr       */
+/*   Updated: 2022/11/21 14:42:14 by qbonvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	mini_echo(t_cmd *current, char **command, t_shell *list)
 	i = 1;
 	if (command == NULL)
 		return (-1);
+	if (command[1] == NULL)
+		i = 0;
 	if (ft_find_sign(command[i]) == 0)
 		option = 1;
 	i = 0;
